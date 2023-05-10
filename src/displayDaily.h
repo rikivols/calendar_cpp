@@ -1,9 +1,11 @@
-
 #include "displayCalendar.h"
+#include "event.h"
 
 class DisplayDaily: public DisplayCalendar {
 public:
-    DisplayDaily();
+    DisplayDaily(const map<size_t, shared_ptr<Event>> &events);
+
+    [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
 
     void display() const override;
 
@@ -11,9 +13,7 @@ public:
 
     void previousPage() override;
 
-protected:
-    size_t curYear;
 private:
-    size_t curMonth;
-    size_t curDay;
+    size_t mMonth;
+    size_t mDay;
 };

@@ -29,7 +29,7 @@ public:
 
     void setDatetime(const Datetime & datetime) override;
 
-    bool isConflict(const Datetime & datetime) const override;
+    [[nodiscard]] bool isConflict(const Datetime & datetime) const override;
 
 protected:
     size_t mEventId;

@@ -1,8 +1,19 @@
-//
-// Created by Anon user on 10.05.2023.
-//
 
-#ifndef CALENDAR_SEMESTRAL_DISPLAYMONTHLY_H
-#define CALENDAR_SEMESTRAL_DISPLAYMONTHLY_H
+#include "displayCalendar.h"
 
-#endif //CALENDAR_SEMESTRAL_DISPLAYMONTHLY_H
+class DisplayMonthly: public DisplayCalendar {
+public:
+    DisplayMonthly(const map<size_t, shared_ptr<Event>> &events);
+
+    [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
+
+    void display() const override;
+
+    void nextPage() override;
+
+    void previousPage() override;
+
+private:
+    size_t mYear;
+    size_t mMonth;
+};
