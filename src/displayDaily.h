@@ -1,9 +1,12 @@
 #include "displayCalendar.h"
-#include "event.h"
 
 class DisplayDaily: public DisplayCalendar {
 public:
-    DisplayDaily(const map<size_t, shared_ptr<Event>> &events);
+    DisplayDaily(const Calendar & calendar);
+
+    explicit DisplayDaily(Calendar && calendar);
+
+    Calendar &operator=(Calendar &&calendar) noexcept;
 
     [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
 

@@ -1,11 +1,11 @@
-#include <iostream>
+#include "application.h"
 
-
-using namespace std;
 
 int main() {
-    cout << "Welcome to the calendar app, do you wish to import calendar from a file or start a new one?" << std::endl;
-
+    cout << "Welcome to the calendar app!" << endl;
+    Application application;
+    application.handleImport();
+    application.displayMainMenu();
 
     return 0;
 }

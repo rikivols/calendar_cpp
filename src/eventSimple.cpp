@@ -11,3 +11,7 @@ shared_ptr<Event> EventSimple::clone() const {
     return std::make_shared<EventSimple>(*this);
 }
 
+size_t EventSimple::getId() const {
+    return mEventId;
+}
+

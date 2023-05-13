@@ -3,7 +3,7 @@
 
 class DisplayWeekly: public DisplayCalendar {
 public:
-    DisplayWeekly(const map<size_t, shared_ptr<Event>> &events);
+    DisplayWeekly(const Calendar & calendar);
 
     [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
 

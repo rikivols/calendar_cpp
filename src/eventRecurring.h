@@ -15,7 +15,6 @@
 #include <memory>
 using namespace std;
 
-#include "datetime.h"
 #include "eventSimple.h"
 
 class EventRecurring: public EventSimple {
@@ -27,5 +26,5 @@ public:
 
     ostream &print(ostream &out) const override;
 
-    bool isConflict(const Datetime & datetime) const override;
+    [[nodiscard]] bool isConflict(const shared_ptr<Event> &event, size_t offset) const override;
 };

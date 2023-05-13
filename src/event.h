@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <ctime>
 #include <memory>
+#include <set>
 
 #include "datetime.h"
 
@@ -21,14 +22,17 @@ class Event {
 public:
     virtual ~Event() noexcept = default;
 
-    virtual shared_ptr<Event> clone() const = 0;
+    [[nodiscard]] virtual shared_ptr<Event> clone() const = 0;
 
     virtual ostream &print(ostream &out) const = 0;
 
-    virtual void setDatetime(const Datetime & datetime) = 0;
+    virtual void setStart(const Datetime &datetime) = 0;
 
-    virtual bool isConflict(const Datetime & datetime) const = 0;
+    virtual void setEnd(const Datetime &datetime) = 0;
 
+    virtual size_t getId() const = 0;
+
+    [[nodiscard]] virtual bool isConflict(const shared_ptr<Event> &event, size_t offset) const = 0;
 };
 
 std::ostream & operator<<(std::ostream & out, const Event & self);

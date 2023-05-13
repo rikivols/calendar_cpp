@@ -1,20 +1,3 @@
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-#include <cctype>
-#include <cmath>
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <set>
-#include <unordered_set>
-#include <algorithm>
-#include <ctime>
-#include <memory>
-using namespace std;
-
 #include "datetime.h"
 #include "event.h"
 
@@ -27,9 +10,17 @@ public:
 
     ostream &print(ostream &out) const override;
 
-    void setDatetime(const Datetime & datetime) override;
+    void setStart(const Datetime & datetime) override;
 
-    [[nodiscard]] bool isConflict(const Datetime & datetime) const override;
+    /**
+     * Year, month, day will be 0 if it's recurring.
+     * @param datetime
+     */
+    void setEnd(const Datetime & datetime) override;
+
+    [[nodiscard]] size_t getId() const override;
+
+    [[nodiscard]] bool isConflict(const shared_ptr<Event> &event, size_t offset) const override;
 
 protected:
     size_t mEventId;

@@ -15,12 +15,11 @@
 
 class Datetime {
 public:
-    Datetime(size_t year, size_t month, size_t day, size_t hour, size_t minute): mYear(year), mMonth(month), mDay(day),
-                                                                                 mHour(hour), mMinute(minute) {};
+    Datetime(size_t year, size_t month, size_t day, size_t hour, size_t minute);
 
-    bool isValid() {};
+    bool isValid();
 
-    bool isInRange(const Datetime &from, const Datetime &to) {};
+    bool isInRange(const Datetime &from, const Datetime &to);
 
 private:
     size_t mYear;

@@ -1,4 +1,5 @@
 #include <ctime>
+#include "calendar.h"
 
 tm *getTimeNow() {
     time_t cTime = time(nullptr);
@@ -17,6 +18,6 @@ public:
 
     virtual void previousPage() = 0;
 protected:
-    map<size_t, shared_ptr<Event>> mEvents;
+    Calendar mCalendar;
     size_t mYear;
 };
