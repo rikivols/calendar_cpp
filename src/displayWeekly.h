@@ -3,7 +3,7 @@
 
 #include "displayCalendar.h"
 
-class DisplayWeekly: public DisplayCalendar {
+class DisplayWeekly : public DisplayCalendar {
 public:
     DisplayWeekly();
 
@@ -16,6 +16,5 @@ public:
     void previousPage() override;
 
 private:
-    size_t mYear;
     size_t mWeek;
 };

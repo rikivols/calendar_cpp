@@ -10,6 +10,9 @@ tm *getTimeNow() {
     return localtime(&cTime);
 }
 
+/**
+ * Base class for the displaying of the calendar.
+ */
 class DisplayCalendar {
 public:
     virtual ~DisplayCalendar() noexcept = default;
@@ -19,7 +22,7 @@ public:
     /**
      * Sets a calendar to display
      *
-     * @param calendar calendar to display
+     * @param[in] calendar calendar to display
      */
     void setCalendar(const Calendar &calendar);
 
@@ -37,6 +40,7 @@ public:
      * Set a previous page of the calendar and display it.
      */
     virtual void previousPage() = 0;
+
 protected:
     Calendar mCalendar;
     size_t mYear = 10;

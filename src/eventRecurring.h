@@ -3,7 +3,10 @@
 
 #include "eventSimple.h"
 
-class EventRecurring: public EventSimple {
+/**
+ * Represents calendar's event that repeats every day. It has a start datetime, but it doesn't have the end.
+ */
+class EventRecurring : public EventSimple {
 public:
     EventRecurring(size_t eventId, const Datetime &start, const string &place, const vector<string> &attendees,
                    const set<string> &tags, const string &notes);
@@ -13,12 +16,14 @@ public:
     ostream &print(ostream &out) const override;
 
     /**
-     * Figures out if the event
+     * Finds out if calendar's event doesn't conflict with the provided event. Since recurring event repeats every
+     * day and doesn't have the end, the calculation will be different.
      *
-     * @param event
-     * @param offset
-     * @return
+     * @param[in] event the event we want to check, whether it conflicts with the class's event
+     * @param[in] offsetHours if we want to add or subtract hours of the provided event's datetime for searching of
+     *                        the conflict, used for checking conflict when moving event
+     * @return true = event conflicts, false = event doesn't conflict
      */
-    [[nodiscard]] bool isConflict(const Event &event, size_t offset) const override;
+    [[nodiscard]] bool isConflict(const Event &event, int offsetHours) const override;
 
 };

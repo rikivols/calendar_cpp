@@ -3,7 +3,7 @@
 
 #include "displayCalendar.h"
 
-class DisplayDaily: public DisplayCalendar {
+class DisplayDaily : public DisplayCalendar {
 public:
     DisplayDaily();
 

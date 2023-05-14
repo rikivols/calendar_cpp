@@ -1,6 +1,6 @@
 #include "application.h"
 
-Application::Application(): lastEventId(0) {}
+Application::Application() : lastEventId(0) {}
 
 void Application::displayCalendar() {
 
@@ -39,8 +39,7 @@ void Application::displayCalendar() {
                     cout << "Invalid display mode selected, please pick from options: {1, 2, 3}" << endl;
                 }
             }
-        }
-        else {
+        } else {
             cout << "Invalid display mode selected, please pick from options: {1, 2, 3, 4}" << endl;
         }
     }

@@ -5,6 +5,9 @@
 
 #include "datetime.h"
 
+/**
+ * Abstract class of the calendar's event.
+ */
 class Event {
 public:
     virtual ~Event() noexcept = default;
@@ -19,7 +22,7 @@ public:
 
     [[nodiscard]] virtual size_t getId() const = 0;
 
-    [[nodiscard]] virtual bool isConflict(const Event &event, size_t offset) const = 0;
+    [[nodiscard]] virtual bool isConflict(const Event &event, int offsetHours) const = 0;
 };
 
-std::ostream & operator<<(std::ostream & out, const Event & self);
+std::ostream &operator<<(std::ostream &out, const Event &self);

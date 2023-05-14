@@ -3,7 +3,7 @@
 
 #include "displayCalendar.h"
 
-class DisplayMonthly: public DisplayCalendar {
+class DisplayMonthly : public DisplayCalendar {
 public:
     DisplayMonthly();
 
@@ -16,6 +16,5 @@ public:
     void previousPage() override;
 
 private:
-    size_t mYear;
     size_t mMonth;
 };

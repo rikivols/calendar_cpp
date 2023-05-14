@@ -22,8 +22,8 @@ public:
     /**
      * Find out whether the datetime belongs to the provided range
      *
-     * @param from start of the range that datetime should belong to
-     * @param to end of the range that datetime should belong to
+     * @param[in] from start of the range that datetime should belong to
+     * @param[in] to end of the range that datetime should belong to
      * @return true = datetime belongs to the range, false = doesn't
      */
     bool isInRange(const Datetime &from, const Datetime &to);

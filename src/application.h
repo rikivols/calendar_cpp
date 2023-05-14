@@ -27,11 +27,11 @@ public:
     void displayMainMenu();
 
     /**
-     * Prompts user to add a event. He writes down all of the necessary fields for the event calendar. Detects
-     * a conflict if event already exists.
+     * Prompts user to add an event. He writes down all of the necessary fields for the event. Detects
+     * a conflict if the event already exists.
      *
-     * Asks user what to do if conflict arise. User has option to choose a different date of the event or move
-     * the existing, underlying event.
+     * Asks user what to do if the conflict arises. User has an option to choose a different date of the event, or move
+     * the existing, calendar event.
      */
     void addEvent();
 
@@ -41,19 +41,21 @@ public:
     void moveEvent();
 
     /**
-     * Removes the event from calendar, using the event id.
+     * Removes the event from the calendar, using the event id.
      */
     void removeEvent();
 
     /**
      * Finds and prints the events (multiple) based on the search criteria (like datetime, name...). You can also
      * combine these criteria using (OR) or (AND) (not both).
+     *
+     * Allows user to export the returned results.
      */
     void findEvents();
 
     /**
      * Displays the calendar using daily, weekly or monthly mode. Allows user to list through the pages of the
-     * calendar based on the specified mode.
+     * calendar based on the specified mode (next page, previous page).
      */
     void displayCalendar();
 
@@ -65,7 +67,9 @@ public:
 private:
     // different display mode depending on the output of the user
     map<int, shared_ptr<DisplayCalendar>> calendarDisplayer = {
-        {1, DisplayDaily().clone()}, {2, DisplayWeekly().clone()}, {3, DisplayMonthly().clone()}
+            {1, DisplayDaily().clone()},
+            {2, DisplayWeekly().clone()},
+            {3, DisplayMonthly().clone()}
     };
     Calendar mCalendar;
     size_t lastEventId;  // used for assigning the ids to the events. Auto increments.
