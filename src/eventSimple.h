@@ -1,4 +1,10 @@
-#include "datetime.h"
+
+#pragma once
+
+#include <set>
+#include <string>
+#include <vector>
+
 #include "event.h"
 
 class EventSimple: public Event {
@@ -20,7 +26,7 @@ public:
 
     [[nodiscard]] size_t getId() const override;
 
-    [[nodiscard]] bool isConflict(const shared_ptr<Event> &event, size_t offset) const override;
+    [[nodiscard]] bool isConflict(const Event &event, size_t offset) const override;
 
 protected:
     size_t mEventId;

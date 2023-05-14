@@ -1,9 +1,11 @@
 
+#pragma once
+
 #include "displayCalendar.h"
 
 class DisplayWeekly: public DisplayCalendar {
 public:
-    DisplayWeekly(const Calendar & calendar);
+    DisplayWeekly();
 
     [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
 

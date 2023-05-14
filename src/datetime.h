@@ -1,24 +1,31 @@
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-#include <cctype>
-#include <cmath>
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <unordered_set>
-#include <algorithm>
-#include <ctime>
-#include <memory>
 
+#pragma once
+
+#include <ctime>
+
+using namespace std;
+
+/**
+ * Class that represents the date and the time of the events
+ */
 class Datetime {
 public:
     Datetime(size_t year, size_t month, size_t day, size_t hour, size_t minute);
 
+    /**
+     * Find out whether the datetime is a correct date and time.
+     *
+     * @return true = correct datetime, false = incorrect
+     */
     bool isValid();
 
+    /**
+     * Find out whether the datetime belongs to the provided range
+     *
+     * @param from start of the range that datetime should belong to
+     * @param to end of the range that datetime should belong to
+     * @return true = datetime belongs to the range, false = doesn't
+     */
     bool isInRange(const Datetime &from, const Datetime &to);
 
 private:

@@ -1,12 +1,11 @@
+
+#pragma once
+
 #include "displayCalendar.h"
 
 class DisplayDaily: public DisplayCalendar {
 public:
-    DisplayDaily(const Calendar & calendar);
-
-    explicit DisplayDaily(Calendar && calendar);
-
-    Calendar &operator=(Calendar &&calendar) noexcept;
+    DisplayDaily();
 
     [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
 

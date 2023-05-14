@@ -1,8 +1,19 @@
-//
-// Created by Anon user on 13.05.2023.
-//
 
-#ifndef CALENDAR_SEMESTRAL_CCALENDARIMPORTER_H
-#define CALENDAR_SEMESTRAL_CCALENDARIMPORTER_H
+#pragma once
 
-#endif //CALENDAR_SEMESTRAL_CCALENDARIMPORTER_H
+#include "calendar.h"
+
+class CalendarImporter {
+
+    CalendarImporter();
+
+    /**
+     * Import the calendar from a CSV - like format
+     *
+     * @param filePath path of the file we want to import from
+     * @return true = import was successful
+     *         false = import failed, display the reason
+     */
+    Calendar importFromFile(const string &filePath);
+
+};
