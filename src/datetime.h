@@ -11,7 +11,24 @@ using namespace std;
 /**
  * Class that represents the date and the time of the events
  */
-class Datetime {
+
+class Time {
+public:
+    Time();
+
+    Time(size_t hour, size_t minute);
+
+    bool isValidTime();
+
+    Time & loadTime();
+
+protected:
+    size_t mHour;
+    size_t mMinute;
+};
+
+
+class Datetime: public Time {
 public:
 
     Datetime();
@@ -23,7 +40,7 @@ public:
      *
      * @return true = correct datetime, false = incorrect
      */
-    bool isValid();
+    bool isValidDate();
 
     /**
      * Find out whether the datetime belongs to the provided range
@@ -34,12 +51,10 @@ public:
      */
     bool isInRange(const Datetime &from, const Datetime &to);
 
-    Datetime & loadDatetime(bool skipDate=false);
+    Datetime & loadDatetime();
 
 private:
     size_t mYear;
     size_t mMonth;
     size_t mDay;
-    size_t mHour;
-    size_t mMinute;
 };

@@ -6,10 +6,10 @@
 /**
  * Represents calendar's event that repeats every day. It has a start datetime, but it doesn't have the end.
  */
-class EventRecurring : public EventSimple {
+class EventRecurring: public Event {
 public:
-    EventRecurring(size_t eventId, const string &name, const Datetime &start, const string &place,
-                   const vector<string> &attendees, const vector<string> &tags, const string &notes);
+    EventRecurring(size_t eventId, string name, const Datetime &start, const Time &end, string place,
+                   const vector<string> &attendees, const vector<string> &tags, string notes);
 
     [[nodiscard]] shared_ptr<Event> clone() const override;
 
@@ -25,5 +25,6 @@ public:
      * @return true = event conflicts, false = event doesn't conflict
      */
     [[nodiscard]] bool isConflict(const Event &event, int offsetHours) const override;
-
+private:
+    Time mEnd;
 };

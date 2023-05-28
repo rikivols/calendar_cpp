@@ -5,8 +5,10 @@
 
 EventSimple::EventSimple(size_t eventId, string name, const Datetime &start, const Datetime &end, string place,
                          const vector<string> &attendees, const vector<string> &tags,
-                         string notes) : mEventId(eventId), mName(std::move(name)), mStart(start), mEnd(end), mPlace(std::move(place)),
-                                                mAttendees(attendees), mTags(tags), mNotes(std::move(notes)) {}
+                         string notes): Event(eventId, std::move(name), start, std::move(place), attendees, tags,
+                                              std::move(notes)) {
+    mEnd = end;
+}
 
 shared_ptr<Event> EventSimple::clone() const {
     return std::make_shared<EventSimple>(*this);

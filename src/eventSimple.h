@@ -31,12 +31,7 @@ public:
      *
      * @param[in] datetime Datetime we want to have at end
      */
-    void setEnd(const Datetime & datetime) override;
-
-    /**
-     * @return event id
-     */
-    [[nodiscard]] size_t getId() const override;
+    void setEnd(const Datetime & datetime);
 
     /**
      * Finds out if calendar's event doesn't conflict with the provided event.
@@ -48,13 +43,6 @@ public:
      */
     [[nodiscard]] bool isConflict(const Event &event, int offsetHours) const override;
 
-protected:
-    size_t mEventId;
-    string mName;
-    Datetime mStart;
+private:
     Datetime mEnd;
-    string mPlace;
-    vector<string> mAttendees;
-    vector<string> mTags;
-    string mNotes;
 };

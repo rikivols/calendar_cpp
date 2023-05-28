@@ -1,7 +1,7 @@
 #include "application.h"
 #include "helpers.cpp"
 
-Application::Application() : lastEventId(0) {}
+Application::Application() : mLastEventId(0) {}
 
 void Application::displayCalendar() {
 
@@ -91,6 +91,7 @@ void Application::addEvent() {
     bool isRecurring;
     Datetime startDate;
     Datetime endDate;
+    Time endTime;
     vector<string> attendees;
     vector<string> tags;
 
@@ -119,7 +120,7 @@ void Application::addEvent() {
 
     if (isRecurring) {
         cout << "Enter end time (recurring events don't have end date):";
-        endDate.loadDatetime(true);
+        endTime.loadTime();
     }
     else {
         cout << "Enter end datetime:" << endl;
@@ -139,7 +140,7 @@ void Application::addEvent() {
     loadString(notes);
 
     if (isRecurring) {
-        mCalendar.addEvent(EventRecurring(mLastEventId, eventName, startDate, place, attendees, tags, notes));
+        mCalendar.addEvent(EventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags, notes));
     }
     else {
         mCalendar.addEvent(EventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes));
