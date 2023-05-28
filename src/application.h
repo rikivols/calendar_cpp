@@ -64,6 +64,8 @@ public:
      */
     void exportCalendar();
 
+    int getUserOption(int maxChoice);
+
 private:
     // different display mode depending on the output of the user
     map<int, shared_ptr<DisplayCalendar>> calendarDisplayer = {
