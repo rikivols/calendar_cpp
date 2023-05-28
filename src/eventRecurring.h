@@ -9,7 +9,7 @@
 class EventRecurring : public EventSimple {
 public:
     EventRecurring(size_t eventId, const string &name, const Datetime &start, const string &place,
-                   const vector<string> &attendees, const set<string> &tags, const string &notes);
+                   const vector<string> &attendees, const vector<string> &tags, const string &notes);
 
     [[nodiscard]] shared_ptr<Event> clone() const override;
 

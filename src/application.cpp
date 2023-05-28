@@ -87,10 +87,12 @@ void Application::displayMainMenu() {
 
 void Application::addEvent() {
 
-    string eventName, option;
+    string eventName, option, place, notes;
     bool isRecurring;
     Datetime startDate;
     Datetime endDate;
+    vector<string> attendees;
+    vector<string> tags;
 
     cout << "Please select event name:" << endl;
     loadString(eventName);
@@ -99,7 +101,12 @@ void Application::addEvent() {
     while (true) {
         cin >> option;
         convertStringLowercase(option);
-        if (option == "yes" || option == "y" || option == "n" || option == "no") {
+        if (option == "yes" || option == "y") {
+            isRecurring = true;
+            break;
+        }
+        else if (option == "n" || option == "no") {
+            isRecurring = false;
             break;
         }
         else {
@@ -111,7 +118,32 @@ void Application::addEvent() {
     startDate.loadDatetime();
 
     if (isRecurring) {
-        cout << "Enter end time";
+        cout << "Enter end time (recurring events don't have end date):";
+        endDate.loadDatetime(true);
+    }
+    else {
+        cout << "Enter end datetime:" << endl;
+        endDate.loadDatetime();
     }
 
+    cout << "Enter event place:" << endl;
+    loadString(place);
+
+    cout << "How many attendees does your event have:" << endl;
+    loadMultiString(attendees, "attendee", 99);
+
+    cout << "How many tags does your event have:" << endl;
+    loadMultiString(tags, "tag", 99);
+
+    cout << "Enter notes (optional):" << endl;
+    loadString(notes);
+
+    if (isRecurring) {
+        mCalendar.addEvent(EventRecurring(mLastEventId, eventName, startDate, place, attendees, tags, notes));
+    }
+    else {
+        mCalendar.addEvent(EventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes));
+    }
+
+    mLastEventId++;
 }

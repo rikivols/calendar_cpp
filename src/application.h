@@ -64,8 +64,6 @@ public:
      */
     void exportCalendar();
 
-    void loadDate();
-
 private:
     // different display mode depending on the output of the user
     map<int, shared_ptr<DisplayCalendar>> calendarDisplayer = {
@@ -74,6 +72,6 @@ private:
             {3, DisplayMonthly().clone()}
     };
     Calendar mCalendar;
-    size_t lastEventId;  // used for assigning the ids to the events. Auto increments.
+    size_t mLastEventId;  // used for assigning the ids to the events. Auto increments.
 };
 

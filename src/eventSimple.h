@@ -13,7 +13,7 @@
 class EventSimple: public Event {
 public:
     EventSimple(size_t eventId, string name, const Datetime &start, const Datetime &end, string place, const vector<string> &attendees,
-                const set<string> &tags, const string &notes);
+                const vector<string> &tags, string note);
 
     [[nodiscard]] shared_ptr<Event> clone() const override;
 
@@ -55,6 +55,6 @@ protected:
     Datetime mEnd;
     string mPlace;
     vector<string> mAttendees;
-    set<string> mTags;
+    vector<string> mTags;
     string mNotes;
 };
