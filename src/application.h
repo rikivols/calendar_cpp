@@ -64,7 +64,7 @@ public:
      */
     void exportCalendar();
 
-    int getUserOption(int maxChoice);
+    void loadDate();
 
 private:
     // different display mode depending on the output of the user

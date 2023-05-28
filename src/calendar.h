@@ -23,6 +23,8 @@ public:
      */
     bool addEvent(const Event &event);
 
+    shared_ptr<Event> getEvent(size_t eventId);
+
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
      *

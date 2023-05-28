@@ -17,3 +17,11 @@ bool Calendar::addEvent(const Event &event) {
 
     return true;
 }
+
+shared_ptr<Event> Calendar::getEvent(size_t eventId) {
+    if (mEvents.find(eventId) != mEvents.end()) {
+        return mEvents[eventId];
+    }
+
+    throw logic_error("Event not found");
+}

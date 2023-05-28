@@ -2,6 +2,9 @@
 #pragma once
 
 #include <ctime>
+#include <iostream>
+
+#include "helpers.h"
 
 using namespace std;
 
@@ -10,6 +13,9 @@ using namespace std;
  */
 class Datetime {
 public:
+
+    Datetime();
+
     Datetime(size_t year, size_t month, size_t day, size_t hour, size_t minute);
 
     /**
@@ -27,6 +33,8 @@ public:
      * @return true = datetime belongs to the range, false = doesn't
      */
     bool isInRange(const Datetime &from, const Datetime &to);
+
+    Datetime & loadDatetime(bool skipDate=false);
 
 private:
     size_t mYear;

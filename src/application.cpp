@@ -1,4 +1,5 @@
 #include "application.h"
+#include "helpers.cpp"
 
 Application::Application() : lastEventId(0) {}
 
@@ -11,7 +12,7 @@ void Application::displayCalendar() {
         cout << "3 - monthly" << endl;
         cout << "4 - cancel" << endl;
 
-        int displayMode = this->getUserOption(4);
+        int displayMode = getUserOption(4);
 
         if (displayMode == 4) return;
 
@@ -25,7 +26,7 @@ void Application::displayCalendar() {
                 cout << "2 - go to the next page" << endl;
                 cout << "3 - cancel" << endl;
 
-                int pageMode = this->getUserOption(4);
+                int pageMode = getUserOption(4);
 
                 if (pageMode == 3) return;
 
@@ -52,7 +53,7 @@ void Application::displayMainMenu() {
         cout << "6 - export calendar" << endl;
         cout << "7 - end application" << endl;
 
-        int option = this->getUserOption(7);
+        int option = getUserOption(7);
 
         switch (option) {
             case 1:
@@ -84,22 +85,33 @@ void Application::displayMainMenu() {
 
 }
 
-int Application::getUserOption(int maxChoice) {
-    int option = -1;
-    cin >> option;
+void Application::addEvent() {
 
-    if (option < 1 || option > maxChoice) {
-        cout << "Invalid option selected, please pick from options: {";
-        for (int i=1; i<=maxChoice; i++) {
-            cout << i;
-            if (i != maxChoice) {
-                cout << ", ";
-            }
+    string eventName, option;
+    bool isRecurring;
+    Datetime startDate;
+    Datetime endDate;
+
+    cout << "Please select event name:" << endl;
+    loadString(eventName);
+
+    cout << "Is your event recurring (happens every day)? (y/n)" << endl;
+    while (true) {
+        cin >> option;
+        convertStringLowercase(option);
+        if (option == "yes" || option == "y" || option == "n" || option == "no") {
+            break;
         }
-        cout << "}\n" << endl;
-
-        return -1;
+        else {
+            cout << "Invalid format, please enter again";
+        }
     }
 
-    return option;
+    cout << "Enter start datetime:" << endl;
+    startDate.loadDatetime();
+
+    if (isRecurring) {
+        cout << "Enter end time";
+    }
+
 }

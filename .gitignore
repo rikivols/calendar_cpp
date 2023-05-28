@@ -1,6 +1,9 @@
 CMakeLists.txt
 *.o
+*.out
+*.dSYM
 src/tst.cpp
+src/tst2.cpp
 cmake-build-debug
 .idea
 .DS_Store
