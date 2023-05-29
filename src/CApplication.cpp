@@ -115,16 +115,21 @@ void CApplication::addEvent() {
         }
     }
 
-    cout << "Enter start datetime:" << endl;
-    startDate.loadDatetime();
+    while (true) {
+        cout << "Enter start datetime:" << endl;
+        startDate.loadDatetime();
 
-    if (isRecurring) {
-        cout << "Enter end time (recurring events don't have end date):";
-        endTime.loadTime();
-    }
-    else {
-        cout << "Enter end datetime:" << endl;
-        endDate.loadDatetime();
+        if (isRecurring) {
+            cout << "Enter end time (recurring events don't have end date):";
+            endTime.loadTime();
+
+            if (startDate < endDate) {
+
+            }
+        } else {
+            cout << "Enter end datetime:" << endl;
+            endDate.loadDatetime();
+        }
     }
 
     cout << "Enter event place:" << endl;

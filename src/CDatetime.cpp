@@ -31,3 +31,43 @@ CDatetime &CDatetime::loadDatetime() {
 
     return *this;
 }
+
+bool CDatetime::operator> (const CDatetime & inp) const {
+
+    if ( this->mYear > inp.mYear ) {
+        return true;
+    }
+    if ( this->mYear == inp.mYear ) {
+        if ( this->mMonth > inp.mMonth ) {
+            return true;
+        }
+        if ( this->mMonth == inp.mMonth ) {
+            if ( this->mDay > inp.mDay ) {
+                return true;
+            }
+            return CTime::operator>(CTime(inp.mHour, inp.mMinute));
+        }
+    }
+    return false;
+}
+
+bool CDatetime::operator==(const CDatetime &inp) const {
+    return this->mYear == inp.mYear && this->mMonth == inp.mMonth && this->mDay == inp.mDay && this->mHour == inp.mHour
+            && this->mMinute == inp.mMinute;
+}
+
+bool CDatetime::operator<(const CDatetime &inp) const {
+    return !(this->operator>(inp)) && !(this->operator==(inp));
+}
+
+bool CDatetime::operator>=(const CDatetime &inp) const {
+    return this->operator==(inp) || this->operator>(inp);
+}
+
+bool CDatetime::operator<=(const CDatetime &inp) const {
+    return this->operator==(inp) || this->operator<(inp);
+}
+
+CTime CDatetime::getTime() const {
+    return {mHour, mMinute};
+}

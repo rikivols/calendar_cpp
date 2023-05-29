@@ -13,3 +13,31 @@ CTime &CTime::loadTime() {
 
     return *this;
 }
+
+
+bool CTime::operator> (const CTime &inp) const {
+    if ( this->mHour > inp.mHour ){
+        return true;
+    }
+    if ( this->mHour == inp.mHour ) {
+        if ( this->mMinute > inp.mMinute )
+            return true;
+    }
+    return false;
+}
+
+bool CTime::operator==(const CTime &inp) const {
+    return this->mHour == inp.mHour && this->mMinute == inp.mMinute;
+}
+
+bool CTime::operator<(const CTime &inp) const {
+    return !(this->operator>(inp)) && !(this->operator==(inp));
+}
+
+bool CTime::operator>=(const CTime &inp) const {
+    return this->operator==(inp) || this->operator>(inp);
+}
+
+bool CTime::operator<=(const CTime &inp) const {
+    return this->operator==(inp) || this->operator<(inp);
+}

@@ -20,6 +20,16 @@ public:
 
     bool isValidTime();
 
+    bool operator> (const CTime &inp) const;
+
+    bool operator== (const CTime & inp) const;
+
+    bool operator< (const CTime & inp) const;
+
+    bool operator<= (const CTime & inp) const;
+
+    bool operator>= (const CTime & inp) const;
+
     CTime & loadTime();
 
 protected:
@@ -50,6 +60,18 @@ public:
      * @return true = datetime belongs to the range, false = doesn't
      */
     bool isInRange(const CDatetime &from, const CDatetime &to);
+
+    CTime getTime() const;
+
+    bool operator> (const CDatetime & inp) const;
+
+    bool operator== (const CDatetime & inp) const;
+
+    bool operator< (const CDatetime & inp) const;
+
+    bool operator<= (const CDatetime & inp) const;
+
+    bool operator>= (const CDatetime & inp) const;
 
     CDatetime & loadDatetime();
 
