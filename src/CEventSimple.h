@@ -5,17 +5,17 @@
 #include <string>
 #include <vector>
 
-#include "event.h"
+#include "CEvent.h"
 
 /**
  * Represents calendar's event that doesn't repeat.
  */
-class EventSimple: public Event {
+class CEventSimple: public CEvent {
 public:
-    EventSimple(size_t eventId, string name, const Datetime &start, const Datetime &end, string place, const vector<string> &attendees,
+    CEventSimple(size_t eventId, string name, const CDatetime &start, const CDatetime &end, string place, const vector<string> &attendees,
                 const vector<string> &tags, string note);
 
-    [[nodiscard]] shared_ptr<Event> clone() const override;
+    [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
     ostream &print(ostream &out) const override;
 
@@ -24,14 +24,14 @@ public:
      *
      * @param[in] datetime Datetime we want to have at start
      */
-    void setStart(const Datetime & datetime) override;
+    void setStart(const CDatetime & datetime) override;
 
     /**
      * Replaces the current end of the event by the provided datetime.
      *
      * @param[in] datetime Datetime we want to have at end
      */
-    void setEnd(const Datetime & datetime);
+    void setEnd(const CDatetime & datetime);
 
     /**
      * Finds out if calendar's event doesn't conflict with the provided event.
@@ -41,8 +41,8 @@ public:
      *                        the conflict, used for checking conflict when moving event
      * @return true = event conflicts, false = event doesn't conflict
      */
-    [[nodiscard]] bool isConflict(const Event &event, int offsetHours) const override;
+    [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
 
 private:
-    Datetime mEnd;
+    CDatetime mEnd;
 };

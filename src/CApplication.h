@@ -1,19 +1,19 @@
 
 #pragma once
 
-#include "calendar.h"
-#include "displayDaily.h"
-#include "displayWeekly.h"
-#include "displayMonthly.h"
-#include "eventSimple.h"
-#include "eventRecurring.h"
+#include "CCalendar.h"
+#include "CDisplayDaily.h"
+#include "CDisplayWeekly.h"
+#include "CDisplayMonthly.h"
+#include "CEventSimple.h"
+#include "CEventRecurring.h"
 
 /**
  * Main class of the program, handles most of the input and output.
  */
-class Application {
+class CApplication {
 public:
-    Application();
+    CApplication();
 
     /**
      * Asks user whether to initialize an empty calendar or import it from a file
@@ -66,12 +66,12 @@ public:
 
 private:
     // different display mode depending on the output of the user
-    map<int, shared_ptr<DisplayCalendar>> calendarDisplayer = {
+    map<int, shared_ptr<CDisplayCalendar>> calendarDisplayer = {
             {1, DisplayDaily().clone()},
             {2, DisplayWeekly().clone()},
             {3, DisplayMonthly().clone()}
     };
-    Calendar mCalendar;
+    CCalendar mCalendar;
     size_t mLastEventId;  // used for assigning the ids to the events. Auto increments.
 };
 

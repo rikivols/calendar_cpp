@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "displayCalendar.h"
+#include "CDisplayCalendar.h"
 
-class DisplayDaily : public DisplayCalendar {
+class CDisplayDaily : public CDisplayCalendar {
 public:
-    DisplayDaily();
+    CDisplayDaily();
 
-    [[nodiscard]] shared_ptr<DisplayCalendar> clone() const override;
+    [[nodiscard]] shared_ptr<CDisplayCalendar> clone() const override;
 
     void display() const override;
 

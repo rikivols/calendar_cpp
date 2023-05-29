@@ -1,9 +1,9 @@
-#include "application.h"
-#include "helpers.cpp"
+#include "CApplication.h"
+#include "CHelpers.cpp"
 
-Application::Application() : mLastEventId(0) {}
+CApplication::CApplication() : mLastEventId(0) {}
 
-void Application::displayCalendar() {
+void CApplication::displayCalendar() {
 
     while (true) {
         cout << "Select calendar display mode:" << endl;
@@ -41,7 +41,7 @@ void Application::displayCalendar() {
     }
 }
 
-void Application::displayMainMenu() {
+void CApplication::displayMainMenu() {
 
     while (true) {
         cout << "You're at the main menu of the calendar, what action do you want to choose?" << endl;
@@ -85,13 +85,13 @@ void Application::displayMainMenu() {
 
 }
 
-void Application::addEvent() {
+void CApplication::addEvent() {
 
     string eventName, option, place, notes;
     bool isRecurring;
-    Datetime startDate;
-    Datetime endDate;
-    Time endTime;
+    CDatetime startDate;
+    CDatetime endDate;
+    CTime endTime;
     vector<string> attendees;
     vector<string> tags;
 
@@ -140,10 +140,10 @@ void Application::addEvent() {
     loadString(notes);
 
     if (isRecurring) {
-        mCalendar.addEvent(EventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags, notes));
+        mCalendar.addEvent(CEventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags, notes));
     }
     else {
-        mCalendar.addEvent(EventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes));
+        mCalendar.addEvent(CEventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes));
     }
 
     mLastEventId++;

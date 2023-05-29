@@ -3,11 +3,11 @@
 
 #include <utility>
 
-#include "calendar.h"
+#include "CCalendar.h"
 
-class EventExporter {
+class CEventExporter {
 
-    explicit EventExporter(const map<size_t, shared_ptr<Event>> &events);
+    explicit CEventExporter(const map<size_t, shared_ptr<CEvent>> &events);
 
     /**
      * Export the calendar to a CSV - like format
@@ -19,5 +19,5 @@ class EventExporter {
     bool exportToFile(const string &filePath);
 
 private:
-    map<size_t, shared_ptr<Event>> mEvents;
+    map<size_t, shared_ptr<CEvent>> mEvents;
 };

@@ -1,12 +1,12 @@
 
-#include "displayWeekly.h"
+#include "CDisplayWeekly.h"
 
 /**
  * Store the provided calendar and set the display page to today's week.
  *
  * @param calendar calendar we want to display
  */
-DisplayWeekly::DisplayWeekly() {
+CDisplayWeekly::CDisplayWeekly() {
     auto now = getTimeNow();
 
     mYear = now->tm_year + 1900;
@@ -14,6 +14,6 @@ DisplayWeekly::DisplayWeekly() {
     mWeek = (now->tm_yday - now->tm_wday + 7) / 7;
 }
 
-shared_ptr<DisplayCalendar> DisplayWeekly::clone() const {
-    return make_shared<DisplayWeekly>(*this);
+shared_ptr<CDisplayCalendar> CDisplayWeekly::clone() const {
+    return make_shared<CDisplayWeekly>(*this);
 }

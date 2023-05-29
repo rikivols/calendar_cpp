@@ -4,7 +4,7 @@
 #include <ctime>
 #include <iostream>
 
-#include "helpers.h"
+#include "CHelpers.h"
 
 using namespace std;
 
@@ -12,15 +12,15 @@ using namespace std;
  * Class that represents the date and the time of the events
  */
 
-class Time {
+class CTime {
 public:
-    Time();
+    CTime();
 
-    Time(size_t hour, size_t minute);
+    CTime(size_t hour, size_t minute);
 
     bool isValidTime();
 
-    Time & loadTime();
+    CTime & loadTime();
 
 protected:
     size_t mHour;
@@ -28,12 +28,12 @@ protected:
 };
 
 
-class Datetime: public Time {
+class CDatetime: public CTime {
 public:
 
-    Datetime();
+    CDatetime();
 
-    Datetime(size_t year, size_t month, size_t day, size_t hour, size_t minute);
+    CDatetime(size_t year, size_t month, size_t day, size_t hour, size_t minute);
 
     /**
      * Find out whether the datetime is a correct date and time.
@@ -49,9 +49,9 @@ public:
      * @param[in] to end of the range that datetime should belong to
      * @return true = datetime belongs to the range, false = doesn't
      */
-    bool isInRange(const Datetime &from, const Datetime &to);
+    bool isInRange(const CDatetime &from, const CDatetime &to);
 
-    Datetime & loadDatetime();
+    CDatetime & loadDatetime();
 
 private:
     size_t mYear;

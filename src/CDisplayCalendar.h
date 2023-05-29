@@ -3,7 +3,7 @@
 
 #include <ctime>
 
-#include "calendar.h"
+#include "CCalendar.h"
 
 tm *getTimeNow() {
     time_t cTime = time(nullptr);
@@ -13,18 +13,18 @@ tm *getTimeNow() {
 /**
  * Base class for the displaying of the calendar.
  */
-class DisplayCalendar {
+class CDisplayCalendar {
 public:
-    virtual ~DisplayCalendar() noexcept = default;
+    virtual ~CDisplayCalendar() noexcept = default;
 
-    [[nodiscard]] virtual shared_ptr<DisplayCalendar> clone() const = 0;
+    [[nodiscard]] virtual shared_ptr<CDisplayCalendar> clone() const = 0;
 
     /**
      * Sets a calendar to display
      *
      * @param[in] calendar calendar to display
      */
-    void setCalendar(const Calendar &calendar);
+    void setCalendar(const CCalendar &calendar);
 
     /**
      * Print out the current page of the calendar.
@@ -42,6 +42,6 @@ public:
     virtual void previousPage() = 0;
 
 protected:
-    Calendar mCalendar;
+    CCalendar mCalendar;
     size_t mYear = 10;
 };

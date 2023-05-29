@@ -1,14 +1,14 @@
 
 #pragma once
 
-#include "calendar.h"
+#include "CCalendar.h"
 
 /**
  * Class responsible for importing of the calendar.
  */
-class CalendarImporter {
+class CCalendarImporter {
 
-    CalendarImporter() = default;
+    CCalendarImporter() = default;
 
     /**
      * Import the calendar from a CSV - like format
@@ -17,6 +17,6 @@ class CalendarImporter {
      * @return true = import was successful
      *         false = import failed, display the reason
      */
-    Calendar importFromFile(const string &filePath);
+    CCalendar importFromFile(const string &filePath);
 
 };

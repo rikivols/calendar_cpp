@@ -1,8 +1,8 @@
-#include "calendar.h"
+#include "CCalendar.h"
 
 static string failedMessage = "Adding of the event failed: ";
 
-bool Calendar::addEvent(const Event &event) {
+bool CCalendar::addEvent(const CEvent &event) {
     for (auto const &[eventId, myEvent]: mEvents) {
         // polymorphism, we calculate differently if the conflict is recurring or a simple event
         if (myEvent->isConflict(event, 0)) {
@@ -18,7 +18,7 @@ bool Calendar::addEvent(const Event &event) {
     return true;
 }
 
-shared_ptr<Event> Calendar::getEvent(size_t eventId) {
+shared_ptr<CEvent> CCalendar::getEvent(size_t eventId) {
     if (mEvents.find(eventId) != mEvents.end()) {
         return mEvents[eventId];
     }

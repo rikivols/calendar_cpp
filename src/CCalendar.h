@@ -4,15 +4,15 @@
 #include <map>
 #include <set>
 
-#include "event.h"
+#include "CEvent.h"
 
 
 /**
  * Represents the calendar and what actions can be done on the events.
  */
-class Calendar {
+class CCalendar {
 public:
-    explicit Calendar();
+    explicit CCalendar();
 
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
@@ -21,9 +21,9 @@ public:
      * @return true = adding was successful
      *         false = adding wasn't successful, display why it failed
      */
-    bool addEvent(const Event &event);
+    bool addEvent(const CEvent &event);
 
-    shared_ptr<Event> getEvent(size_t eventId);
+    shared_ptr<CEvent> getEvent(size_t eventId);
 
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
@@ -55,10 +55,10 @@ public:
      * @param[in] isAnd true for using AND search separator, false for using OR separator
      * @return map of the found events based on the criteria. This format makes it easier to export.
      */
-    const map<size_t, shared_ptr<Event>> &findEvents(const Datetime &rangeStart, const Datetime &rangeEnd,
+    const map<size_t, shared_ptr<CEvent>> &findEvents(const CDatetime &rangeStart, const CDatetime &rangeEnd,
                                                      const string &place, const vector<string> &attendees,
                                                      const set<string> &tags, bool isAnd);
 
 protected:
-    map<size_t, shared_ptr<Event>> mEvents;
+    map<size_t, shared_ptr<CEvent>> mEvents;
 };

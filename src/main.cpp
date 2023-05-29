@@ -1,9 +1,9 @@
-#include "application.h"
+#include "CApplication.h"
 
 
 int main() {
     cout << "Welcome to the calendar app!" << endl;
-    Application application;
+    CApplication application;
     application.handleImport();
     application.displayMainMenu();
 
