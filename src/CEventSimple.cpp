@@ -14,6 +14,10 @@ shared_ptr<CEvent> CEventSimple::clone() const {
     return std::make_shared<CEventSimple>(*this);
 }
 
-pair<CTime, CTime> CEventSimple::getUnavailableTime() const {
+CDatetime CEventSimple::getEnd() const {
+    return mEnd;
+}
+
+pair<CTime, CTime> CEventSimple::getForeverBusyTime() const {
     return {CTime(), CTime()};
 }

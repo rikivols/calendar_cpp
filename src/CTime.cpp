@@ -45,3 +45,16 @@ bool CTime::operator<=(const CTime &inp) const {
 size_t CTime::operator-(const CTime &inp) const {
     size_t resultMinutes = 0;
 }
+
+// TODO
+CTime CTime::operator+(size_t minutes) const {
+    return {};
+}
+
+size_t CTime::getHour() const {
+    return mHour;
+}
+
+size_t CTime::getMinute() const {
+    return mMinute;
+}

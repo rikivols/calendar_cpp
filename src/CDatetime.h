@@ -20,6 +20,9 @@ public:
 
     bool isValidTime();
 
+    // TODO
+    bool isInRange(const CTime &from, const CTime &to) const;
+
     bool operator> (const CTime &inp) const;
 
     bool operator== (const CTime & inp) const;
@@ -33,6 +36,12 @@ public:
     size_t operator- (const CTime & inp) const;
 
     CTime & loadTime();
+
+    size_t getHour() const;
+
+    size_t getMinute() const;
+
+    CTime operator+ (size_t minutes) const;
 
 protected:
     size_t mHour;
@@ -74,6 +83,10 @@ public:
     bool operator<= (const CDatetime & inp) const;
 
     bool operator>= (const CDatetime & inp) const;
+
+    CDatetime operator+ (size_t minutes) const;
+
+    CDatetime & setTime(const CTime &time);
 
     CDatetime & loadDatetime();
 

@@ -26,11 +26,6 @@ shared_ptr<CEvent> CCalendar::getEvent(size_t eventId) {
     throw logic_error("Event not found");
 }
 
-bool CCalendar::sortEventsByStartDatetime(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2) {
-    return event1->getStart() < event2->getStart();
-}
-
-
 vector<shared_ptr<CEvent>> CCalendar::getSortedEvents() const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
@@ -38,7 +33,7 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents() const {
         sortedEvents.push_back(mEvent);
     }
 
-    sort(sortedEvents.begin(), sortedEvents.end(), sortEventsByStartDatetime);
+    sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsByStartDatetime);
 
     return sortedEvents;
 }

@@ -23,11 +23,15 @@ public:
 
     void setStart(const CDatetime &start);
 
+    [[nodiscard]] virtual CDatetime & getEnd() const = 0;
+
     [[nodiscard]] size_t getId() const;
 
     [[nodiscard]] virtual bool isConflict(const CEvent &event, int offsetHours) const = 0;
 
-    [[nodiscard]] virtual pair<CTime, CTime> getUnavailableTime() const = 0;
+    [[nodiscard]] virtual pair<CTime, CTime> getForeverBusyTime() const = 0;
+
+    static bool sortEventsByStartDatetime(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2);
 
 protected:
     size_t mEventId;

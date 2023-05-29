@@ -20,6 +20,10 @@ ostream &CEventRecurring::print(ostream &out) const {
     return out;
 }
 
-pair<CTime, CTime> CEventRecurring::getUnavailableTime() const {
+CDatetime &CEventRecurring::getEnd() const {
+    throw logic_error("Can't get end for recurring events");
+}
+
+pair<CTime, CTime> CEventRecurring::getForeverBusyTime() const {
     return {mStart.getTime(), mEnd};
 }

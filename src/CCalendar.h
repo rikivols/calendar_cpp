@@ -61,8 +61,6 @@ public:
                                                      const string &place, const vector<string> &attendees,
                                                      const set<string> &tags, bool isAnd);
 
-    static bool sortEventsByStartDatetime(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2);
-
     [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents() const;
 
 protected:

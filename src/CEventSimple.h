@@ -26,6 +26,8 @@ public:
      */
     void setEnd(const CDatetime & datetime);
 
+    [[nodiscard]] CDatetime & getEnd() const override;
+
     /**
      * Finds out if calendar's event doesn't conflict with the provided event.
      *
@@ -36,7 +38,7 @@ public:
      */
     [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
 
-    [[nodiscard]] pair<CTime, CTime> getUnavailableTime() const override;
+    [[nodiscard]] pair<CTime, CTime> getForeverBusyTime() const override;
 
 private:
     CDatetime mEnd;

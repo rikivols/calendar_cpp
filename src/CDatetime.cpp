@@ -71,3 +71,14 @@ bool CDatetime::operator<=(const CDatetime &inp) const {
 CTime CDatetime::getTime() const {
     return {mHour, mMinute};
 }
+
+CDatetime &CDatetime::setTime(const CTime & time) {
+    // we need to add 1 day before updating time
+    if (this->getTime() > time) {
+        *this = this->operator+(1440);
+    }
+    mHour = time.getHour();
+    mMinute = time.getMinute();
+
+    return *this;
+}

@@ -22,3 +22,7 @@ void CEvent::setStart(const CDatetime &start) {
 CDatetime CEvent::getStart() const {
     return mStart;
 }
+
+bool CEvent::sortEventsByStartDatetime(const shared_ptr<CEvent> &event1, const shared_ptr<CEvent> &event2) {
+    return event1->getStart() < event2->getStart();
+}

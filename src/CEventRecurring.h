@@ -15,6 +15,8 @@ public:
 
     ostream &print(ostream &out) const override;
 
+    [[nodiscard]] CDatetime & getEnd() const override;
+
     /**
      * Finds out if calendar's event doesn't conflict with the provided event. Since recurring event repeats every
      * day and doesn't have the end, the calculation will be different.
@@ -26,7 +28,7 @@ public:
      */
     [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
 
-    [[nodiscard]] pair<CTime, CTime> getUnavailableTime() const override;
+    [[nodiscard]] pair<CTime, CTime> getForeverBusyTime() const override;
 
 private:
     CTime mEnd;
