@@ -41,3 +41,7 @@ bool CTime::operator>=(const CTime &inp) const {
 bool CTime::operator<=(const CTime &inp) const {
     return this->operator==(inp) || this->operator<(inp);
 }
+
+size_t CTime::operator-(const CTime &inp) const {
+    size_t resultMinutes = 0;
+}

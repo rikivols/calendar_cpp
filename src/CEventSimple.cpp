@@ -13,3 +13,7 @@ CEventSimple::CEventSimple(size_t eventId, string name, const CDatetime &start, 
 shared_ptr<CEvent> CEventSimple::clone() const {
     return std::make_shared<CEventSimple>(*this);
 }
+
+pair<CTime, CTime> CEventSimple::getUnavailableTime() const {
+    return {CTime(), CTime()};
+}

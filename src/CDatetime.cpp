@@ -45,7 +45,7 @@ bool CDatetime::operator> (const CDatetime & inp) const {
             if ( this->mDay > inp.mDay ) {
                 return true;
             }
-            return CTime::operator>(CTime(inp.mHour, inp.mMinute));
+            return this->getTime()>(CTime(inp.mHour, inp.mMinute));
         }
     }
     return false;

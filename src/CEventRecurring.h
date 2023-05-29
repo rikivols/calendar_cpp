@@ -25,6 +25,9 @@ public:
      * @return true = event conflicts, false = event doesn't conflict
      */
     [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
+
+    [[nodiscard]] pair<CTime, CTime> getUnavailableTime() const override;
+
 private:
     CTime mEnd;
 };

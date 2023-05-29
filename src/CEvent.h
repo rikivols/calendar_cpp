@@ -19,11 +19,16 @@ public:
 
     virtual ostream &print(ostream &out) const = 0;
 
+    [[nodiscard]] CDatetime getStart() const;
+
     void setStart(const CDatetime &start);
 
     [[nodiscard]] size_t getId() const;
 
     [[nodiscard]] virtual bool isConflict(const CEvent &event, int offsetHours) const = 0;
+
+    [[nodiscard]] virtual pair<CTime, CTime> getUnavailableTime() const = 0;
+
 protected:
     size_t mEventId;
     string mName;

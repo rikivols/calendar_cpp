@@ -11,3 +11,15 @@ CEventRecurring::CEventRecurring(size_t eventId, string name, const CDatetime &s
 shared_ptr<CEvent> CEventRecurring::clone() const {
     return std::make_shared<CEventRecurring>(*this);
 }
+
+bool CEventRecurring::isConflict(const CEvent &event, int offsetHours) const {
+    return false;
+}
+
+ostream &CEventRecurring::print(ostream &out) const {
+    return out;
+}
+
+pair<CTime, CTime> CEventRecurring::getUnavailableTime() const {
+    return {mStart.getTime(), mEnd};
+}

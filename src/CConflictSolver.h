@@ -5,7 +5,9 @@ class CConflictSolver {
 public:
     CConflictSolver(CCalendar calendar, size_t eventId);
 
-    int solveConflict();
+    int solveAddConflict(const CEvent &event);
+
+    int solveConflictPrompt();
 
 private:
     CCalendar mCalendar;

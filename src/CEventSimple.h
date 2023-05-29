@@ -20,13 +20,6 @@ public:
     ostream &print(ostream &out) const override;
 
     /**
-     * Replaces the current start of the event by the provided datetime.
-     *
-     * @param[in] datetime Datetime we want to have at start
-     */
-    void setStart(const CDatetime & datetime) override;
-
-    /**
      * Replaces the current end of the event by the provided datetime.
      *
      * @param[in] datetime Datetime we want to have at end
@@ -42,6 +35,8 @@ public:
      * @return true = event conflicts, false = event doesn't conflict
      */
     [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
+
+    [[nodiscard]] pair<CTime, CTime> getUnavailableTime() const override;
 
 private:
     CDatetime mEnd;

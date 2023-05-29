@@ -25,6 +25,8 @@ public:
 
     shared_ptr<CEvent> getEvent(size_t eventId);
 
+    vector<CEvent> getSortedEvents();
+
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
      *
@@ -58,6 +60,10 @@ public:
     const map<size_t, shared_ptr<CEvent>> &findEvents(const CDatetime &rangeStart, const CDatetime &rangeEnd,
                                                      const string &place, const vector<string> &attendees,
                                                      const set<string> &tags, bool isAnd);
+
+    static bool sortEventsByStartDatetime(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2);
+
+    [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents() const;
 
 protected:
     map<size_t, shared_ptr<CEvent>> mEvents;

@@ -7,7 +7,21 @@
 
 CConflictSolver::CConflictSolver(CCalendar calendar, size_t eventId): mCalendar(std::move(calendar)), mEventId(eventId) {}
 
-int CConflictSolver::solveConflict() {
+int CConflictSolver::solveAddConflict(const CEvent &event) {
+    int userOption = solveConflictPrompt();
+
+    switch (userOption) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            cout << "Aborting the adding of an event." << endl;
+            break;
+    }
+}
+
+int CConflictSolver::solveConflictPrompt() {
     cout << "Conflict detected: event already exists at that time." << endl;
     cout << "The conflicted event:" << endl;
     cout << mCalendar.getEvent(mEventId);
@@ -17,12 +31,7 @@ int CConflictSolver::solveConflict() {
     cout << "2 - Move the conflicted event (with id: " << mEventId << ") to the closest time in the future" << endl;
     cout << "3 - Abort" << endl;
 
-    int option = getUserOption(3);
+    return getUserOption(3);
 
-    switch (option) {
-//        case 1:
-    }
-
-    return 1;
 }
 

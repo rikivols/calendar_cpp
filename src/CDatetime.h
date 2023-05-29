@@ -30,6 +30,8 @@ public:
 
     bool operator>= (const CTime & inp) const;
 
+    size_t operator- (const CTime & inp) const;
+
     CTime & loadTime();
 
 protected:

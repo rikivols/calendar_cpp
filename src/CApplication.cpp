@@ -123,12 +123,22 @@ void CApplication::addEvent() {
             cout << "Enter end time (recurring events don't have end date):";
             endTime.loadTime();
 
-            if (startDate < endDate) {
-
+            if (startDate.getTime() == endTime) {
+                cout << "Event can't have 0 minute duration, please enter datetimes again" << endl;
+            }
+            else {
+                break;
             }
         } else {
             cout << "Enter end datetime:" << endl;
             endDate.loadDatetime();
+
+            if (startDate >= endDate) {
+                cout << "Start date can't come after end date, please enter datetimes again" << endl;
+            }
+            else {
+                break;
+            }
         }
     }
 

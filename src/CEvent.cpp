@@ -18,3 +18,7 @@ size_t CEvent::getId() const {
 void CEvent::setStart(const CDatetime &start) {
     mStart = start;
 }
+
+CDatetime CEvent::getStart() const {
+    return mStart;
+}
