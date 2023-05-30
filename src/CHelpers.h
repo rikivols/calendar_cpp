@@ -18,3 +18,7 @@ void convertStringLowercase(string &toConv);
 int loadNumber(int minNum, int maxNum);
 
 string addZeroPadding(size_t num);
+
+ostream &printSeparator(ostream &out);
+
+ostream &printVector(ostream &out, const vector<string> &vec);

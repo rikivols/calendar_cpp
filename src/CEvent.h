@@ -25,6 +25,8 @@ public:
 
     virtual ostream &print(ostream &out) const = 0;
 
+    ostream &partialPrint(ostream &out) const;
+
     [[nodiscard]] CDatetime getStart() const;
 
     void setStart(const CDatetime &start);

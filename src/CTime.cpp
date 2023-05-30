@@ -58,3 +58,13 @@ size_t CTime::getHour() const {
 size_t CTime::getMinute() const {
     return mMinute;
 }
+
+ostream &CTime::printTime(ostream &out) const {
+    out << addZeroPadding(mHour) << ":" << addZeroPadding(mMinute);
+
+    return out;
+}
+
+std::ostream &operator<<(ostream &out, const CTime &self) {
+    return self.printTime(out);
+}

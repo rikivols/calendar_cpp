@@ -43,6 +43,10 @@ public:
 
     CTime operator+ (size_t minutes) const;
 
+    ostream &printTime(ostream &out) const;
+
+    friend std::ostream &operator<<(std::ostream &out, const CTime &self);
+
 
 protected:
     size_t mHour;
@@ -90,6 +94,8 @@ public:
     CDatetime & setTime(const CTime &time);
 
     CDatetime & loadDatetime();
+
+    ostream &printDate(ostream &out) const;
 
     friend std::ostream &operator<<(std::ostream &out, const CDatetime &self);
 

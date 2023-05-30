@@ -48,3 +48,12 @@ CEventSimple &CEventSimple::operator=(CEventSimple eventSimple) {
 
     return *this;
 }
+
+ostream &CEventSimple::print(ostream &out) const {
+    printSeparator(out);
+    out << "Simple event" << endl;
+    out << "Start Date: " << mStart << endl;
+    out << "End Date: " << mEnd << endl;
+
+    return out;
+}

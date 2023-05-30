@@ -53,3 +53,17 @@ void CEvent::swapEvent(CEvent &event) {
     swap(mTags, event.mTags);
     swap(mNotes, event.mNotes);
 }
+
+ostream &CEvent::partialPrint(ostream &out) const {
+    out << "Id: " << mEventId << endl;
+    out << "Name: " << mName << endl;
+    out << "Place: " << mPlace << endl;
+    out << "Attendees:" << endl;
+    printVector(out, mAttendees);
+    out << "Tags:" << endl;
+    printVector(out, mTags);
+    out << "Notes: " << mNotes;
+    printSeparator(out);
+
+    return out;
+}

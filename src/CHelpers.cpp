@@ -86,3 +86,21 @@ string addZeroPadding(size_t num) {
 
     return res;
 }
+
+
+ostream &printSeparator(ostream &out) {
+    out << endl;
+    out << "===============================================";
+    out << endl;
+
+    return out;
+}
+
+
+ostream &printVector(ostream &out, const vector<string> &vec) {
+    for (const auto &v: vec) {
+        out << "* " << v << endl;
+    }
+
+    return out;
+}
