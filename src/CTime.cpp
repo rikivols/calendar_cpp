@@ -1,6 +1,6 @@
 #include "CDatetime.h"
 
-CTime::CTime(): mMinute(-1), mHour(-1) {}
+CTime::CTime(): mMinute(69), mHour(69) {}  // initialize with a value that's not a valid time
 
 CTime::CTime(size_t hour, size_t minute): mHour(hour), mMinute(minute) {}
 

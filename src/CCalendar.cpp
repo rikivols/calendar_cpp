@@ -7,9 +7,15 @@ static string failedMessage = "Adding of the event failed: ";
 
 bool CCalendar::addEvent(CEvent &event) {
     size_t conflictEventId = getFirstConflictId(event);
+    bool addSuccess = true;
     if (conflictEventId) {
-        CConflictSolver conflictSolver = CConflictSolver(*this, conflictEventId);
-        conflictSolver.solveAddConflict(event);
+        CConflictSolver conflictSolver(*this, conflictEventId);
+        addSuccess = conflictSolver.solveAddConflict(event);
+    }
+
+    if (addSuccess) {
+        cout << "New event successfully added:" << endl;
+        cout << event;
     }
 
     mEvents[event.getId()] = event.clone();
@@ -25,11 +31,15 @@ shared_ptr<CEvent> CCalendar::getEvent(size_t eventId) {
     throw logic_error("Event not found");
 }
 
-vector<shared_ptr<CEvent>> CCalendar::getSortedEvents() const {
+vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &event) const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
     for (const auto &[key, mEvent] : mEvents) {
         sortedEvents.push_back(mEvent);
+    }
+
+    if (event) {
+        sortedEvents.push_back(event);
     }
 
     sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsByStartDatetime);
@@ -65,4 +75,5 @@ size_t CCalendar::getFirstConflictId(const CEvent & event) const {
 
     return 0;
 }
+
 

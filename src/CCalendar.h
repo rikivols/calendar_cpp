@@ -12,7 +12,7 @@
  */
 class CCalendar {
 public:
-    explicit CCalendar();
+    explicit CCalendar() = default;
 
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
@@ -25,7 +25,7 @@ public:
 
     shared_ptr<CEvent> getEvent(size_t eventId);
 
-    vector<shared_ptr<CEvent>> getSortedEvents();
+    [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents(const shared_ptr<CEvent> &event) const;
 
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism

@@ -1,6 +1,6 @@
 #include "CDatetime.h"
 
-CDatetime::CDatetime() : mYear(-1), mMonth(-1), mDay(-1), CTime() {}
+CDatetime::CDatetime() : mYear(0), mMonth(0), mDay(0), CTime() {}
 
 CDatetime::CDatetime(size_t year, size_t month, size_t day, size_t hour, size_t minute) : mYear(year), mMonth(month),
                                                                                         mDay(day), CTime(hour, minute) {}

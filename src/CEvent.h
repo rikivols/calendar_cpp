@@ -13,7 +13,13 @@ public:
     CEvent(size_t eventId, string name, const CDatetime &start, string place,
           const vector<string> &attendees, const vector<string> &tags, string notes);
 
+    // CEvent(const CEvent &event);
+
     virtual ~CEvent() noexcept = default;
+
+    CEvent &operator=(const CEvent &element) = delete;
+
+    CEvent &operator=(CEvent &&element) = delete;
 
     [[nodiscard]] virtual shared_ptr<CEvent> clone() const = 0;
 
@@ -22,6 +28,8 @@ public:
     [[nodiscard]] CDatetime getStart() const;
 
     void setStart(const CDatetime &start);
+
+    void swapEvent(CEvent &event);
 
     virtual void setEnd(const CDatetime &end) = 0;
 

@@ -13,43 +13,63 @@ bool CConflictSolver::solveAddConflict(CEvent &event) {
 
 
     switch (userOption) {
-        case 1:
+        case 1: {
             eventStart = getNextFreeDatetime(event.getEventDuration(), event.getStart());
             if (!eventStart.isValidDate()) {
                 cout << "Different time for the new event couldn't be found" << endl;
                 return false;
             }
+
+            cout << "New date found for the event, its start date will be: " << eventStart << endl;
+            event.setStart(eventStart);
+            event.setEnd(eventStart + event.getEventDuration());
+
             break;
-        case 2:
+        }
+        case 2: {
             size_t numOfConflicts = mCalendar.findNumberOfConflicts(event);
             if (numOfConflicts > 1) {
                 cout << "Multiple events conflict with your new event, can't move them" << endl;
                 return false;
             }
             auto conflictedEvent = mCalendar.getEvent(mEventId);
+            size_t conflictedEventDuration = conflictedEvent->getEventDuration();
+            CDatetime oldStart = conflictedEvent->getStart();
+            CDatetime oldEnd = conflictedEvent->getEnd();
 
             // we check if it would be possible to move the item (if we were to insert it)
-            eventStart = getNextFreeDatetime(conflictedEvent->getEventDuration(),
-                                             event.getStart() + event.getEventDuration() + 1, conflictedEvent->getId(),
-                                             event.clone());
+            eventStart = getNextFreeDatetime(conflictedEventDuration, event.getStart() + event.getEventDuration() + 1,
+                                             conflictedEvent->getId(), event.clone());
             if (!eventStart.isValidDate()) {
-                cout << "Different time for the new event couldn't be found" << endl;
+                cout << "We couldn't find a spot to move the new event to, aborting." << endl;
                 return false;
             }
 
-            
+            // now we check if it is possible to insert the new event after it's been moved
+            conflictedEvent->setStart(eventStart);
+            conflictedEvent->setEnd(eventStart + conflictedEventDuration);
 
+            // if there's a conflict after we just moved the underlying event, we can't perform this action
+            if (mCalendar.getFirstConflictId(event)) {
+                cout << "We couldn't insert the new event after moving, aborting." << endl;
+                conflictedEvent->setStart(oldStart);
+                conflictedEvent->setEnd(oldEnd);
+
+                return false;
+            }
+            else {
+                cout << "Event moved successfully, new date for it: " << eventStart << endl;
+            }
+        }
             break;
-        case 3:
+        case 3: {
             cout << "Aborting the adding of an event." << endl;
-            break;
+
+            return false;
+        }
         default:
             throw logic_error("User option out of range");
     }
-
-    cout << "New date found for the event, its start date will be: " << eventStart << endl;
-    event.setStart(eventStart);
-    event.setEnd(eventStart + event.getEventDuration());
 
     return true;
 }
@@ -98,7 +118,7 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
 
 CDatetime CConflictSolver::getNextFreeDatetime(size_t durationMinutes, const CDatetime &from, size_t ignoreEventId,
                                                const shared_ptr<CEvent> &newFutureEvent) {
-    auto sortedEvents = mCalendar.getSortedEvents();
+    auto sortedEvents = mCalendar.getSortedEvents(newFutureEvent);
 
     vector<pair<CTime, CTime>> foreverBusyVec;
     pair<CTime, CTime> foreverBusyRange;

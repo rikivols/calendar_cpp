@@ -11,6 +11,10 @@ public:
     CEventRecurring(size_t eventId, string name, const CDatetime &start, const CTime &end, string place,
                    const vector<string> &attendees, const vector<string> &tags, string notes);
 
+//    CEventRecurring(const CEventRecurring &eventRecurring);
+
+//    CEventRecurring &operator=(CEventRecurring eventRecurring);
+
     [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
     ostream &print(ostream &out) const override;

@@ -157,12 +157,18 @@ void CApplication::addEvent() {
     cout << "Enter notes (optional):" << endl;
     loadString(notes);
 
+    bool addSuccess;
+
     if (isRecurring) {
-        mCalendar.addEvent(CEventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags, notes));
+        auto eventRecurring = CEventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags, notes);
+        addSuccess = mCalendar.addEvent(eventRecurring);
     }
     else {
-        mCalendar.addEvent(CEventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes));
+        auto eventSimple = CEventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes);
+        addSuccess = mCalendar.addEvent(eventSimple);
     }
 
-    mLastEventId++;
+    if (addSuccess) {
+        mLastEventId++;
+    }
 }
