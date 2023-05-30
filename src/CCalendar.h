@@ -19,13 +19,13 @@ public:
      *
      * @param[in] event
      * @return true = adding was successful
-     *         false = adding wasn't successful, display why it failed
+     *         false = adding wasn't successful
      */
-    bool addEvent(const CEvent &event);
+    bool addEvent(CEvent &event);
 
     shared_ptr<CEvent> getEvent(size_t eventId);
 
-    vector<CEvent> getSortedEvents();
+    vector<shared_ptr<CEvent>> getSortedEvents();
 
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
@@ -60,6 +60,10 @@ public:
     const map<size_t, shared_ptr<CEvent>> &findEvents(const CDatetime &rangeStart, const CDatetime &rangeEnd,
                                                      const string &place, const vector<string> &attendees,
                                                      const set<string> &tags, bool isAnd);
+
+    size_t getFirstConflictId(const CEvent & event) const;
+
+    size_t findNumberOfConflicts(const CEvent & event) const;
 
     [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents() const;
 

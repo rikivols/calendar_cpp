@@ -82,3 +82,11 @@ CDatetime &CDatetime::setTime(const CTime & time) {
 
     return *this;
 }
+
+std::ostream &operator<<(ostream &out, const CDatetime &self) {
+
+    out << self.mYear << "." << addZeroPadding(self.mMonth) << "." << addZeroPadding(self.mDay) << " "
+        << addZeroPadding(self.mHour) << ":" << addZeroPadding(self.mMinute);
+
+    return out;
+}

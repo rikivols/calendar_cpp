@@ -16,3 +16,5 @@ vector<string> &loadMultiString(vector<string> &storeVec, const string &property
 void convertStringLowercase(string &toConv);
 
 int loadNumber(int minNum, int maxNum);
+
+string addZeroPadding(size_t num);

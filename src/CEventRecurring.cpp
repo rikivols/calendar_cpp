@@ -20,10 +20,22 @@ ostream &CEventRecurring::print(ostream &out) const {
     return out;
 }
 
-CDatetime &CEventRecurring::getEnd() const {
+CDatetime CEventRecurring::getEnd() const {
     throw logic_error("Can't get end for recurring events");
 }
 
 pair<CTime, CTime> CEventRecurring::getForeverBusyTime() const {
     return {mStart.getTime(), mEnd};
+}
+
+CTime CEventRecurring::getEndTime() const {
+    return mEnd;
+}
+
+size_t CEventRecurring::getEventDuration() const {
+    return mEnd - mStart.getTime();
+}
+
+void CEventRecurring::setEnd(const CDatetime &end) {
+    mEnd = end.getTime();
 }

@@ -1,16 +1,15 @@
+#pragma once
+
 #include "CCalendar.h"
+#include "CConflictSolver.h"
 
 static string failedMessage = "Adding of the event failed: ";
 
-bool CCalendar::addEvent(const CEvent &event) {
-    for (auto const &[eventId, myEvent]: mEvents) {
-        // polymorphism, we calculate differently if the conflict is recurring or a simple event
-        if (myEvent->isConflict(event, 0)) {
-            cout << failedMessage << "Event at that time already exists" << endl;
-            cout << "The conflicted event:" << endl;
-            cout << myEvent;
-            return false;
-        }
+bool CCalendar::addEvent(CEvent &event) {
+    size_t conflictEventId = getFirstConflictId(event);
+    if (conflictEventId) {
+        CConflictSolver conflictSolver = CConflictSolver(*this, conflictEventId);
+        conflictSolver.solveAddConflict(event);
     }
 
     mEvents[event.getId()] = event.clone();
@@ -37,3 +36,33 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents() const {
 
     return sortedEvents;
 }
+
+size_t CCalendar::findNumberOfConflicts(const CEvent & event) const {
+
+    size_t numOfConflicts = 0;
+
+    for (auto const &[eventId, myEvent]: mEvents) {
+        // polymorphism, we calculate differently if the conflict is recurring or a simple event
+        if (event.getId() != eventId && myEvent->isConflict(event, 0)) {
+            numOfConflicts++;
+        }
+    }
+
+    return numOfConflicts;
+}
+
+size_t CCalendar::getFirstConflictId(const CEvent & event) const {
+
+    for (auto const &[eventId, myEvent]: mEvents) {
+        // polymorphism, we calculate differently if the conflict is recurring or a simple event
+        if (event.getId() != eventId && myEvent->isConflict(event, 0)) {
+            cout << failedMessage << "Event at that time already exists" << endl;
+            cout << "The conflicted event:" << endl;
+            cout << myEvent;
+            return (int)eventId;
+        }
+    }
+
+    return 0;
+}
+

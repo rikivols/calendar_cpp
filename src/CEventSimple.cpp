@@ -21,3 +21,15 @@ CDatetime CEventSimple::getEnd() const {
 pair<CTime, CTime> CEventSimple::getForeverBusyTime() const {
     return {CTime(), CTime()};
 }
+
+CTime CEventSimple::getEndTime() const {
+    return getEnd().getTime();
+}
+
+size_t CEventSimple::getEventDuration() const {
+    return mEnd - mStart;
+}
+
+void CEventSimple::setEnd(const CDatetime &end) {
+    mEnd = end;
+}

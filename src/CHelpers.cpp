@@ -75,3 +75,14 @@ int loadNumber(int minNum, int maxNum) {
 
     return res;
 }
+
+
+string addZeroPadding(size_t num) {
+    string res = to_string(num);
+
+    if (res.size() == 1) {
+        res = "0" + res;
+    }
+
+    return res;
+}

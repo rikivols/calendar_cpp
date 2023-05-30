@@ -23,11 +23,17 @@ public:
 
     void setStart(const CDatetime &start);
 
-    [[nodiscard]] virtual CDatetime & getEnd() const = 0;
+    virtual void setEnd(const CDatetime &end) = 0;
+
+    [[nodiscard]] virtual CDatetime getEnd() const = 0;
+
+    [[nodiscard]] virtual CTime getEndTime() const = 0;
+
+    [[nodiscard]] virtual size_t getEventDuration() const = 0;
 
     [[nodiscard]] size_t getId() const;
 
-    [[nodiscard]] virtual bool isConflict(const CEvent &event, int offsetHours) const = 0;
+    [[nodiscard]] virtual bool isConflict(const CEvent & event, int offsetHours) const = 0;
 
     [[nodiscard]] virtual pair<CTime, CTime> getForeverBusyTime() const = 0;
 

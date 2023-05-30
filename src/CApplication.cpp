@@ -1,7 +1,7 @@
 #include "CApplication.h"
 #include "CHelpers.cpp"
 
-CApplication::CApplication() : mLastEventId(0) {}
+CApplication::CApplication() : mLastEventId(1) {}
 
 void CApplication::displayCalendar() {
 
@@ -133,7 +133,10 @@ void CApplication::addEvent() {
             cout << "Enter end datetime:" << endl;
             endDate.loadDatetime();
 
-            if (startDate >= endDate) {
+            if (startDate == endDate) {
+                cout << "Event can't have 0 minute duration, please enter datetimes again" << endl;
+            }
+            else if (startDate >= endDate) {
                 cout << "Start date can't come after end date, please enter datetimes again" << endl;
             }
             else {

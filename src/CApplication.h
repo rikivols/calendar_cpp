@@ -7,6 +7,7 @@
 #include "CDisplayMonthly.h"
 #include "CEventSimple.h"
 #include "CEventRecurring.h"
+#include "CConflictSolver.h"
 
 /**
  * Main class of the program, handles most of the input and output.

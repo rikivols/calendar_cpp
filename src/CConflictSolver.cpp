@@ -7,18 +7,51 @@
 
 CConflictSolver::CConflictSolver(CCalendar calendar, size_t eventId): mCalendar(std::move(calendar)), mEventId(eventId) {}
 
-int CConflictSolver::solveAddConflict(const CEvent &event) {
+bool CConflictSolver::solveAddConflict(CEvent &event) {
     int userOption = solveConflictPrompt();
+    CDatetime eventStart;
+
 
     switch (userOption) {
         case 1:
+            eventStart = getNextFreeDatetime(event.getEventDuration(), event.getStart());
+            if (!eventStart.isValidDate()) {
+                cout << "Different time for the new event couldn't be found" << endl;
+                return false;
+            }
             break;
         case 2:
+            size_t numOfConflicts = mCalendar.findNumberOfConflicts(event);
+            if (numOfConflicts > 1) {
+                cout << "Multiple events conflict with your new event, can't move them" << endl;
+                return false;
+            }
+            auto conflictedEvent = mCalendar.getEvent(mEventId);
+
+            // we check if it would be possible to move the item (if we were to insert it)
+            eventStart = getNextFreeDatetime(conflictedEvent->getEventDuration(),
+                                             event.getStart() + event.getEventDuration() + 1, conflictedEvent->getId(),
+                                             event.clone());
+            if (!eventStart.isValidDate()) {
+                cout << "Different time for the new event couldn't be found" << endl;
+                return false;
+            }
+
+            
+
             break;
         case 3:
             cout << "Aborting the adding of an event." << endl;
             break;
+        default:
+            throw logic_error("User option out of range");
     }
+
+    cout << "New date found for the event, its start date will be: " << eventStart << endl;
+    event.setStart(eventStart);
+    event.setEnd(eventStart + event.getEventDuration());
+
+    return true;
 }
 
 int CConflictSolver::solveConflictPrompt() {
@@ -40,8 +73,8 @@ bool CConflictSolver::sortTimeByStart(const pair<CTime, CTime> &time1, const pai
 }
 
 // we include start
-CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> &foreverBusyVec, int durationMinutes,
-                                       const CTime &start, const CTime &end) const {
+CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> &foreverBusyVec, size_t durationMinutes,
+                                       const CTime &start, const CTime &end) {
     sort(foreverBusyVec.begin(), foreverBusyVec.end(), sortTimeByStart);
     CTime result = start;
     CTime resultEnd = result + durationMinutes;
@@ -63,8 +96,10 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
     return {};
 }
 
-CDatetime CConflictSolver::getNextFreeDatetime(const vector<shared_ptr<CEvent>> &sortedEvents, int durationMinutes,
-                                               const CDatetime &from) {
+CDatetime CConflictSolver::getNextFreeDatetime(size_t durationMinutes, const CDatetime &from, size_t ignoreEventId,
+                                               const shared_ptr<CEvent> &newFutureEvent) {
+    auto sortedEvents = mCalendar.getSortedEvents();
+
     vector<pair<CTime, CTime>> foreverBusyVec;
     pair<CTime, CTime> foreverBusyRange;
     CDatetime result = from;
@@ -72,6 +107,10 @@ CDatetime CConflictSolver::getNextFreeDatetime(const vector<shared_ptr<CEvent>> 
     CTime tempResult;
 
     for (const auto &event: sortedEvents) {
+        if (event->getId() == ignoreEventId) {
+            continue;
+        }
+
         // if time even fits
         if (resultEnd > event->getStart()) {
             tempResult = findFreeTimeInRecurringEvents(foreverBusyVec, durationMinutes, result, resultEnd);
@@ -100,4 +139,3 @@ CDatetime CConflictSolver::getNextFreeDatetime(const vector<shared_ptr<CEvent>> 
     }
     return {};  // it was impossible to find a free time
 }
-

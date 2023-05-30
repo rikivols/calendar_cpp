@@ -26,7 +26,11 @@ public:
      */
     void setEnd(const CDatetime & datetime);
 
-    [[nodiscard]] CDatetime & getEnd() const override;
+    [[nodiscard]] CDatetime getEnd() const override;
+
+    [[nodiscard]] CTime getEndTime() const override;
+
+    [[nodiscard]] size_t getEventDuration() const override;
 
     /**
      * Finds out if calendar's event doesn't conflict with the provided event.

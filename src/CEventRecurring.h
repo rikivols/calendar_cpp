@@ -15,7 +15,13 @@ public:
 
     ostream &print(ostream &out) const override;
 
-    [[nodiscard]] CDatetime & getEnd() const override;
+    [[nodiscard]] CDatetime getEnd() const override;
+
+    void setEnd(const CDatetime &end) override;
+
+    CTime getEndTime() const override;
+
+    [[nodiscard]] size_t getEventDuration() const override;
 
     /**
      * Finds out if calendar's event doesn't conflict with the provided event. Since recurring event repeats every
