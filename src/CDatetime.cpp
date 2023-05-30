@@ -96,3 +96,19 @@ std::ostream &operator<<(ostream &out, const CDatetime &self) {
 
     return out;
 }
+
+bool CDatetime::isOnDay(size_t year, size_t month, size_t day) const {
+    return mYear == year && mMonth == month && mDay == day;
+}
+
+size_t CDatetime::getYear() const {
+    return mYear;
+}
+
+size_t CDatetime::getMonth() const {
+    return mMonth;
+}
+
+size_t CDatetime::getDay() const {
+    return mDay;
+}

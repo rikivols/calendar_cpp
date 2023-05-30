@@ -17,6 +17,8 @@ public:
 
     [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
+    bool happensOnDay(size_t year, size_t month, size_t day) const override;
+
     ostream &print(ostream &out) const override;
 
     [[nodiscard]] CDatetime getEnd() const override;

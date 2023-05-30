@@ -89,7 +89,17 @@ public:
 
     bool operator>= (const CDatetime & inp) const;
 
+    [[nodiscard]] bool isOnDay(size_t year, size_t month, size_t day) const;
+
     CDatetime operator+ (size_t minutes) const;
+
+    CDatetime operator- (size_t minutes) const;
+
+    [[nodiscard]] size_t getYear() const;
+
+    [[nodiscard]] size_t getMonth() const;
+
+    [[nodiscard]] size_t getDay() const;
 
     CDatetime & setTime(const CTime &time);
 

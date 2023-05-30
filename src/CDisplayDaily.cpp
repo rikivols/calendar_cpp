@@ -17,3 +17,26 @@ CDisplayDaily::CDisplayDaily() {
 shared_ptr<CDisplayCalendar> CDisplayDaily::clone() const {
     return make_shared<CDisplayDaily>(*this);
 }
+
+void CDisplayDaily::display() const {
+    cout << "Displaying events from day: " << stringifyDay(mYear, mMonth, mDay) << ":\n" << endl;
+    displayDailyEvents(cout, mYear, mMonth, mDay);
+    cout << endl;
+}
+
+void CDisplayDaily::nextPage() {
+    getNextDay(mYear, mMonth, mDay);
+
+    display();
+}
+
+void CDisplayDaily::previousPage() {
+    CDatetime datetime(mYear, mMonth, mDay, 0, 0);
+    CDatetime tomorrow = datetime - 1440;
+
+    mYear = tomorrow.getYear();
+    mMonth = tomorrow.getMonth();
+    mDay = tomorrow.getDay();
+
+    display();
+}

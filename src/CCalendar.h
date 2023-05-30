@@ -27,6 +27,8 @@ public:
 
     [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents(const shared_ptr<CEvent> &event) const;
 
+    [[nodiscard]] vector<shared_ptr<CEvent>> getDailyEvents(size_t year, size_t month, size_t day) const;
+
     /**
      * Adds event to the calendar if possible. Implementation of the event->isConflict polymorphism
      *

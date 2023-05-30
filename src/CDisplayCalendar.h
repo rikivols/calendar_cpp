@@ -26,6 +26,17 @@ public:
      */
     void setCalendar(const CCalendar &calendar);
 
+    ostream &displayDailyEvents(ostream &out, size_t year, size_t month, size_t day) const;
+
+    static void getNextDay(size_t &year, size_t &month, size_t &day) {
+        CDatetime datetime(year, month, day, 0, 0);
+        CDatetime tomorrow = datetime + 1440;
+
+        year = tomorrow.getYear();
+        month = tomorrow.getMonth();
+        day = tomorrow.getDay();
+    }
+
     /**
      * Print out the current page of the calendar.
      */

@@ -21,6 +21,7 @@ public:
 
     CEvent &operator=(CEvent &&element) = delete;
 
+
     [[nodiscard]] virtual shared_ptr<CEvent> clone() const = 0;
 
     virtual ostream &print(ostream &out) const = 0;
@@ -28,6 +29,8 @@ public:
     ostream &partialPrint(ostream &out) const;
 
     [[nodiscard]] CDatetime getStart() const;
+
+    [[nodiscard]] virtual bool happensOnDay(size_t year, size_t month, size_t day) const = 0;
 
     void setStart(const CDatetime &start);
 

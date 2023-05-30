@@ -79,6 +79,21 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &
     return sortedEvents;
 }
 
+vector<shared_ptr<CEvent>> CCalendar::getDailyEvents(size_t year, size_t month, size_t day) const {
+    vector<shared_ptr<CEvent>> sortedEvents;
+
+    for (const auto &[key, mEvent] : mEvents) {
+        if (mEvent->happensOnDay(year, month, day)) {
+            sortedEvents.push_back(mEvent);
+        }
+    }
+
+    sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsByStartDatetime);
+
+    return sortedEvents;
+}
+
+
 size_t CCalendar::findNumberOfConflicts(const CEvent & event, int offset) const {
 
     size_t numOfConflicts = 0;

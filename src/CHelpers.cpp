@@ -88,9 +88,18 @@ string addZeroPadding(size_t num) {
 }
 
 
-ostream &printSeparator(ostream &out) {
+ostream &printSeparator(ostream &out, int type) {
     out << endl;
-    out << "===============================================";
+    char c;
+    switch (type) {
+        case 0:
+            c = '-';
+        case 1:
+            c = '=';
+        default:
+            c = ' ';
+    }
+    out << string(25, c);
     out << endl;
 
     return out;
@@ -104,3 +113,7 @@ ostream &printVector(ostream &out, const vector<string> &vec) {
 
     return out;
 }
+
+string stringifyDay(size_t year, size_t month, size_t day) {
+    return addZeroPadding(year) + "." + addZeroPadding(month) + addZeroPadding(day);
+};
