@@ -13,7 +13,7 @@ public:
     CEvent(size_t eventId, string name, const CDatetime &start, string place,
           const vector<string> &attendees, const vector<string> &tags, string notes);
 
-    // CEvent(const CEvent &event);
+    CEvent(const CEvent &event);
 
     virtual ~CEvent() noexcept = default;
 
@@ -29,9 +29,9 @@ public:
 
     void setStart(const CDatetime &start);
 
-    void swapEvent(CEvent &event);
-
     virtual void setEnd(const CDatetime &end) = 0;
+
+    void swapEvent(CEvent &event);
 
     [[nodiscard]] virtual CDatetime getEnd() const = 0;
 
@@ -41,7 +41,7 @@ public:
 
     [[nodiscard]] size_t getId() const;
 
-    [[nodiscard]] virtual bool isConflict(const CEvent & event, int offsetHours) const = 0;
+    [[nodiscard]] virtual bool isConflict(const CEvent & event, int offset) const = 0;
 
     [[nodiscard]] virtual pair<CTime, CTime> getForeverBusyTime() const = 0;
 

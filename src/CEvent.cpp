@@ -27,29 +27,29 @@ bool CEvent::sortEventsByStartDatetime(const shared_ptr<CEvent> &event1, const s
     return event1->getStart() < event2->getStart();
 }
 
-//CEvent::CEvent(const CEvent &event) {
-//    mEventId = event.mEventId;
-//    mName = event.mName;
-//    mStart = event.mStart;
-//    mPlace = event.mPlace;
-//
-//    for (const auto &attendee: event.mAttendees) {
-//        mAttendees.push_back(attendee);
-//    }
-//
-//    for (const auto &tag: event.mTags) {
-//        mTags.push_back(tag);
-//    }
-//
-//    mNotes = event.mNotes;
-//}
-//
-//void CEvent::swapEvent(CEvent &event) {
-//    swap(mEventId, event.mEventId);
-//    swap(mName, event.mName);
-//    swap(mStart, event.mStart);
-//    swap(mPlace, event.mPlace);
-//    swap(mAttendees, event.mAttendees);
-//    swap(mTags, event.mTags);
-//    swap(mNotes, event.mNotes);
-//}
+CEvent::CEvent(const CEvent &event) {
+    mEventId = event.mEventId;
+    mName = event.mName;
+    mStart = event.mStart;
+    mPlace = event.mPlace;
+
+    for (const auto &attendee: event.mAttendees) {
+        mAttendees.push_back(attendee);
+    }
+
+    for (const auto &tag: event.mTags) {
+        mTags.push_back(tag);
+    }
+
+    mNotes = event.mNotes;
+}
+
+void CEvent::swapEvent(CEvent &event) {
+    swap(mEventId, event.mEventId);
+    swap(mName, event.mName);
+    swap(mStart, event.mStart);
+    swap(mPlace, event.mPlace);
+    swap(mAttendees, event.mAttendees);
+    swap(mTags, event.mTags);
+    swap(mNotes, event.mNotes);
+}

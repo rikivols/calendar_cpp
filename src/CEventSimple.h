@@ -15,9 +15,9 @@ public:
     CEventSimple(size_t eventId, string name, const CDatetime &start, const CDatetime &end, string place, const vector<string> &attendees,
                 const vector<string> &tags, string note);
 
-//    CEventSimple(const CEventSimple &eventSimple);
+    CEventSimple(const CEventSimple &eventSimple);
 
-//    CEventSimple &operator=(CEventSimple eventRecurring);
+    CEventSimple &operator=(CEventSimple eventRecurring);
 
     [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
@@ -28,7 +28,7 @@ public:
      *
      * @param[in] datetime Datetime we want to have at end
      */
-    void setEnd(const CDatetime & datetime);
+    void setEnd(const CDatetime & datetime) override;
 
     [[nodiscard]] CDatetime getEnd() const override;
 
@@ -44,7 +44,7 @@ public:
      *                        the conflict, used for checking conflict when moving event
      * @return true = event conflicts, false = event doesn't conflict
      */
-    [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
+    [[nodiscard]] bool isConflict(const CEvent & event, int offset) const override;
 
     [[nodiscard]] pair<CTime, CTime> getForeverBusyTime() const override;
 

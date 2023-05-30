@@ -11,9 +11,9 @@ public:
     CEventRecurring(size_t eventId, string name, const CDatetime &start, const CTime &end, string place,
                    const vector<string> &attendees, const vector<string> &tags, string notes);
 
-//    CEventRecurring(const CEventRecurring &eventRecurring);
+    CEventRecurring(const CEventRecurring &eventRecurring);
 
-//    CEventRecurring &operator=(CEventRecurring eventRecurring);
+    CEventRecurring &operator=(CEventRecurring eventRecurring);
 
     [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
@@ -36,7 +36,7 @@ public:
      *                        the conflict, used for checking conflict when moving event
      * @return true = event conflicts, false = event doesn't conflict
      */
-    [[nodiscard]] bool isConflict(const CEvent &event, int offsetHours) const override;
+    [[nodiscard]] bool isConflict(const CEvent & event, int offset) const override;
 
     [[nodiscard]] pair<CTime, CTime> getForeverBusyTime() const override;
 

@@ -12,7 +12,7 @@ shared_ptr<CEvent> CEventRecurring::clone() const {
     return std::make_shared<CEventRecurring>(*this);
 }
 
-bool CEventRecurring::isConflict(const CEvent &event, int offsetHours) const {
+bool CEventRecurring::isConflict(const CEvent & event, int offset) const {
     return false;
 }
 
@@ -40,13 +40,13 @@ void CEventRecurring::setEnd(const CDatetime &end) {
     mEnd = end.getTime();
 }
 
-//CEventRecurring::CEventRecurring(const CEventRecurring &eventRecurring): CEvent(eventRecurring) {
-//    mEnd = eventRecurring.mEnd;
-//}
-//
-//CEventRecurring &CEventRecurring::operator=(CEventRecurring eventRecurring) {
-//    swapEvent(eventRecurring);
-//    swap(mEnd, eventRecurring.mEnd);
-//
-//    return *this;
-//}
+CEventRecurring::CEventRecurring(const CEventRecurring &eventRecurring): CEvent(eventRecurring) {
+    mEnd = eventRecurring.mEnd;
+}
+
+CEventRecurring &CEventRecurring::operator=(CEventRecurring eventRecurring) {
+    swapEvent(eventRecurring);
+    swap(mEnd, eventRecurring.mEnd);
+
+    return *this;
+}

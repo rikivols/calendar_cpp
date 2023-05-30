@@ -172,3 +172,25 @@ void CApplication::addEvent() {
         mLastEventId++;
     }
 }
+
+void CApplication::moveEvent() {
+    cout << "Please select id of an event that you want to move:" << endl;
+    size_t eventId = loadNumber(1, 999999999);
+
+    if (!mCalendar.getEvent(eventId)) {
+        cout << "event doesn't exist" << endl;
+        return;
+    }
+
+    cout << "Select by how many hours you want to move the event" << endl;
+    int hours = loadNumber(-23, 23);
+
+    mCalendar.moveEvent(eventId, hours);
+}
+
+void CApplication::removeEvent() {
+    cout << "Please select id of an event that you want to remove:" << endl;
+    size_t eventId = loadNumber(1, 999999999);
+
+    mCalendar.removeEvent(eventId);
+}

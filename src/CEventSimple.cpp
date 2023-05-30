@@ -14,6 +14,10 @@ shared_ptr<CEvent> CEventSimple::clone() const {
     return std::make_shared<CEventSimple>(*this);
 }
 
+bool CEventSimple::isConflict(const CEvent & event, int offset) const {
+    return false;
+}
+
 CDatetime CEventSimple::getEnd() const {
     return mEnd;
 }
@@ -34,13 +38,13 @@ void CEventSimple::setEnd(const CDatetime &end) {
     mEnd = end;
 }
 
-//CEventSimple::CEventSimple(const CEventSimple &eventSimple): CEvent(eventSimple) {
-//    mEnd = eventSimple.mEnd;
-//}
-//
-//CEventSimple &CEventSimple::operator=(CEventSimple eventSimple) {
-//    swapEvent(eventSimple);
-//    swap(mEnd, eventSimple.mEnd);
-//
-//    return *this;
-//}
+CEventSimple::CEventSimple(const CEventSimple &eventSimple): CEvent(eventSimple) {
+    mEnd = eventSimple.mEnd;
+}
+
+CEventSimple &CEventSimple::operator=(CEventSimple eventSimple) {
+    swapEvent(eventSimple);
+    swap(mEnd, eventSimple.mEnd);
+
+    return *this;
+}
