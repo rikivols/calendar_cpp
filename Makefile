@@ -18,8 +18,6 @@ run: volckric
 
 compile: volckric
 
--include Makefile.d
-
 main.o: src/main.cpp src/CApplication.h
 CApplication.o: src/CApplication.cpp src/CApplication.h
 CCalendar.o: src/CCalendar.cpp src/CCalendar.h

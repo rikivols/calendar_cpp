@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CCalendar.h"
 #include "CConflictSolver.h"
 

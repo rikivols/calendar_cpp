@@ -5,11 +5,6 @@
 
 #include "CCalendar.h"
 
-tm *getTimeNow() {
-    time_t cTime = time(nullptr);
-    return localtime(&cTime);
-}
-
 /**
  * Base class for the displaying of the calendar.
  */
@@ -27,6 +22,11 @@ public:
     void setCalendar(const CCalendar &calendar);
 
     ostream &displayDailyEvents(ostream &out, int year, int month, int day) const;
+
+    [[nodiscard]] static tm *getTimeNow() {
+        time_t cTime = time(nullptr);
+        return localtime(&cTime);
+    }
 
     static void getNextDay(int &year, int &month, int &day) {
         CDatetime datetime(year, month, day, 0, 0);

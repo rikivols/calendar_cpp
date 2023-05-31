@@ -23,12 +23,13 @@ int getUserOption(int maxChoice) {
 string & loadString(string &loadedString, bool emptyCheck) {
     while (true) {
         cin >> loadedString;
+        cout << endl;
 
         if (cin.fail()) {
-            cout << "Failed to load the text, please try again" << endl;
+            cout << "Failed to load the text, please try again: ";
         }
         else if (emptyCheck && loadedString.empty()) {
-            cout << "text can't be empty, please select again" << endl;
+            cout << "text can't be empty, please select again: ";
         }
         else {
             return loadedString;
@@ -67,6 +68,7 @@ int loadNumber(int minNum, int maxNum) {
         }
         else if (res < minNum || res > maxNum) {
             cout << "Selected number is out of range, acceptable values are: [" << minNum << "..." << maxNum << "]" << endl;
+            cout << "please try again: ";
         }
         else {
             break;

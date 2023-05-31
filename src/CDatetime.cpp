@@ -165,6 +165,11 @@ long CDatetime::operator-(const CDatetime &datetime) const {
 }
 
 bool CDatetime::isValidDate() {
+
+    if (mYear < 1990 || mYear > 2100) {
+        return false;
+    }
+
     auto originalTime = getTmDate();
     auto copyOfTime = originalTime;
 

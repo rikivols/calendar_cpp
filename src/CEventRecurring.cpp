@@ -30,6 +30,7 @@ ostream &CEventRecurring::print(ostream &out) const {
     out << "Start Date: ";
     mStart.printDate(out) << endl;
     out << "Repeating interval: " << mStart.getTime() << " - " << mEnd;
+    partialPrint(out);
 
     return out;
 }

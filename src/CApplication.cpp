@@ -1,5 +1,4 @@
 #include "CApplication.h"
-#include "CHelpers.cpp"
 
 CApplication::CApplication() : mLastEventId(1) {}
 
@@ -120,7 +119,7 @@ void CApplication::addEvent() {
         startDate.loadDatetime();
 
         if (isRecurring) {
-            cout << "Enter end time (recurring events don't have end date):";
+            cout << "Enter end time (recurring events don't have end date):" << endl;
             endTime.loadTime();
 
             if (startDate.getTime() == endTime) {
