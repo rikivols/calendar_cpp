@@ -17,3 +17,15 @@ CDisplayWeekly::CDisplayWeekly() {
 shared_ptr<CDisplayCalendar> CDisplayWeekly::clone() const {
     return make_shared<CDisplayWeekly>(*this);
 }
+
+void CDisplayWeekly::display() const {
+
+}
+
+void CDisplayWeekly::nextPage() {
+
+}
+
+void CDisplayWeekly::previousPage() {
+
+}

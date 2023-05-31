@@ -194,3 +194,15 @@ void CApplication::removeEvent() {
 
     mCalendar.removeEvent(eventId);
 }
+
+void CApplication::handleImport() {
+
+}
+
+void CApplication::findEvents() {
+
+}
+
+void CApplication::exportCalendar() {
+
+}

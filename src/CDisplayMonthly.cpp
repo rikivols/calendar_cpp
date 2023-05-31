@@ -15,3 +15,15 @@ CDisplayMonthly::CDisplayMonthly() {
 shared_ptr<CDisplayCalendar> CDisplayMonthly::clone() const {
     return make_shared<CDisplayMonthly>(*this);
 }
+
+void CDisplayMonthly::display() const {
+
+}
+
+void CDisplayMonthly::nextPage() {
+
+}
+
+void CDisplayMonthly::previousPage() {
+
+}
