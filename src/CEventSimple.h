@@ -21,7 +21,7 @@ public:
 
     [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
-    bool happensOnDay(size_t year, size_t month, size_t day) const override;
+    bool happensOnDay(int year, int month, int day) const override;
 
     ostream &print(ostream &out) const override;
 

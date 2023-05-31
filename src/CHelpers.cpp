@@ -77,7 +77,7 @@ int loadNumber(int minNum, int maxNum) {
 }
 
 
-string addZeroPadding(size_t num) {
+string addZeroPadding(int num) {
     string res = to_string(num);
 
     if (res.size() == 1) {
@@ -114,6 +114,6 @@ ostream &printVector(ostream &out, const vector<string> &vec) {
     return out;
 }
 
-string stringifyDay(size_t year, size_t month, size_t day) {
+string stringifyDay(int year, int month, int day) {
     return addZeroPadding(year) + "." + addZeroPadding(month) + addZeroPadding(day);
 };

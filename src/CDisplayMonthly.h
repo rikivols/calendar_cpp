@@ -16,5 +16,5 @@ public:
     void previousPage() override;
 
 private:
-    size_t mMonth;
+    int mMonth;
 };

@@ -2,7 +2,7 @@
 
 CDatetime::CDatetime() : mYear(0), mMonth(0), mDay(0), CTime() {}
 
-CDatetime::CDatetime(size_t year, size_t month, size_t day, size_t hour, size_t minute) : mYear(year), mMonth(month),
+CDatetime::CDatetime(int year, int month, int day, int hour, int minute) : mYear(year), mMonth(month),
                                                                                         mDay(day), CTime(hour, minute) {}
 
 CDatetime &CDatetime::loadDatetime() {
@@ -97,18 +97,50 @@ std::ostream &operator<<(ostream &out, const CDatetime &self) {
     return out;
 }
 
-bool CDatetime::isOnDay(size_t year, size_t month, size_t day) const {
+bool CDatetime::isOnDay(int year, int month, int day) const {
     return mYear == year && mMonth == month && mDay == day;
 }
 
-size_t CDatetime::getYear() const {
+int CDatetime::getYear() const {
     return mYear;
 }
 
-size_t CDatetime::getMonth() const {
+int CDatetime::getMonth() const {
     return mMonth;
 }
 
-size_t CDatetime::getDay() const {
+int CDatetime::getDay() const {
     return mDay;
+}
+
+CDatetime CDatetime::operator+(int minutes) const {
+    auto timeT = getTimeT();
+    timeT += minutes;
+    CDatetime datetime(timeT);
+
+    return datetime;
+}
+
+time_t CDatetime::getTimeT() const {
+    struct tm timeStruct;
+
+    timeStruct.tm_year = mYear;
+    timeStruct.tm_mon = mMonth;
+    timeStruct.tm_mday = mDay;
+    timeStruct.tm_hour = mHour;
+    timeStruct.tm_min = mMinute;
+
+    time_t timeT = mktime(&timeStruct);
+
+    return timeT;
+}
+
+CDatetime::CDatetime(time_t timeT) {
+    struct tm timeStruct = *localtime(&timeT);
+
+    mYear = timeStruct.tm_year;
+    mMonth = timeStruct.tm_mon;
+    mDay = timeStruct.tm_mday;
+    mHour = timeStruct.tm_hour;
+    mMinute = timeStruct.tm_min;
 }

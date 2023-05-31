@@ -30,7 +30,7 @@ public:
 
     [[nodiscard]] CDatetime getStart() const;
 
-    [[nodiscard]] virtual bool happensOnDay(size_t year, size_t month, size_t day) const = 0;
+    [[nodiscard]] virtual bool happensOnDay(int year, int month, int day) const = 0;
 
     void setStart(const CDatetime &start);
 

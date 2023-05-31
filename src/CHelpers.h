@@ -17,10 +17,10 @@ void convertStringLowercase(string &toConv);
 
 int loadNumber(int minNum, int maxNum);
 
-string addZeroPadding(size_t num);
+string addZeroPadding(int num);
 
 ostream &printSeparator(ostream &out, int type=0);
 
 ostream &printVector(ostream &out, const vector<string> &vec);
 
-string stringifyDay(size_t year, size_t month, size_t day);
+string stringifyDay(int year, int month, int day);

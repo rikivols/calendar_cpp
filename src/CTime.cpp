@@ -2,7 +2,7 @@
 
 CTime::CTime(): mMinute(69), mHour(69) {}  // initialize with a value that's not a valid time
 
-CTime::CTime(size_t hour, size_t minute): mHour(hour), mMinute(minute) {}
+CTime::CTime(int hour, int minute): mHour(hour), mMinute(minute) {}
 
 CTime &CTime::loadTime() {
     cout << "Select hour:" << endl;
@@ -47,15 +47,19 @@ size_t CTime::operator-(const CTime &inp) const {
 }
 
 // TODO
-CTime CTime::operator+(size_t minutes) const {
+//CTime CTime::addMinutes(int minutes) const {
+//    return {};
+//}
+CTime CTime::operator+(size_t durationMinutes) const {
     return {};
 }
 
-size_t CTime::getHour() const {
+
+int CTime::getHour() const {
     return mHour;
 }
 
-size_t CTime::getMinute() const {
+int CTime::getMinute() const {
     return mMinute;
 }
 

@@ -16,7 +16,7 @@ class CTime {
 public:
     CTime();
 
-    CTime(size_t hour, size_t minute);
+    CTime(int hour, int minute);
 
     bool isValidTime();
 
@@ -37,11 +37,11 @@ public:
 
     CTime & loadTime();
 
-    size_t getHour() const;
+    [[nodiscard]] int getHour() const;
 
-    size_t getMinute() const;
+    [[nodiscard]] int getMinute() const;
 
-    CTime operator+ (size_t minutes) const;
+    CTime operator+ (size_t durationMinutes) const;
 
     ostream &printTime(ostream &out) const;
 
@@ -49,8 +49,8 @@ public:
 
 
 protected:
-    size_t mHour;
-    size_t mMinute;
+    int mHour;
+    int mMinute;
 };
 
 
@@ -59,7 +59,9 @@ public:
 
     CDatetime();
 
-    CDatetime(size_t year, size_t month, size_t day, size_t hour, size_t minute);
+    CDatetime(int year, int month, int day, int hour, int minute);
+
+    CDatetime(time_t timeT);
 
     /**
      * Find out whether the datetime is a correct date and time.
@@ -89,17 +91,19 @@ public:
 
     bool operator>= (const CDatetime & inp) const;
 
-    [[nodiscard]] bool isOnDay(size_t year, size_t month, size_t day) const;
+    [[nodiscard]] time_t getTimeT() const;
 
-    CDatetime operator+ (size_t minutes) const;
+    [[nodiscard]] bool isOnDay(int year, int month, int day) const;
 
-    CDatetime operator- (size_t minutes) const;
+    CDatetime operator+ (int minutes) const;
 
-    [[nodiscard]] size_t getYear() const;
+    CDatetime operator- (int minutes) const;
 
-    [[nodiscard]] size_t getMonth() const;
+    [[nodiscard]] int getYear() const;
 
-    [[nodiscard]] size_t getDay() const;
+    [[nodiscard]] int getMonth() const;
+
+    [[nodiscard]] int getDay() const;
 
     CDatetime & setTime(const CTime &time);
 
@@ -110,7 +114,7 @@ public:
     friend std::ostream &operator<<(std::ostream &out, const CDatetime &self);
 
 private:
-    size_t mYear;
-    size_t mMonth;
-    size_t mDay;
+    int mYear;
+    int mMonth;
+    int mDay;
 };

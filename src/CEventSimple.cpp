@@ -58,6 +58,6 @@ ostream &CEventSimple::print(ostream &out) const {
     return out;
 }
 
-bool CEventSimple::happensOnDay(size_t year, size_t month, size_t day) const {
+bool CEventSimple::happensOnDay(int year, int month, int day) const {
     return mStart.isOnDay(year, month, day) || mEnd.isOnDay(year, month, day);
 }

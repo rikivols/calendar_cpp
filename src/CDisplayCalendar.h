@@ -26,9 +26,9 @@ public:
      */
     void setCalendar(const CCalendar &calendar);
 
-    ostream &displayDailyEvents(ostream &out, size_t year, size_t month, size_t day) const;
+    ostream &displayDailyEvents(ostream &out, int year, int month, int day) const;
 
-    static void getNextDay(size_t &year, size_t &month, size_t &day) {
+    static void getNextDay(int &year, int &month, int &day) {
         CDatetime datetime(year, month, day, 0, 0);
         CDatetime tomorrow = datetime + 1440;
 
@@ -54,5 +54,5 @@ public:
 
 protected:
     CCalendar mCalendar;
-    size_t mYear = 10;
+    int mYear = 10;
 };

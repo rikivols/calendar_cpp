@@ -79,7 +79,7 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &
     return sortedEvents;
 }
 
-vector<shared_ptr<CEvent>> CCalendar::getDailyEvents(size_t year, size_t month, size_t day) const {
+vector<shared_ptr<CEvent>> CCalendar::getDailyEvents(int year, int month, int day) const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
     for (const auto &[key, mEvent] : mEvents) {
@@ -116,7 +116,7 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
             cout << failedMessage << "Event at that time already exists" << endl;
             cout << "The conflicted event:" << endl;
             cout << myEvent;
-            return (int)eventId;
+            return eventId;
         }
     }
 
