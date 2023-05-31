@@ -133,11 +133,21 @@ time_t CDatetime::getTimeT() const {
     return mktime(&timeStruct);
 }
 
+tm CDatetime::getTmDate() const {
+    struct tm timeStruct = {0};
+    timeStruct.tm_year = mYear - 1900; // years count from 1900
+    timeStruct.tm_mon = mMonth - 1;    // months count from January=0
+    timeStruct.tm_mday = mDay;         // days count from 1
+    timeStruct.tm_hour = 12;
+
+    return timeStruct;
+}
+
 CDatetime::CDatetime(time_t timeT) {
     struct tm timeStruct = *localtime(&timeT);
 
-    mYear = timeStruct.tm_year;
-    mMonth = timeStruct.tm_mon;
+    mYear = timeStruct.tm_year + 1900;
+    mMonth = timeStruct.tm_mon + 1;
     mDay = timeStruct.tm_mday;
     mHour = timeStruct.tm_hour;
     mMinute = timeStruct.tm_min;
@@ -152,6 +162,21 @@ long CDatetime::operator-(const CDatetime &datetime) const {
     auto tm2 = datetime.getTimeT();
 
     return (tm1 - tm2) / 60;
+}
+
+bool CDatetime::isValidDate() {
+    auto originalTime = getTmDate();
+    auto copyOfTime = originalTime;
+
+    auto temporaryTime = mktime(&copyOfTime);
+    copyOfTime = *localtime(&temporaryTime);
+
+    if (copyOfTime.tm_year != originalTime.tm_year || copyOfTime.tm_mon != originalTime.tm_mon ||
+            copyOfTime.tm_mday != originalTime.tm_mday) {
+        return false;
+    }
+
+    return isValidTime();
 }
 
 //CDatetime CDatetime::operator+(const CDatetime &datetime) const {

@@ -95,3 +95,7 @@ bool CTime::isInRange(const CTime &from, const CTime &to) const {
 
     return *this >= from && *this <= to;
 }
+
+bool CTime::isValidTime() const {
+    return mHour >= 0 && mHour <= 23 && mMinute >= 0 && mMinute <= 59;
+}

@@ -13,6 +13,14 @@ shared_ptr<CEvent> CEventRecurring::clone() const {
 }
 
 bool CEventRecurring::isConflict(const CEvent & event, int offset) const {
+    CDatetime eventStart = event.getStart() + offset;
+    CDatetime eventEnd = event.getEnd() + offset;
+    if (mStart <= eventStart) {
+        if (eventStart.isInRange(mStart.getTime(), mEnd) || eventEnd.isInRange(mStart.getTime(), mEnd)) {
+            return true;
+        }
+    }
+
     return false;
 }
 

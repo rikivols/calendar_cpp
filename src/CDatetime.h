@@ -18,7 +18,7 @@ public:
 
     CTime(int hour, int minute);
 
-    bool isValidTime();
+    bool isValidTime() const;
 
     // TODO
     [[nodiscard]] bool isInRange(const CTime &from, const CTime &to) const;
@@ -33,7 +33,6 @@ public:
 
     bool operator>= (const CTime & inp) const;
 
-    // TODO
     int operator- (const CTime & inp) const;
 
     CTime & loadTime();
@@ -62,7 +61,7 @@ public:
 
     CDatetime(int year, int month, int day, int hour, int minute);
 
-    CDatetime(time_t timeT);
+    explicit CDatetime(time_t timeT);
 
     /**
      * Find out whether the datetime is a correct date and time.
@@ -71,16 +70,7 @@ public:
      */
     bool isValidDate();
 
-    /**
-     * Find out whether the datetime belongs to the provided range
-     *
-     * @param[in] from start of the range that datetime should belong to
-     * @param[in] to end of the range that datetime should belong to
-     * @return true = datetime belongs to the range, false = doesn't
-     */
-//    bool isInRange(const CDatetime &from, const CDatetime &to);
-
-    CTime getTime() const;
+    [[nodiscard]] CTime getTime() const;
 
     bool operator> (const CDatetime & inp) const;
 
@@ -94,13 +84,14 @@ public:
 
     [[nodiscard]] time_t getTimeT() const;
 
+    [[nodiscard]] tm getTmDate() const;
+
     [[nodiscard]] bool isOnDay(int year, int month, int day) const;
 
     CDatetime operator+ (int minutes) const;
 
     CDatetime operator- (int minutes) const;
 
-    // TODO
     long operator- (const CDatetime &datetime) const;
 
     [[nodiscard]] int getYear() const;

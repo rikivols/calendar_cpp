@@ -15,6 +15,14 @@ shared_ptr<CEvent> CEventSimple::clone() const {
 }
 
 bool CEventSimple::isConflict(const CEvent & event, int offset) const {
+    CDatetime eventStart = event.getStart() + offset;
+    CDatetime eventEnd = event.getEnd() + offset;
+    if (event.happensOnDay(mStart.getYear(), mStart.getMonth(), mStart.getDay())) {
+        if (eventStart.isInRange(mStart.getTime(), mEnd.getTime()) || eventEnd.isInRange(mStart.getTime(), mEnd.getTime())) {
+            return true;
+        }
+    }
+
     return false;
 }
 
