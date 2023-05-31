@@ -71,8 +71,6 @@ public:
 
     size_t findNumberOfConflicts(const shared_ptr<CEvent> & event, int offset) const;
 
-    [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents() const;
-
 protected:
     map<size_t, shared_ptr<CEvent>> mEvents;
 };

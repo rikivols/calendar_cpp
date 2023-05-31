@@ -115,24 +115,22 @@ int CDatetime::getDay() const {
 
 CDatetime CDatetime::operator+(int minutes) const {
     auto timeT = getTimeT();
-    timeT += minutes;
+    timeT += minutes * 60;
     CDatetime datetime(timeT);
 
     return datetime;
 }
 
 time_t CDatetime::getTimeT() const {
-    struct tm timeStruct;
+    struct tm timeStruct = {0};
 
-    timeStruct.tm_year = mYear;
-    timeStruct.tm_mon = mMonth;
+    timeStruct.tm_year = mYear - 1900;
+    timeStruct.tm_mon = mMonth - 1;
     timeStruct.tm_mday = mDay;
     timeStruct.tm_hour = mHour;
     timeStruct.tm_min = mMinute;
 
-    time_t timeT = mktime(&timeStruct);
-
-    return timeT;
+    return mktime(&timeStruct);
 }
 
 CDatetime::CDatetime(time_t timeT) {
@@ -144,3 +142,18 @@ CDatetime::CDatetime(time_t timeT) {
     mHour = timeStruct.tm_hour;
     mMinute = timeStruct.tm_min;
 }
+
+CDatetime CDatetime::operator-(int minutes) const {
+    return *this + -minutes;
+}
+
+long CDatetime::operator-(const CDatetime &datetime) const {
+    auto tm1 = getTimeT();
+    auto tm2 = datetime.getTimeT();
+
+    return (tm1 - tm2) / 60;
+}
+
+//CDatetime CDatetime::operator+(const CDatetime &datetime) const {
+//    return CDatetime();
+//}

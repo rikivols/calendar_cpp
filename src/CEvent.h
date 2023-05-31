@@ -42,7 +42,7 @@ public:
 
     [[nodiscard]] virtual CTime getEndTime() const = 0;
 
-    [[nodiscard]] virtual size_t getEventDuration() const = 0;
+    [[nodiscard]] virtual int getEventDuration() const = 0;
 
     [[nodiscard]] size_t getId() const;
 

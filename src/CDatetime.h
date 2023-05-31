@@ -21,7 +21,7 @@ public:
     bool isValidTime();
 
     // TODO
-    bool isInRange(const CTime &from, const CTime &to) const;
+    [[nodiscard]] bool isInRange(const CTime &from, const CTime &to) const;
 
     bool operator> (const CTime &inp) const;
 
@@ -33,7 +33,8 @@ public:
 
     bool operator>= (const CTime & inp) const;
 
-    size_t operator- (const CTime & inp) const;
+    // TODO
+    int operator- (const CTime & inp) const;
 
     CTime & loadTime();
 
@@ -41,7 +42,7 @@ public:
 
     [[nodiscard]] int getMinute() const;
 
-    CTime operator+ (size_t durationMinutes) const;
+    [[nodiscard]] CTime addMinutes(int durationMinutes) const;
 
     ostream &printTime(ostream &out) const;
 
@@ -77,7 +78,7 @@ public:
      * @param[in] to end of the range that datetime should belong to
      * @return true = datetime belongs to the range, false = doesn't
      */
-    bool isInRange(const CDatetime &from, const CDatetime &to);
+//    bool isInRange(const CDatetime &from, const CDatetime &to);
 
     CTime getTime() const;
 
@@ -98,6 +99,9 @@ public:
     CDatetime operator+ (int minutes) const;
 
     CDatetime operator- (int minutes) const;
+
+    // TODO
+    long operator- (const CDatetime &datetime) const;
 
     [[nodiscard]] int getYear() const;
 

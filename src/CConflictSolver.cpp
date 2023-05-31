@@ -22,7 +22,7 @@ bool CConflictSolver::solveAddConflict(CEvent &event) {
 
             cout << "New date found for the event, its start date will be: " << eventStart << endl;
             event.setStart(eventStart);
-            event.setEnd(eventStart + event.getEventDuration());
+            event.setEnd(eventStart + (int)event.getEventDuration());
 
             break;
         }
@@ -33,7 +33,7 @@ bool CConflictSolver::solveAddConflict(CEvent &event) {
                 return false;
             }
             auto conflictedEvent = mCalendar.getEvent(mEventId);
-            size_t conflictedEventDuration = conflictedEvent->getEventDuration();
+            int conflictedEventDuration = conflictedEvent->getEventDuration();
             CDatetime oldStart = conflictedEvent->getStart();
             CDatetime oldEnd = conflictedEvent->getEnd();
 
@@ -93,11 +93,11 @@ bool CConflictSolver::sortTimeByStart(const pair<CTime, CTime> &time1, const pai
 }
 
 // we include start
-CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> &foreverBusyVec, size_t durationMinutes,
+CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> &foreverBusyVec, int durationMinutes,
                                        const CTime &start, const CTime &end) {
     sort(foreverBusyVec.begin(), foreverBusyVec.end(), sortTimeByStart);
     CTime result = start;
-    CTime resultEnd = result + durationMinutes;
+    CTime resultEnd = result.addMinutes(durationMinutes);
 
     for (const auto &busyRange: foreverBusyVec) {
         if (!result.isInRange(busyRange.first, busyRange.second) && !resultEnd.isInRange(busyRange.first, busyRange.second)
@@ -105,8 +105,8 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
             return result;
         }
 
-        result = busyRange.second + 1;
-        resultEnd = result + durationMinutes;
+        result = busyRange.second.addMinutes(1);
+        resultEnd = result.addMinutes(durationMinutes);
     }
 
     if (result.isInRange(start, end) && resultEnd.isInRange(start, end)) {
@@ -116,7 +116,7 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
     return {};
 }
 
-CDatetime CConflictSolver::getNextFreeDatetime(size_t durationMinutes, const CDatetime &from, size_t ignoreEventId,
+CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatetime &from, size_t ignoreEventId,
                                                const shared_ptr<CEvent> &newFutureEvent) {
     auto sortedEvents = mCalendar.getSortedEvents(newFutureEvent);
 

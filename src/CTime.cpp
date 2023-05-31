@@ -42,16 +42,26 @@ bool CTime::operator<=(const CTime &inp) const {
     return this->operator==(inp) || this->operator<(inp);
 }
 
-size_t CTime::operator-(const CTime &inp) const {
-    size_t resultMinutes = 0;
+int CTime::operator-(const CTime &inp) const {
+    int minutes1 = mHour * 60 + mMinute;
+    int minutes2 = inp.mHour * 60 + inp.mMinute;
+
+    return minutes1 - minutes2;
 }
 
 // TODO
 //CTime CTime::addMinutes(int minutes) const {
 //    return {};
 //}
-CTime CTime::operator+(size_t durationMinutes) const {
-    return {};
+CTime CTime::addMinutes(int durationMinutes) const {
+    // convert all to minutes
+    int minutes = mHour * 60 + mMinute;
+    minutes += durationMinutes;
+
+    int hour = (minutes / 60) % 24;
+    int minute = minutes % 60;
+
+    return {hour, minute};
 }
 
 
@@ -71,4 +81,17 @@ ostream &CTime::printTime(ostream &out) const {
 
 std::ostream &operator<<(ostream &out, const CTime &self) {
     return self.printTime(out);
+}
+
+// 13:00 - 16:00
+// 16:00 - 13:00
+bool CTime::isInRange(const CTime &from, const CTime &to) const {
+
+    bool reverseCase = from > to;  // reverse case is for example from 13:00 to 1:30
+
+    if (reverseCase) {
+        return *this >= from || *this <= to;
+    }
+
+    return *this >= from && *this <= to;
 }

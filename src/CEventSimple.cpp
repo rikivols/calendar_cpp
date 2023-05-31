@@ -30,8 +30,8 @@ CTime CEventSimple::getEndTime() const {
     return getEnd().getTime();
 }
 
-size_t CEventSimple::getEventDuration() const {
-    return mEnd - mStart;
+int CEventSimple::getEventDuration() const {
+    return (int)abs(mEnd - mStart);
 }
 
 void CEventSimple::setEnd(const CDatetime &end) {

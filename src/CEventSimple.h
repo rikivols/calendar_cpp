@@ -36,7 +36,7 @@ public:
 
     [[nodiscard]] CTime getEndTime() const override;
 
-    [[nodiscard]] size_t getEventDuration() const override;
+    [[nodiscard]] int getEventDuration() const override;
 
     /**
      * Finds out if calendar's event doesn't conflict with the provided event.

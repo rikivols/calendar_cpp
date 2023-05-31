@@ -38,8 +38,8 @@ CTime CEventRecurring::getEndTime() const {
     return mEnd;
 }
 
-size_t CEventRecurring::getEventDuration() const {
-    return mEnd - mStart.getTime();
+int CEventRecurring::getEventDuration() const {
+    return abs(mEnd - mStart.getTime());
 }
 
 void CEventRecurring::setEnd(const CDatetime &end) {
