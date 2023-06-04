@@ -1,14 +1,14 @@
 #include "CDatetime.h"
 
-CTime::CTime(): mMinute(69), mHour(69) {}  // initialize with a value that's not a valid time
+CTime::CTime(): mHour(69), mMinute(69) {}  // initialize with a value that's not a valid time
 
 CTime::CTime(int hour, int minute): mHour(hour), mMinute(minute) {}
 
 CTime &CTime::loadTime() {
-    cout << "Select hour:" << endl;
+    cout << "Select hour: ";
     mHour = loadNumber(0, 23);
 
-    cout << "Select minute:" << endl;
+    cout << "Select minute: ";
     mMinute = loadNumber(0, 59);
 
     return *this;

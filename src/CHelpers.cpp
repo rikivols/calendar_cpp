@@ -20,16 +20,18 @@ int getUserOption(int maxChoice) {
     return option;
 }
 
-string & loadString(string &loadedString, bool emptyCheck) {
+string & loadString(string &loadedString, bool allowEmpty) {
     while (true) {
-        cin >> loadedString;
-        cout << endl;
-
+        if (allowEmpty) {
+            cout << endl;
+            cin.ignore();
+            getline(cin, loadedString);
+        }
+        else {
+            cin >> loadedString;
+        }
         if (cin.fail()) {
             cout << "Failed to load the text, please try again: ";
-        }
-        else if (emptyCheck && loadedString.empty()) {
-            cout << "text can't be empty, please select again: ";
         }
         else {
             return loadedString;
@@ -44,7 +46,7 @@ vector<string> &loadMultiString(vector<string> &storeVec, const string &property
     int numberOfValues = loadNumber(0, maxNum);
 
     for (size_t i=0; i<numberOfValues; i++) {
-        cout << "Select " << propertyName << " number " << i+1 << ":" << endl;
+        cout << "Select " << propertyName << " number " << i+1 << ": ";
         storeVec.push_back(loadString(value));
     }
 
@@ -96,8 +98,10 @@ ostream &printSeparator(ostream &out, int type) {
     switch (type) {
         case 0:
             c = '-';
+            break;
         case 1:
             c = '=';
+            break;
         default:
             c = ' ';
     }
@@ -117,5 +121,5 @@ ostream &printVector(ostream &out, const vector<string> &vec) {
 }
 
 string stringifyDay(int year, int month, int day) {
-    return addZeroPadding(year) + "." + addZeroPadding(month) + addZeroPadding(day);
+    return addZeroPadding(year) + "." + addZeroPadding(month) + "." + addZeroPadding(day);
 };

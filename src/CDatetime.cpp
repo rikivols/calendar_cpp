@@ -1,21 +1,21 @@
 #include "CDatetime.h"
 
-CDatetime::CDatetime() : mYear(0), mMonth(0), mDay(0), CTime() {}
+CDatetime::CDatetime() : CTime(), mYear(0), mMonth(0), mDay(0) {}
 
-CDatetime::CDatetime(int year, int month, int day, int hour, int minute) : mYear(year), mMonth(month),
-                                                                                        mDay(day), CTime(hour, minute) {}
+CDatetime::CDatetime(int year, int month, int day, int hour, int minute) : CTime(hour, minute), mYear(year),
+                                                                           mMonth(month), mDay(day) {}
 
 CDatetime &CDatetime::loadDatetime() {
 
     while (true) {
 
-        cout << "Select year:" << endl;
+        cout << "Select year: ";
         mYear = loadNumber(1990, 2100);
 
-        cout << "Select month:" << endl;
+        cout << "Select month: ";
         mMonth = loadNumber(1, 12);
 
-        cout << "Select day:" << endl;
+        cout << "Select day: ";
         mDay = loadNumber(1, 31);
 
         loadTime();
@@ -24,8 +24,7 @@ CDatetime &CDatetime::loadDatetime() {
             break;
         }
         else {
-            // is valid will comment why
-            cout << "please select again" << endl;
+            cout << "Your date isn't valid, please select your date again." << endl;
         }
     }
 

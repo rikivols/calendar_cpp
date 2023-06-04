@@ -27,9 +27,10 @@ bool CEventRecurring::isConflict(const CEvent & event, int offset) const {
 ostream &CEventRecurring::print(ostream &out) const {
     printSeparator(out);
     out << "Recurring event (repeats daily)" << endl;
+    out << "Id: " << mEventId << endl;
     out << "Start Date: ";
     mStart.printDate(out) << endl;
-    out << "Repeating interval: " << mStart.getTime() << " - " << mEnd;
+    out << "Repeating interval: " << mStart.getTime() << " - " << mEnd << endl;
     partialPrint(out);
 
     return out;

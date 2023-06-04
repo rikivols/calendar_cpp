@@ -19,7 +19,7 @@ shared_ptr<CDisplayCalendar> CDisplayDaily::clone() const {
 }
 
 void CDisplayDaily::display() const {
-    cout << "Displaying events from day: " << stringifyDay(mYear, mMonth, mDay) << ":\n" << endl;
+    cout << endl << "Displaying events on day " << stringifyDay(mYear, mMonth, mDay) << ":" << endl;
     displayDailyEvents(cout, mYear, mMonth, mDay);
     cout << endl;
 }

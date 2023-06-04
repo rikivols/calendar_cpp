@@ -9,7 +9,7 @@ using namespace std;
 
 int getUserOption(int maxChoice);
 
-string & loadString(string &loadedString, bool emptyCheck=true);
+string & loadString(string &loadedString, bool allowEmpty=false);
 
 vector<string> &loadMultiString(vector<string> &storeVec, const string &propertyName, int maxNum);
 

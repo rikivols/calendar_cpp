@@ -25,6 +25,8 @@ void CApplication::displayCalendar() {
                 cout << "2 - go to the next page" << endl;
                 cout << "3 - cancel" << endl;
 
+                cout << "Select action (1-3): ";
+
                 int pageMode = getUserOption(4);
 
                 if (pageMode == 3) return;
@@ -37,13 +39,15 @@ void CApplication::displayCalendar() {
                 }
             }
         }
+
+        cout << endl;
     }
 }
 
 void CApplication::displayMainMenu() {
 
     while (true) {
-        cout << "You're at the main menu of the calendar, what action do you want to choose?" << endl;
+        cout << endl << "You're at the main menu of the calendar, what action do you want to choose?" << endl;
         cout << "1 - add event" << endl;
         cout << "2 - move event" << endl;
         cout << "3 - remove event" << endl;
@@ -52,7 +56,10 @@ void CApplication::displayMainMenu() {
         cout << "6 - export calendar" << endl;
         cout << "7 - end application" << endl;
 
+        cout << "Select action (1-7): ";
+
         int option = getUserOption(7);
+        cout << endl;
 
         switch (option) {
             case 1:
@@ -78,10 +85,7 @@ void CApplication::displayMainMenu() {
             default:
                 continue;
         }
-
     }
-
-
 }
 
 void CApplication::addEvent() {
@@ -94,11 +98,12 @@ void CApplication::addEvent() {
     vector<string> attendees;
     vector<string> tags;
 
-    cout << "Please select event name:" << endl;
+    cout << "You're about to add an event, fill the fields below:" << endl;
+    cout << "Enter event name: ";
     loadString(eventName);
 
-    cout << "Is your event recurring (happens every day)? (y/n)" << endl;
     while (true) {
+        cout << "Is your event recurring (happens every day)? (y/n): ";
         cin >> option;
         convertStringLowercase(option);
         if (option == "yes" || option == "y") {
@@ -110,12 +115,12 @@ void CApplication::addEvent() {
             break;
         }
         else {
-            cout << "Invalid format, please enter again";
+            cout << "Invalid format, please try again." << endl;
         }
     }
 
     while (true) {
-        cout << "Enter start datetime:" << endl;
+        cout << "You're about to enter a date and time of the start of the event:" << endl;
         startDate.loadDatetime();
 
         if (isRecurring) {
@@ -123,20 +128,20 @@ void CApplication::addEvent() {
             endTime.loadTime();
 
             if (startDate.getTime() == endTime) {
-                cout << "Event can't have 0 minute duration, please enter datetimes again" << endl;
+                cout << "Event can't have 0 minute duration, please enter dates again" << endl;
             }
             else {
                 break;
             }
         } else {
-            cout << "Enter end datetime:" << endl;
+            cout << "You're about to enter a date and time of the end of the event:" << endl;
             endDate.loadDatetime();
 
             if (startDate == endDate) {
-                cout << "Event can't have 0 minute duration, please enter datetimes again" << endl;
+                cout << "Event can't have 0 minute duration, please enter dates again" << endl<< endl;
             }
             else if (startDate >= endDate) {
-                cout << "Start date can't come after end date, please enter datetimes again" << endl;
+                cout << "Start date can't come after end date, please enter dates again" << endl << endl;
             }
             else {
                 break;
@@ -144,17 +149,17 @@ void CApplication::addEvent() {
         }
     }
 
-    cout << "Enter event place:" << endl;
+    cout << "Enter event place: ";
     loadString(place);
 
-    cout << "How many attendees does your event have:" << endl;
+    cout << "How many attendees does your event have (0-99): ";
     loadMultiString(attendees, "attendee", 99);
 
-    cout << "How many tags does your event have:" << endl;
+    cout << "How many tags does your event have (0-99): ";
     loadMultiString(tags, "tag", 99);
 
-    cout << "Enter notes (optional):" << endl;
-    loadString(notes);
+    cout << "Enter notes (optional): ";
+    loadString(notes, true);
 
     bool addSuccess;
 
@@ -173,7 +178,7 @@ void CApplication::addEvent() {
 }
 
 void CApplication::moveEvent() {
-    cout << "Please select id of an event that you want to move:" << endl;
+    cout << "Please select id of an event that you want to move: ";
     size_t eventId = loadNumber(1, 999999999);
 
     if (!mCalendar.getEvent(eventId)) {
@@ -181,14 +186,14 @@ void CApplication::moveEvent() {
         return;
     }
 
-    cout << "Select by how many hours you want to move the event" << endl;
+    cout << "Select by how many hours you want to move the event (-23, 23): " << endl;
     int hours = loadNumber(-23, 23);
 
     mCalendar.moveEvent(eventId, hours);
 }
 
 void CApplication::removeEvent() {
-    cout << "Please select id of an event that you want to remove:" << endl;
+    cout << "Please select id of an event that you want to remove: ";
     size_t eventId = loadNumber(1, 999999999);
 
     mCalendar.removeEvent(eventId);

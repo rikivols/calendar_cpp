@@ -55,7 +55,6 @@ void CEvent::swapEvent(CEvent &event) {
 }
 
 ostream &CEvent::partialPrint(ostream &out) const {
-    out << "Id: " << mEventId << endl;
     out << "Name: " << mName << endl;
     out << "Place: " << mPlace << endl;
     out << "Attendees:" << endl;

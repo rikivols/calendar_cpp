@@ -12,7 +12,7 @@ bool CCalendar::addEvent(CEvent &event) {
     }
 
     if (addSuccess) {
-        cout << "New event successfully added:" << endl;
+        cout << "New event successfully added:";
         cout << event;
     }
 

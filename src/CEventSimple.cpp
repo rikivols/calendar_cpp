@@ -60,8 +60,10 @@ CEventSimple &CEventSimple::operator=(CEventSimple eventSimple) {
 ostream &CEventSimple::print(ostream &out) const {
     printSeparator(out);
     out << "Simple event" << endl;
+    out << "Id: " << mEventId << endl;
     out << "Start Date: " << mStart << endl;
     out << "End Date: " << mEnd << endl;
+    partialPrint(out);
 
     return out;
 }
