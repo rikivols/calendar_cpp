@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "CCalendar.h"
+#include "../CCalendar.h"
 
 /**
  * Class responsible for importing of the calendar.

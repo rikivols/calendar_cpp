@@ -88,8 +88,11 @@ ostream &CDatetime::printDate(ostream &out) const {
     return out;
 }
 
-std::ostream &operator<<(ostream &out, const CDatetime &self) {
+string CDatetime::toString() const {
+    return to_string(mYear) + "." + addZeroPadding(mMonth) + "." + addZeroPadding(mDay) + " " + toStringTime();
+}
 
+std::ostream &operator<<(ostream &out, const CDatetime &self) {
     self.printDate(out) << " ";
     self.printTime(out);
 
@@ -182,6 +185,7 @@ bool CDatetime::isValidDate() {
 
     return isValidTime();
 }
+
 
 //CDatetime CDatetime::operator+(const CDatetime &datetime) const {
 //    return CDatetime();

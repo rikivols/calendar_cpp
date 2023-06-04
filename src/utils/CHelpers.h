@@ -4,6 +4,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <functional>
+#include <cctype>
+#include <locale>
 
 using namespace std;
 
@@ -24,3 +28,7 @@ ostream &printSeparator(ostream &out, int type=0);
 ostream &printVector(ostream &out, const vector<string> &vec);
 
 string stringifyDay(int year, int month, int day);
+
+string &stripString(string & inp);
+
+string exportFormatVector(vector<string> vec);

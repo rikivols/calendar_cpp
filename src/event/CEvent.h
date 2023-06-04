@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "CDatetime.h"
+#include "../utils/CDatetime.h"
 
 /**
  * Abstract class of the calendar's event.
@@ -21,7 +21,6 @@ public:
 
     CEvent &operator=(CEvent &&element) = delete;
 
-
     [[nodiscard]] virtual shared_ptr<CEvent> clone() const = 0;
 
     virtual ostream &print(ostream &out) const = 0;
@@ -31,6 +30,8 @@ public:
     [[nodiscard]] CDatetime getStart() const;
 
     [[nodiscard]] virtual bool happensOnDay(int year, int month, int day) const = 0;
+
+    virtual string &exportEvent(string &fileRow) const = 0;
 
     void setStart(const CDatetime &start);
 

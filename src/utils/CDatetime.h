@@ -18,7 +18,7 @@ public:
 
     CTime(int hour, int minute);
 
-    bool isValidTime() const;
+    [[nodiscard]] bool isValidTime() const;
 
     // TODO
     [[nodiscard]] bool isInRange(const CTime &from, const CTime &to) const;
@@ -42,6 +42,8 @@ public:
     [[nodiscard]] int getMinute() const;
 
     [[nodiscard]] CTime addMinutes(int durationMinutes) const;
+
+    string toStringTime() const;
 
     ostream &printTime(ostream &out) const;
 
@@ -105,6 +107,8 @@ public:
     CDatetime & loadDatetime();
 
     ostream &printDate(ostream &out) const;
+
+    [[nodiscard]] string toString() const;
 
     friend std::ostream &operator<<(std::ostream &out, const CDatetime &self);
 

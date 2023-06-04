@@ -2,11 +2,11 @@
 #pragma once
 
 #include "CCalendar.h"
-#include "CDisplayDaily.h"
-#include "CDisplayWeekly.h"
-#include "CDisplayMonthly.h"
-#include "CEventSimple.h"
-#include "CEventRecurring.h"
+#include "display/CDisplayDaily.h"
+#include "display/CDisplayWeekly.h"
+#include "display/CDisplayMonthly.h"
+#include "event/CEventSimple.h"
+#include "event/CEventRecurring.h"
 #include "CConflictSolver.h"
 
 /**

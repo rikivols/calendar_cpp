@@ -3,7 +3,7 @@
 
 #include <ctime>
 
-#include "CCalendar.h"
+#include "../CCalendar.h"
 
 /**
  * Base class for the displaying of the calendar.

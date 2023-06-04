@@ -70,3 +70,10 @@ CEventRecurring &CEventRecurring::operator=(CEventRecurring eventRecurring) {
 bool CEventRecurring::happensOnDay(int year, int month, int day) const {
     return mStart <= CDatetime(year, month, day, 0, 0);
 }
+
+
+string &CEventRecurring::exportEvent(string &fileRow) const {
+    fileRow = to_string(mEventId) + ",rec," + mName + "," + mStart.toString() + "," + mEnd.toStringTime() + "," + mPlace
+              + "," + exportFormatVector(mAttendees) + "," + exportFormatVector(mTags) + "," + mNotes;
+    return fileRow;
+}

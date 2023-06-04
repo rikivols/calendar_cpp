@@ -71,3 +71,9 @@ ostream &CEventSimple::print(ostream &out) const {
 bool CEventSimple::happensOnDay(int year, int month, int day) const {
     return mStart.isOnDay(year, month, day) || mEnd.isOnDay(year, month, day);
 }
+
+string &CEventSimple::exportEvent(string &fileRow) const {
+    fileRow = to_string(mEventId) + ",sim," + mName + "," + mStart.toString() + "," + mEnd.toString() + "," + mPlace
+            + "," + exportFormatVector(mAttendees) + "," + exportFormatVector(mTags) + "," + mNotes;
+    return fileRow;
+}

@@ -1,19 +1,23 @@
 
 #pragma once
 
-#include "CEventSimple.h"
+#include <set>
+#include <string>
+#include <vector>
+
+#include "CEvent.h"
 
 /**
- * Represents calendar's event that repeats every day. It has a start datetime, but it doesn't have the end.
+ * Represents calendar's event that doesn't repeat.
  */
-class CEventRecurring: public CEvent {
+class CEventSimple: public CEvent {
 public:
-    CEventRecurring(size_t eventId, string name, const CDatetime &start, const CTime &end, string place,
-                   const vector<string> &attendees, const vector<string> &tags, string notes);
+    CEventSimple(size_t eventId, string name, const CDatetime &start, const CDatetime &end, string place, const vector<string> &attendees,
+                const vector<string> &tags, string note);
 
-    CEventRecurring(const CEventRecurring &eventRecurring);
+    CEventSimple(const CEventSimple &eventSimple);
 
-    CEventRecurring &operator=(CEventRecurring eventRecurring);
+    CEventSimple &operator=(CEventSimple eventRecurring);
 
     [[nodiscard]] shared_ptr<CEvent> clone() const override;
 
@@ -21,17 +25,23 @@ public:
 
     ostream &print(ostream &out) const override;
 
-    [[nodiscard]] CDatetime getEnd() const override;
+    string & exportEvent(string &fileRow) const override;
 
-    void setEnd(const CDatetime &end) override;
+    /**
+     * Replaces the current end of the event by the provided datetime.
+     *
+     * @param[in] datetime Datetime we want to have at end
+     */
+    void setEnd(const CDatetime & datetime) override;
+
+    [[nodiscard]] CDatetime getEnd() const override;
 
     [[nodiscard]] CTime getEndTime() const override;
 
     [[nodiscard]] int getEventDuration() const override;
 
     /**
-     * Finds out if calendar's event doesn't conflict with the provided event. Since recurring event repeats every
-     * day and doesn't have the end, the calculation will be different.
+     * Finds out if calendar's event doesn't conflict with the provided event.
      *
      * @param[in] event the event we want to check, whether it conflicts with the class's event
      * @param[in] offsetHours if we want to add or subtract hours of the provided event's datetime for searching of
@@ -43,5 +53,5 @@ public:
     [[nodiscard]] pair<CTime, CTime> getForeverBusyTime() const override;
 
 private:
-    CTime mEnd;
+    CDatetime mEnd;
 };

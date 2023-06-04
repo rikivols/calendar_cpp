@@ -30,8 +30,14 @@ string & loadString(string &loadedString, bool allowEmpty) {
         else {
             cin >> loadedString;
         }
+
+        stripString(loadedString);
+
         if (cin.fail()) {
-            cout << "Failed to load the text, please try again: ";
+            cout << "Failed to load the text, please enter the value again: ";
+        }
+        else if (loadedString.empty() && !allowEmpty) {
+            cout << "Can't have an empty string, please enter the value again: ";
         }
         else {
             return loadedString;
@@ -122,4 +128,31 @@ ostream &printVector(ostream &out, const vector<string> &vec) {
 
 string stringifyDay(int year, int month, int day) {
     return addZeroPadding(year) + "." + addZeroPadding(month) + "." + addZeroPadding(day);
-};
+}
+
+
+string &stripString(string & inp) {
+    inp.erase(inp.begin(), find_if(inp.begin(), inp.end(), [](unsigned char ch) {  // remove prefix
+        return !isspace(ch);
+    }));
+
+    inp.erase(find_if(inp.rbegin(), inp.rend(), [](unsigned char ch) {  // remove sufix
+        return !isspace(ch);
+    }).base(), inp.end());
+
+    return inp;
+}
+
+
+string exportFormatVector(vector<string> &vec) {
+    string res = "[";
+    for (size_t i=0; i<vec.size(); i++) {
+        res += vec[i];
+        if (i != vec.size() - 1) {
+            res += ",";
+        }
+    }
+    res += "]";
+
+    return res;
+}
