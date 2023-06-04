@@ -2,6 +2,7 @@ CXX=g++
 LD=g++
 CXXFLAGS=-std=c++17 -Wall -pedantic -Wno-long-long
 LDFLAGS=-std=c++17 -Wall -pedantic -Wno-long-long
+SRC=src/*.cpp src/display/*.cpp src/event/*.cpp src/importExport/*.cpp src/utils/*.cpp
 
 all: volckric
 volckric: main.o CApplication.o CCalendar.o CCalendarFinder.o CCalendarImporter.o CConflictSolver.o CDatetime.o CDisplayCalendar.o CDisplayDaily.o CDisplayMonthly.o CDisplayWeekly.o CEvent.o CEventExporter.o CEventRecurring.o CEventSimple.o CHelpers.o CTime.o
@@ -21,17 +22,17 @@ compile: volckric
 main.o: src/main.cpp src/CApplication.h
 CApplication.o: src/CApplication.cpp src/CApplication.h
 CCalendar.o: src/CCalendar.cpp src/CCalendar.h
-CCalendarExporter.o: src/CEventExporter.cpp src/CEventExporter.h
 CCalendarFinder.o: src/CCalendarFinder.cpp src/CCalendarFinder.h
-CCalendarImporter.o: src/CCalendarImporter.cpp src/CCalendarImporter.h
+CCalendarImporter.o: src/importExport/CCalendarImporter.cpp src/importExport/CCalendarImporter.h
 CConflictSolver.o: src/CConflictSolver.cpp src/CConflictSolver.h
-CDatetime.o: src/CDatetime.cpp src/CDatetime.h
-CDisplayCalendar.o: src/CDisplayCalendar.cpp src/CDisplayCalendar.h
-CDisplayDaily.o: src/CDisplayDaily.cpp src/CDisplayDaily.h
-CDisplayMonthly.o: src/CDisplayMonthly.cpp src/CDisplayMonthly.h
-CDisplayWeekly.o: src/CDisplayWeekly.cpp src/CDisplayWeekly.h
-CEvent.o: src/CEvent.cpp src/CEvent.h
-CEventRecurring.o: src/CEventRecurring.cpp src/CEventRecurring.h
-CEventSimple.o: src/CEventSimple.cpp src/CEventSimple.h
-CHelpers.o: src/CHelpers.cpp src/CHelpers.h
-CTime.o: src/CTime.cpp src/CDatetime.h
+CDatetime.o: src/utils/CDatetime.cpp src/utils/CDatetime.h
+CDisplayCalendar.o: src/display/CDisplayCalendar.cpp src/display/CDisplayCalendar.h
+CDisplayDaily.o: src/display/CDisplayDaily.cpp src/display/CDisplayDaily.h
+CDisplayMonthly.o: src/display/CDisplayMonthly.cpp src/display/CDisplayMonthly.h
+CDisplayWeekly.o: src/display/CDisplayWeekly.cpp src/display/CDisplayWeekly.h
+CEvent.o: src/event/CEvent.cpp src/event/CEvent.h
+CEventExporter.o: src/importExport/CEventExporter.cpp src/importExport/CEventExporter.h
+CEventRecurring.o: src/event/CEventRecurring.cpp src/event/CEventRecurring.h
+CEventSimple.o: src/event/CEventSimple.cpp src/event/CEventSimple.h
+CHelpers.o: src/utils/CHelpers.cpp src/utils/CHelpers.h
+CTime.o: src/utils/CTime.cpp src/utils/CDatetime.h

@@ -8,6 +8,7 @@
 #include "event/CEventSimple.h"
 #include "event/CEventRecurring.h"
 #include "CConflictSolver.h"
+#include "importExport/CEventExporter.h"
 
 /**
  * Main class of the program, handles most of the input and output.

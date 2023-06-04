@@ -156,3 +156,9 @@ string exportFormatVector(vector<string> &vec) {
 
     return res;
 }
+
+
+tm *getTimeNow() {
+    time_t cTime = time(nullptr);
+    return localtime(&cTime);
+}

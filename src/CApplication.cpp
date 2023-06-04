@@ -193,7 +193,7 @@ void CApplication::moveEvent() {
 }
 
 void CApplication::removeEvent() {
-    cout << "Please select id of an event that you want to remove: ";
+    cout << "Select id of an event that you want to remove: ";
     size_t eventId = loadNumber(1, 999999999);
 
     mCalendar.removeEvent(eventId);
@@ -208,5 +208,6 @@ void CApplication::findEvents() {
 }
 
 void CApplication::exportCalendar() {
-
+    CEventExporter exporter(mCalendar.getEvents());
+    exporter.exportToFile();
 }

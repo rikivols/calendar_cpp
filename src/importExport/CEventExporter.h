@@ -1,12 +1,15 @@
 
 #pragma once
 
+#include "../event/CEvent.h"
+#include "../utils/CHelpers.h"
+
 #include <utility>
 #include <fstream>
-
-#include "../CCalendar.h"
+#include <map>
 
 class CEventExporter {
+public:
 
     explicit CEventExporter(const map<size_t, shared_ptr<CEvent>> &events);
 
@@ -17,7 +20,7 @@ class CEventExporter {
      * @return true = export was successful
      *         false = export failed, display the reason
      */
-    bool exportToFile(const string &filePath);
+    void exportToFile() const;
 
 private:
     map<size_t, shared_ptr<CEvent>> mEvents;

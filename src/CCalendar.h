@@ -63,13 +63,15 @@ public:
                                                      const string &place, const vector<string> &attendees,
                                                      const set<string> &tags, bool isAnd);
 
-    size_t getFirstConflictId(const CEvent & event, int offset=0) const;
+    [[nodiscard]] size_t getFirstConflictId(const CEvent & event, int offset=0) const;
 
-    size_t findNumberOfConflicts(const CEvent & event, int offset=0) const;
+    [[nodiscard]] size_t findNumberOfConflicts(const CEvent & event, int offset=0) const;
 
-    size_t getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const;
+    [[nodiscard]] size_t getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const;
 
-    size_t findNumberOfConflicts(const shared_ptr<CEvent> & event, int offset) const;
+    [[nodiscard]] size_t findNumberOfConflicts(const shared_ptr<CEvent> & event, int offset) const;
+
+    const map<size_t, shared_ptr<CEvent>> &getEvents();
 
 protected:
     map<size_t, shared_ptr<CEvent>> mEvents;

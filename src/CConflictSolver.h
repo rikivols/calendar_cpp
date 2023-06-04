@@ -1,6 +1,5 @@
 #pragma once
 
-#include "event/CEvent.h"
 #include "CCalendar.h"
 
 class CConflictSolver {
