@@ -2,16 +2,23 @@ CXX=g++
 LD=g++
 CXXFLAGS=-std=c++17 -Wall -pedantic -Wno-long-long
 LDFLAGS=-std=c++17 -Wall -pedantic -Wno-long-long
-SRC=src/*.cpp src/display/*.cpp src/event/*.cpp src/importExport/*.cpp src/utils/*.cpp
+SRC=$(wildcard src/*.cpp src/*/*.cpp)
 
 all: volckric
+
+# create all binaries
 volckric: main.o CApplication.o CCalendar.o CCalendarFinder.o CCalendarImporter.o CConflictSolver.o CDatetime.o CDisplayCalendar.o CDisplayDaily.o CDisplayMonthly.o CDisplayWeekly.o CEvent.o CEventExporter.o CEventRecurring.o CEventSimple.o CHelpers.o CTime.o
 	$(LD) $(LXXFLAGS) -o $@ $^
 
 clean:
 	rm -f volckric *.o
 
+# match binaries to the cpp files that are directly in src
 %.o: src/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# match binaries to the cpp files that are in subfolders
+%.o: src/*/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 run: volckric
