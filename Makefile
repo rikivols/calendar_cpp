@@ -2,7 +2,6 @@ CXX=g++
 LD=g++
 CXXFLAGS=-std=c++17 -Wall -pedantic -Wno-long-long
 LDFLAGS=-std=c++17 -Wall -pedantic -Wno-long-long
-SRC=$(wildcard src/*.cpp src/*/*.cpp)
 
 all: volckric
 
