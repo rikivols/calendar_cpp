@@ -27,6 +27,6 @@ string stringifyDay(int year, int month, int day);
 
 string &stripString(string & inp);
 
-string exportFormatVector(vector<string> vec);
+string exportFormatVector(const vector<string> &vec);
 
 tm *getTimeNow();

@@ -144,7 +144,7 @@ string &stripString(string & inp) {
 }
 
 
-string exportFormatVector(vector<string> &vec) {
+string exportFormatVector(const vector<string> &vec) {
     string res = "[";
     for (size_t i=0; i<vec.size(); i++) {
         res += vec[i];

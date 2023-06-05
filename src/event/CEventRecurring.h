@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "CEventSimple.h"
+#include "CEvent.h"
 
 /**
  * Represents calendar's event that repeats every day. It has a start datetime, but it doesn't have the end.

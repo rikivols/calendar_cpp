@@ -12,7 +12,7 @@ void CEventExporter::exportToFile() const {
 
     if (!exportFile || !exportFile.is_open()) {
         cout << "Failed to open the provided file." << endl;
-        return false;
+        return;
     }
 
     string fileRow;
@@ -20,20 +20,18 @@ void CEventExporter::exportToFile() const {
     for (const auto &[id, event]: mEvents) {
         if (!exportFile || !exportFile.is_open()) {
             cout << "Failed to open the provided file, error occurred on line: " << lineNum << endl;
-            return false;
+            return;
         }
         event->exportEvent(fileRow);
         exportFile << fileRow;
         if (!exportFile.good()) {
             cout << "Failed to write to the file, error occurred on line: " << lineNum << endl;
             exportFile.close();
-            return false;
+            return;
         }
         lineNum++;
     }
 
     cout << "Successfully exported " << lineNum << " events to the file: " << filePath << endl;
     exportFile.close();
-
-    return true;
 }
