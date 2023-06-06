@@ -7,3 +7,4 @@ src/tst2.cpp
 cmake-build-debug
 .idea
 .DS_Store
+assets/*.txt

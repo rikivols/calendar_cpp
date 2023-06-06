@@ -6,8 +6,9 @@ CEventExporter::CEventExporter(const map<size_t, shared_ptr<CEvent>> &events) : 
 
 void CEventExporter::exportToFile() const {
     auto timeNow = getTimeNow();
-    string filePath = "../assets/calendarFullExport_" + to_string(timeNow->tm_year) + "_" + to_string(timeNow->tm_mon)
-            + "_" + to_string(timeNow->tm_mday) + "_" + to_string(timeNow->tm_hour) + "_" + to_string(timeNow->tm_min);
+    string filePath = "assets/calendarFullExport_" + to_string(timeNow->tm_year + 1900) + "_" + to_string(timeNow->tm_mon + 1)
+            + "_" + to_string(timeNow->tm_mday) + "_" + to_string(timeNow->tm_hour) + "_" + to_string(timeNow->tm_min)
+            + "_" + to_string(timeNow->tm_sec) + ".txt";
     ofstream exportFile(filePath, ios::out);
 
     if (!exportFile || !exportFile.is_open()) {
