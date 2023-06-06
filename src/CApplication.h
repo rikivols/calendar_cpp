@@ -9,6 +9,8 @@
 #include "event/CEventRecurring.h"
 #include "CConflictSolver.h"
 #include "importExport/CEventExporter.h"
+#include "importExport/CCalendarImporter.h"
+
 
 /**
  * Main class of the program, handles most of the input and output.

@@ -1,6 +1,27 @@
 #include "CApplication.h"
 
+
 CApplication::CApplication() : mLastEventId(1) {}
+
+
+void CApplication::handleImport() {
+    CCalendarImporter importer;
+    string filePath;
+
+    cout << "Do you want to import from a file or start with an empty calendar?" << endl;
+    cout << "1 - import from file" << endl;
+    cout << "2 - start with an empty calendar" << endl;
+
+    int displayMode = getUserOption(2);
+
+    if (displayMode == 1) {
+        cout << "Select path to the file you want to import from: ";
+        loadString(filePath);
+
+        mCalendar = importer.importFromFile(filePath);
+    }
+}
+
 
 void CApplication::displayCalendar() {
 
@@ -199,9 +220,6 @@ void CApplication::removeEvent() {
     mCalendar.removeEvent(eventId);
 }
 
-void CApplication::handleImport() {
-
-}
 
 void CApplication::findEvents() {
 

@@ -21,7 +21,7 @@ public:
      * @return true = adding was successful
      *         false = adding wasn't successful
      */
-    bool addEvent(CEvent &event);
+    bool addEvent(CEvent &event, bool ignoreConflict=false);
 
     shared_ptr<CEvent> getEvent(size_t eventId);
 

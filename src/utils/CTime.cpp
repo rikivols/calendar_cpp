@@ -20,8 +20,9 @@ bool CTime::operator> (const CTime &inp) const {
         return true;
     }
     if ( this->mHour == inp.mHour ) {
-        if ( this->mMinute > inp.mMinute )
+        if ( this->mMinute > inp.mMinute ) {
             return true;
+        }
     }
     return false;
 }
@@ -89,8 +90,27 @@ bool CTime::isInRange(const CTime &from, const CTime &to) const {
 
     bool reverseCase = from > to;  // reverse case is for example from 13:00 to 1:30
 
+    cout << "REVERSE CASE: " << reverseCase << endl;
+
     if (reverseCase) {
         return *this >= from || *this <= to;
+    }
+
+    cout << "*this >= from ";
+    if (*this >= from) {
+        cout << "True" << endl;
+    }
+    else {
+        cout << "False" << endl;
+    }
+
+    cout << "*this <= to";
+
+    if (*this <= to) {
+        cout << "True" << endl;
+    }
+    else {
+        cout << "False" << endl;
     }
 
     return *this >= from && *this <= to;

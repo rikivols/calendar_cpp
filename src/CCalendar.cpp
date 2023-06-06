@@ -1,10 +1,13 @@
 #include "CCalendar.h"
 #include "CConflictSolver.h"
 
-static string failedMessage = "Adding of the event failed: ";
 
-bool CCalendar::addEvent(CEvent &event) {
+bool CCalendar::addEvent(CEvent &event, bool ignoreConflict) {
     size_t conflictEventId = getFirstConflictId(event);
+    if (conflictEventId && ignoreConflict) {
+        return false;
+    }
+
     bool addSuccess = true;
     if (conflictEventId) {
         CConflictSolver conflictSolver(*this, conflictEventId);
@@ -111,9 +114,6 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
     for (auto const &[eventId, myEvent]: mEvents) {
         // polymorphism, we calculate differently if the conflict is recurring or a simple event
         if (event.getId() != eventId && myEvent->isConflict(event, offset)) {
-            cout << failedMessage << "Event at that time already exists" << endl;
-            cout << "The conflicted event:" << endl;
-            cout << myEvent;
             return eventId;
         }
     }

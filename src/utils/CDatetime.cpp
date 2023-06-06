@@ -132,7 +132,7 @@ time_t CDatetime::getTimeT() const {
     timeStruct.tm_hour = mHour;
     timeStruct.tm_min = mMinute;
 
-    return mktime(&timeStruct);
+    return mktime(&timeStruct) - timezone;  // work with UTC
 }
 
 tm CDatetime::getTmDate() const {
@@ -140,13 +140,13 @@ tm CDatetime::getTmDate() const {
     timeStruct.tm_year = mYear - 1900; // years count from 1900
     timeStruct.tm_mon = mMonth - 1;    // months count from January=0
     timeStruct.tm_mday = mDay;         // days count from 1
-    timeStruct.tm_hour = 12;
+    timeStruct.tm_hour = 12;           // set to 12 in case we have an hour shift because of the different timezones
 
     return timeStruct;
 }
 
 CDatetime::CDatetime(time_t timeT) {
-    struct tm timeStruct = *localtime(&timeT);
+    struct tm timeStruct = *gmtime(&timeT);  // work with UTC
 
     mYear = timeStruct.tm_year + 1900;
     mMonth = timeStruct.tm_mon + 1;
@@ -168,7 +168,7 @@ long CDatetime::operator-(const CDatetime &datetime) const {
 
 bool CDatetime::isValidDate() {
 
-    if (mYear < 1990 || mYear > 2100) {
+    if (mYear < 1990 || mYear > 2100 || mMonth <= 0 || mMonth > 12 || mDay <= 0 || mDay > 31) {
         return false;
     }
 

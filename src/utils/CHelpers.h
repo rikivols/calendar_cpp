@@ -30,3 +30,7 @@ string &stripString(string & inp);
 string exportFormatVector(const vector<string> &vec);
 
 tm *getTimeNow();
+
+void splitString(vector<string> &result, const string &line, char separator);
+
+int convertStringToInt(const string &inp);

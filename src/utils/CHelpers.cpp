@@ -76,7 +76,7 @@ int loadNumber(int minNum, int maxNum) {
         }
         else if (res < minNum || res > maxNum) {
             cout << "Selected number is out of range, acceptable values are: [" << minNum << "..." << maxNum << "]" << endl;
-            cout << "please try again: ";
+            cout << "please enter again: ";
         }
         else {
             break;
@@ -149,7 +149,7 @@ string exportFormatVector(const vector<string> &vec) {
     for (size_t i=0; i<vec.size(); i++) {
         res += vec[i];
         if (i != vec.size() - 1) {
-            res += ",";
+            res += ";";
         }
     }
     res += "]";
@@ -161,4 +161,34 @@ string exportFormatVector(const vector<string> &vec) {
 tm *getTimeNow() {
     time_t cTime = time(nullptr);
     return localtime(&cTime);
+}
+
+
+void splitString(vector<string> &result, const string &line, char separator) {
+    size_t start = 0;
+    string element;
+
+    for (size_t i = 0; i <= line.size(); i++) {
+        element = "";
+        if (line[i] == separator || i == line.size()) {
+            // append every word to the string once we have the separator
+            element.append(line, start, i - start);
+            result.push_back(element);
+            start = i + 1;
+        }
+    }
+}
+
+
+int convertStringToInt(const string &inp) {
+    int res;
+
+    try {
+        res = stoi(inp);
+    }
+    catch (...) {
+        res = -1;
+    }
+
+    return res;
 }
