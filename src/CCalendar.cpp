@@ -14,7 +14,11 @@ bool CCalendar::addEvent(CEvent &event, bool ignoreConflict) {
         addSuccess = conflictSolver.solveAddConflict(event);
     }
 
-    if (addSuccess) {
+    if (!addSuccess) {
+        return false;
+    }
+
+    if (!ignoreConflict) {
         cout << "New event successfully added:";
         cout << event;
     }

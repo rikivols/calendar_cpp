@@ -22,7 +22,7 @@ public:
     /**
      * Asks user whether to initialize an empty calendar or import it from a file
      */
-    void handleImport();
+    bool handleImport();
 
     /**
      * Starts the main loop of the calendar application. Prompts user with the main menu. Main menu has options

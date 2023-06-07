@@ -19,7 +19,7 @@ int loadNumber(int minNum, int maxNum);
 
 string addZeroPadding(int num);
 
-ostream &printSeparator(ostream &out, int type=0);
+ostream &printSeparator(ostream &out, char separator='-');
 
 ostream &printVector(ostream &out, const vector<string> &vec);
 

@@ -15,7 +15,7 @@
 class CCalendarImporter {
 public:
 
-    CCalendarImporter() = default;
+    CCalendarImporter();
 
     /**
      * Import the calendar from a CSV - like format
@@ -38,6 +38,10 @@ public:
 
     void parseVector(string &inp, vector<string> &finalVec);
 
+    bool wasSuccess() const {
+        return isSuccess;
+    }
+
 private:
     size_t mEventId;
     string mEventType, mName, mPlace, mNote, mErrorMessage;
@@ -45,4 +49,5 @@ private:
     CTime mEndTime;
     vector<string> mAttendees, mTags;
     set<size_t> mUsedEventIds;
+    bool isSuccess;
 };

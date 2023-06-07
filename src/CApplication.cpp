@@ -4,21 +4,71 @@
 CApplication::CApplication() : mLastEventId(1) {}
 
 
-void CApplication::handleImport() {
+bool CApplication::handleImport() {
     CCalendarImporter importer;
     string filePath;
 
-    cout << "Do you want to import from a file or start with an empty calendar?" << endl;
-    cout << "1 - import from file" << endl;
-    cout << "2 - start with an empty calendar" << endl;
+    while (true) {
+        cout << "Do you want to import from a file or start with an empty calendar?" << endl;
+        cout << "1 - import from file" << endl;
+        cout << "2 - start with an empty calendar" << endl;
 
-    int displayMode = getUserOption(2);
+        int displayMode = getUserOption(2);
 
-    if (displayMode == 1) {
-        cout << "Select path to the file you want to import from: ";
-        loadString(filePath);
+        if (displayMode == 1) {
+            cout << "Select path to the file you want to import from: ";
+            loadString(filePath);
+            cout << endl;
+            mCalendar = importer.importFromFile(filePath);
+            return importer.wasSuccess();
+        }
+        else if (displayMode == 2) {
+            return true;
+        }
+    }
 
-        mCalendar = importer.importFromFile(filePath);
+}
+
+
+void CApplication::displayMainMenu() {
+
+    while (true) {
+        cout << endl << "You're at the main menu of the calendar, what action do you want to choose?" << endl;
+        cout << "1 - add event" << endl;
+        cout << "2 - move event" << endl;
+        cout << "3 - remove event" << endl;
+        cout << "4 - find event" << endl;
+        cout << "5 - display calendar" << endl;
+        cout << "6 - export calendar" << endl;
+        cout << "7 - end application" << endl;
+
+        int option = getUserOption(7);
+        cout << endl;
+
+        switch (option) {
+            case 1:
+                this->addEvent();
+                break;
+            case 2:
+                this->moveEvent();
+                break;
+            case 3:
+                this->removeEvent();
+                break;
+            case 4:
+                this->findEvents();
+                break;
+            case 5:
+                this->displayCalendar();
+                break;
+            case 6:
+                this->exportCalendar();
+                break;
+            case 7:
+                return;
+            default:
+                break;
+        }
     }
 }
 
@@ -46,9 +96,7 @@ void CApplication::displayCalendar() {
                 cout << "2 - go to the next page" << endl;
                 cout << "3 - cancel" << endl;
 
-                cout << "Select action (1-3): ";
-
-                int pageMode = getUserOption(4);
+                int pageMode = getUserOption(3);
 
                 if (pageMode == 3) return;
 
@@ -65,49 +113,6 @@ void CApplication::displayCalendar() {
     }
 }
 
-void CApplication::displayMainMenu() {
-
-    while (true) {
-        cout << endl << "You're at the main menu of the calendar, what action do you want to choose?" << endl;
-        cout << "1 - add event" << endl;
-        cout << "2 - move event" << endl;
-        cout << "3 - remove event" << endl;
-        cout << "4 - find event" << endl;
-        cout << "5 - display calendar" << endl;
-        cout << "6 - export calendar" << endl;
-        cout << "7 - end application" << endl;
-
-        cout << "Select action (1-7): ";
-
-        int option = getUserOption(7);
-        cout << endl;
-
-        switch (option) {
-            case 1:
-                this->addEvent();
-                break;
-            case 2:
-                this->moveEvent();
-                break;
-            case 3:
-                this->removeEvent();
-                break;
-            case 4:
-                this->findEvents();
-                break;
-            case 5:
-                this->displayCalendar();
-                break;
-            case 6:
-                this->exportCalendar();
-                break;
-            case 7:
-                return;
-            default:
-                continue;
-        }
-    }
-}
 
 void CApplication::addEvent() {
 

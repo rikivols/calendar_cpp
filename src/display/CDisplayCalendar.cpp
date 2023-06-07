@@ -7,13 +7,13 @@ void CDisplayCalendar::setCalendar(const CCalendar &calendar) {
 ostream &CDisplayCalendar::displayDailyEvents(ostream &out, int year, int month, int day) const {
     auto dailyEvents = mCalendar.getDailyEvents(year, month, day);
 
-    printSeparator(out, 1);
-    out << stringifyDay(year, month, day) << endl;
+    printSeparator(out, '=');
+    out << endl << stringifyDay(year, month, day);
 
     for (const auto &event: dailyEvents) {
         out << endl << *event << endl;
     }
-    printSeparator(out, 1);
+    printSeparator(out, '=');
 
     return out;
 }

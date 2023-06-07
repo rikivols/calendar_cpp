@@ -1,8 +1,12 @@
 #include "CHelpers.h"
 
 int getUserOption(int maxChoice) {
-    int option = -1;
-    cin >> option;
+
+    cout << "Pick an option (1-" << maxChoice << "): ";
+    string optionStr;
+    cin >> optionStr;
+
+    int option = convertStringToInt(optionStr);
 
     if (option < 1 || option > maxChoice) {
         cout << "Invalid option selected, please pick from options: {";
@@ -98,20 +102,9 @@ string addZeroPadding(int num) {
 }
 
 
-ostream &printSeparator(ostream &out, int type) {
+ostream &printSeparator(ostream &out, char separator) {
     out << endl;
-    char c;
-    switch (type) {
-        case 0:
-            c = '-';
-            break;
-        case 1:
-            c = '=';
-            break;
-        default:
-            c = ' ';
-    }
-    out << string(25, c);
+    out << string(35, separator);
     out << endl;
 
     return out;

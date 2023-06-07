@@ -1,6 +1,9 @@
 #include "CCalendarImporter.h"
 
 
+CCalendarImporter::CCalendarImporter(): mEventId(0), isSuccess(false) {}
+
+
 CCalendar CCalendarImporter::importFromFile(const string &filePath) {
     size_t lineNum = 1;
     string fileRow, curElementString;
@@ -31,7 +34,7 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
                         break;
                     case 1: {
                         parseString(curElementString, mEventType);
-                        if (mEventType != "sim" || mEventType != "rec") {
+                        if (mEventType != "sim" && mEventType != "rec") {
                             mErrorMessage = "Event type must be 'sim' or 'rec'";
                         }
                         break;
@@ -86,8 +89,11 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
             }
 
             if (!addSuccess) {
-                return errorReturn("Failed to add a new event", lineNum);
+                return errorReturn("Event already exists at that time", lineNum);
             }
+
+            mAttendees.clear();
+            mTags.clear();
 
             lineNum++;
         }
@@ -97,6 +103,8 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
     }
 
     readFile.close();
+    cout << "Calendar was successfully imported. Number of events: " << lineNum - 1 << endl;
+    isSuccess = true;
 
     return finalCalendar;
 }
@@ -107,7 +115,7 @@ CCalendar CCalendarImporter::errorReturn(const string &message, size_t lineNum) 
     if (lineNum) {
         cout << "on line: " << lineNum << " ";
     }
-    cout << message << ", importing an empty calendar instead" << endl;
+    cout << message << ", goodbye" << endl;
     return CCalendar();
 }
 
@@ -217,6 +225,10 @@ void CCalendarImporter::parseVector(string &inp, vector<string> &finalVec) {
 
     inp.erase(0, 1);
     inp.pop_back();
+
+    if (inp.empty()) {
+        return;
+    }
 
     splitString(finalVec, inp, ';');
 
