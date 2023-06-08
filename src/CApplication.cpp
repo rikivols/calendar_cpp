@@ -212,14 +212,14 @@ void CApplication::removeEvent() {
 
 
 void CApplication::findEvents() {
-    bool isAnd, doExport, wereEventsFound;
+    bool wereEventsFound, continueSearching, isAnd=true;
     string name, place, isAndRaw;
     CDatetime start = CDatetime(), end = CDatetime();
     vector<string> attendees, tags;
     int numOfEntries = 0;
 
     while (true) {
-        cout << "By what criteria do you want to search in the calendar?" << endl;
+        cout << endl << "By what criteria do you want to search in the calendar?" << endl;
         cout << "1 - search by event name (exact match)" << endl;
         cout << "2 - search by event start date time (from)" << endl;
         cout << "3 - search by event end date time (to)" << endl;
@@ -263,41 +263,54 @@ void CApplication::findEvents() {
             break;
         }
         numOfEntries++;
-    }
 
+        continueSearching = loadYesNo("Do you want to add more search filters?");
 
-    while(true) {
-        cout << "Do you want to search by AND or OR clause? (and/or): ";
-        loadString(isAndRaw);
-        convertStringLowercase(isAndRaw);
-
-        if (isAndRaw == "and") {
-            isAnd = true;
+        if (!continueSearching) {
             break;
-        }
-        else if (isAndRaw == "or") {
-            isAnd = false;
-            break;
-        }
-        else {
-            cout << "Your entry has to be 'and' or 'or', please try again." << endl;
         }
     }
 
-    CCalendarFinder finder(isAnd, name, start, end, place, attendees, tags);
+    if (numOfEntries > 1) {
+        while (true) {
+            cout << "Do you want to search by AND or OR clause? (and/or): ";
+            loadString(isAndRaw);
+            convertStringLowercase(isAndRaw);
+
+            if (isAndRaw == "and") {
+                isAnd = true;
+                break;
+            } else if (isAndRaw == "or") {
+                isAnd = false;
+                break;
+            } else {
+                cout << "Your entry has to be 'and' or 'or', please try again." << endl;
+            }
+        }
+    }
+
+    CCalendarFinder finder(mCalendar, isAnd, name, start, end, place, attendees, tags);
     wereEventsFound = finder.findEvents();
-    finder.printEvents();
 
     if (wereEventsFound) {
-        doExport = loadYesNo("Do you want to export your result?");
-        if (doExport) {
+        finder.printEvents();
+        cout << "Do you want to display the events or export them?" << endl;
+        cout << "1 - display events" << endl;
+        cout << "2 - export events" << endl;
+        cout << "3 - cancel" << endl;
+
+        int userOption = getUserOption(3);
+
+        if (userOption == 1) {
+            finder.printEvents();
+        }
+        if (userOption == 2) {
             finder.exportEvents();
         }
     }
-
 }
 
 void CApplication::exportCalendar() {
-    CEventExporter exporter(mCalendar.getEvents());
-    exporter.exportToFile();
+    CEventExporter exporter(mCalendar.getSortedEvents(nullptr, true));
+    exporter.exportToFile("calendarFullExport");
 }

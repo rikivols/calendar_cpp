@@ -36,3 +36,5 @@ void splitString(vector<string> &result, const string &line, char separator);
 int convertStringToInt(const string &inp);
 
 bool loadYesNo(const string &message);
+
+bool isInVector(const vector<string> &vec1, const vector<string> &vec2);

@@ -15,13 +15,37 @@ size_t CEvent::getId() const {
     return mEventId;
 }
 
+
 void CEvent::setStart(const CDatetime &start) {
     mStart = start;
 }
 
+
 CDatetime CEvent::getStart() const {
     return mStart;
 }
+
+
+bool CEvent::nameEquals(const string &name) {
+    return mName == name;
+}
+
+
+bool CEvent::placeEquals(const string &place) {
+    return mPlace == place;
+}
+
+
+bool CEvent::isInAttendees(const vector<string> &attendees) {
+    return isInVector(attendees, mAttendees);
+}
+
+
+bool CEvent::isInTags(const vector<string> &tags) {
+    return isInVector(tags, mTags);
+}
+
+
 
 bool CEvent::sortEventsByStartDatetime(const shared_ptr<CEvent> &event1, const shared_ptr<CEvent> &event2) {
     return event1->getStart() < event2->getStart();
@@ -65,4 +89,9 @@ ostream &CEvent::partialPrint(ostream &out) const {
     printSeparator(out);
 
     return out;
+}
+
+
+bool CEvent::sortEventsById(const shared_ptr<CEvent> &event1, const shared_ptr<CEvent> &event2) {
+    return event1->getId() < event2->getId();
 }

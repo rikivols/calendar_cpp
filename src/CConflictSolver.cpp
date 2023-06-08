@@ -122,7 +122,7 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
 
 CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatetime &from, size_t ignoreEventId,
                                                const shared_ptr<CEvent> &newFutureEvent) {
-    auto sortedEvents = mCalendar.getSortedEvents(newFutureEvent);
+    auto sortedEvents = mCalendar.getSortedEvents(newFutureEvent, false);
 
     vector<pair<CTime, CTime>> foreverBusyVec;
     pair<CTime, CTime> foreverBusyRange;

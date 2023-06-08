@@ -26,14 +26,7 @@ int getUserOption(int maxChoice) {
 
 string & loadString(string &loadedString, bool allowEmpty) {
     while (true) {
-        if (allowEmpty) {
-            cout << endl;
-            cin.ignore();
-            getline(cin, loadedString);
-        }
-        else {
-            cin >> loadedString;
-        }
+        getline(cin >> ws, loadedString);
 
         stripString(loadedString);
 
@@ -41,7 +34,8 @@ string & loadString(string &loadedString, bool allowEmpty) {
             cout << "Failed to load the text, please enter the value again: ";
         }
         else if (loadedString.empty() && !allowEmpty) {
-            cout << "Can't have an empty string, please enter the value again: ";
+            cout << "EMPTY" << endl;
+            continue;
         }
         else {
             return loadedString;
@@ -190,7 +184,7 @@ int convertStringToInt(const string &inp) {
 bool loadYesNo(const string &message) {
     string option;
     while (true) {
-        cout << "Is your event recurring (happens every day)? (y/n): ";
+        cout << message << "(y/n): ";
         loadString(option);
         convertStringLowercase(option);
         if (option == "yes" || option == "y") {
@@ -203,4 +197,22 @@ bool loadYesNo(const string &message) {
             cout << "Invalid format, please try again." << endl;
         }
     }
+}
+
+
+bool isInVector(const vector<string> &vec1, const vector<string> &vec2) {
+    for (const auto &v1: vec1) {
+        bool wasMatch = false;
+        for (const auto &v2: vec2) {
+            if (v1 == v2) {
+                wasMatch = true;
+            }
+        }
+
+        if (!wasMatch) {
+            return false;
+        }
+    }
+
+    return true;
 }

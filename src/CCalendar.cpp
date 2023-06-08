@@ -72,7 +72,7 @@ map<size_t, shared_ptr<CEvent>> &CCalendar::getEvents() {
     return mEvents;
 }
 
-vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &event) const {
+vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &event, bool sortById) const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
     for (const auto &[key, mEvent] : mEvents) {
@@ -83,7 +83,12 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &
         sortedEvents.push_back(event);
     }
 
-    sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsByStartDatetime);
+    if (sortById) {
+        sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsById);
+    }
+    else {
+        sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsByStartDatetime);
+    }
 
     return sortedEvents;
 }

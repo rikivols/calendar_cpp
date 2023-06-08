@@ -11,7 +11,7 @@
 class CEventExporter {
 public:
 
-    explicit CEventExporter(const map<size_t, shared_ptr<CEvent>> &events);
+    explicit CEventExporter(const vector<shared_ptr<CEvent>> &events);
 
     /**
      * Export the calendar to a CSV - like format
@@ -20,8 +20,8 @@ public:
      * @return true = export was successful
      *         false = export failed, display the reason
      */
-    void exportToFile() const;
+    void exportToFile(const string &nameOfFile) const;
 
 private:
-    map<size_t, shared_ptr<CEvent>> mEvents;
+    vector<shared_ptr<CEvent>> mEvents;
 };

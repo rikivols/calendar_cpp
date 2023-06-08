@@ -37,6 +37,14 @@ public:
 
     virtual void setEnd(const CDatetime &end) = 0;
 
+    bool nameEquals(const string &name);
+
+    bool placeEquals(const string &place);
+
+    bool isInAttendees(const vector<string> &attendees);
+
+    bool isInTags(const vector<string> &tags);
+
     void swapEvent(CEvent &event);
 
     [[nodiscard]] virtual CDatetime getEnd() const = 0;
@@ -53,7 +61,10 @@ public:
 
     static bool sortEventsByStartDatetime(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2);
 
+    static bool sortEventsById(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2);
+
 protected:
+
     size_t mEventId;
     string mName;
     CDatetime mStart;
