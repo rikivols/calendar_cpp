@@ -68,9 +68,6 @@ shared_ptr<CEvent> CCalendar::getEvent(size_t eventId) {
     return nullptr;
 }
 
-map<size_t, shared_ptr<CEvent>> &CCalendar::getEvents() {
-    return mEvents;
-}
 
 vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &event, bool sortById) const {
     vector<shared_ptr<CEvent>> sortedEvents;

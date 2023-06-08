@@ -1,0 +1,39 @@
+1,sim,Simple event 1,2020.02.28 15:30,2020.02.29 17:30,somePlace,[attendee],[],
+2,sim,Simple event 2,2022.09.11 17:25,2022.09.12 18:05,nice place,[at1; at2],[tag],
+3,rec,Rec event 1,2022.10.08 9:35,10:30,beach,[],[tg1;tg2;tg3],
+
+4,sim,some name,2022.11.11 8:55,2022.11.11 9:34,somePlace,[attendee],[],note note
+5,sim,aaaaa,2022.11.12 9:25,2022.11.12 10:05,nice place,[at1; at2],[tag],
+6,sim,bbbbb,2022.12.15 10:31,2022.12.15 1:30,somePlace,[attendee],[],
+7,sim,legit name,2022.12.19 10:25,2022.12.20 18:05,nice place,[at1; at2],[tag],
+8,sim,home,2023.02.08 15:30,2023.02.10 17:30,somePlace,[attendee],[],
+9,sim,composter,2023.02.09 22:25,2023.02.11 01:05,nice place,[at1; at2],[tag],
+10,rec,Im recurring,2023.04.14 12:30,2023.04.14 12:45,somePlace,[attendee],[],
+11,sim,boat,2023.05.07 17:25,2023.05.07 18:05,nice place,[at1; at2],[tag],
+12,sim,traction,2023.06.01 19:30,2023.06.01 17:30,somePlace,[attendee],[],
+13,sim,flu,2023.06.02 10:25,2023.06.03 2:05,nice place,[at1; at2],[tag],
+14,sim,to,2023.06.04 7:45,2023.06.04 9:30,somePlace,[attendee],[],
+15,sim,simple event 1,2023.06.06 4:25,2023.06.06 5:05,nice place,[at1; at2],[tag],
+16,sim,Simple event 1,2023.06.07 7:30,2023.06.07 9:30,somePlace,[attendee],[],
+17,sim,Simple event 2,2023.06.07 9:45,2023.06.07 11:00,nice place,[at1; at2],[tag],
+18,sim,provision,2023.06.08 10:30,2023.06.08 11:30,somePlace,[attendee],[],
+19,sim,correspond,2023.06.09 5:55,2023.06.09 8:05,nice place,[at1; at2],[tag],
+
+20,sim,garage,2023.06.09 9:30,2023.09.08 11:30,somePlace,[attendee],[],
+21,sim,twitch,2023.06.11 5:00,2023.06.11 6:05,nice place,[at1; at2],[tag],
+22,rec,illness,2023.06.11 9:30,2023.06.11 10:30,somePlace,[attendee],[],
+23,sim,lake,2023.06.11 13:30,2023.06.11 14:05,nice place,[at1; at2],[tag],
+
+24,sim,junior,2023.06.11 23:30,2023.06.12 1:30,somePlace,[attendee],[],
+25,sim,duke,2023.06.12 9:25,2023.06.12 10:05,nice place,[at1; at2],[tag],
+26,sim,drift,2023.06.12 10:35,2023.06.12 11:30,somePlace,[attendee],[],
+27,rec,forbid,2023.06.13 5:55,2023.06.13 5:59,nice place,[at1; at2],[tag],
+
+
+28,sim,unaware,2023.06.18 15:30,2023.06.18 17:30,somePlace,[attendee],[],
+29,sim,computer,2023.06.19 17:25,2023.06.19 18:05,nice place,[at1; at2],[tag],
+30,sim,full,2023.06.19 20:30,2023.06.19 20:50,somePlace,[attendee],[],
+31,sim,operational,2023.06.22 17:25,2023.06.22 18:05,nice place,[at1; at2],[tag],
+
+32,sim,marketing,2023.07.08 15:30,2023.07.08 17:30,somePlace,[attendee],[],
+33,rec,eternal,2023.08.10 6:25,2023.08.10 11:05,nice place,[at1; at2],[tag],

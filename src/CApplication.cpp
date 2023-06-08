@@ -40,9 +40,10 @@ void CApplication::displayMainMenu() {
         cout << "4 - find event" << endl;
         cout << "5 - display calendar" << endl;
         cout << "6 - export calendar" << endl;
-        cout << "7 - end application" << endl;
+        cout << "7 - get event by id" << endl;
+        cout << "8 - end application" << endl;
 
-        int option = getUserOption(7);
+        int option = getUserOption(8);
         cout << endl;
 
         switch (option) {
@@ -65,6 +66,9 @@ void CApplication::displayMainMenu() {
                 this->exportCalendar();
                 break;
             case 7:
+                this->getEventById();
+                break;
+            case 8:
                 return;
             default:
                 break;
@@ -293,7 +297,6 @@ void CApplication::findEvents() {
     wereEventsFound = finder.findEvents();
 
     if (wereEventsFound) {
-        finder.printEvents();
         cout << "Do you want to display the events or export them?" << endl;
         cout << "1 - display events" << endl;
         cout << "2 - export events" << endl;
@@ -313,4 +316,19 @@ void CApplication::findEvents() {
 void CApplication::exportCalendar() {
     CEventExporter exporter(mCalendar.getSortedEvents(nullptr, true));
     exporter.exportToFile("calendarFullExport");
+}
+
+
+void CApplication::getEventById() {
+    cout << "Select id of an event you want to display: ";
+    size_t eventId = loadNumber(1, 999999999);
+
+    auto event = mCalendar.getEvent(eventId);
+
+    if (event) {
+        cout << *event;
+    }
+    else {
+        cout << "Selected event doesn't exist" << endl;
+    }
 }

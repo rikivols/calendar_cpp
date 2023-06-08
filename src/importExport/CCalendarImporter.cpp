@@ -18,6 +18,12 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
                 return errorReturn("Failed to read a line from file", lineNum);
             }
 
+            stripString(fileRow);
+            if (fileRow.empty()) {
+                lineNum++;
+                continue;
+            }
+
             lineElements.clear();
             splitString(lineElements, fileRow, ',');
 
@@ -25,53 +31,48 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
                 return errorReturn("Wrong number of elements");
             }
 
-            for (size_t i=0; i<lineElements.size(); i++) {
-                curElementString = stripString(lineElements[i]);
+            // event id
+            parseEventId(lineElements[0]);
 
-                switch (i) {
-                    case 0:
-                        parseEventId(curElementString);
-                        break;
-                    case 1: {
-                        parseString(curElementString, mEventType);
-                        if (mEventType != "sim" && mEventType != "rec") {
-                            mErrorMessage = "Event type must be 'sim' or 'rec'";
-                        }
-                        break;
-                    }
-                    case 2:
-                        parseString(curElementString, mName);
-                        break;
-                    case 3:
-                        parseDatetime(curElementString, mStart);
-                        break;
-                    case 4: {
-                        if (mEventType == "sim") {
-                            parseDatetime(curElementString, mEnd);
-                        } else {
-                            parseTime(curElementString);
-                        }
-                        break;
-                    }
-                    case 5:
-                        parseString(curElementString, mPlace);
-                        break;
-                    case 6:
-                        parseVector(curElementString, mAttendees);
-                        break;
-                    case 7:
-                        parseVector(curElementString, mTags);
-                        break;
-                    case 8:
-                        parseString(curElementString, mNote, true);
-                        break;
-                    default:
-                        throw logic_error("This shouldn't be possible, call the cops");
-                }
+            // event type
+            parseString(lineElements[1], mEventType);
+            if (mEventType != "sim" && mEventType != "rec") {
+                mErrorMessage = "Event type must be 'sim' or 'rec'";
+            }
 
-                if (!mErrorMessage.empty()) {
-                    return errorReturn(mErrorMessage, lineNum);
+            // event name
+            parseString(lineElements[2], mName);
+
+            // datetime
+            parseDatetime(lineElements[3], mStart);
+
+            if (mEventType == "sim") {
+                parseDatetime(lineElements[4], mEnd);
+                if (mStart >= mEnd) {
+                    mErrorMessage = "Calendar event can't have 0 or negative duration";
                 }
+            } else {
+                parseTime(lineElements[4]);
+                if (mEndTime == mStart.getTime()) {
+                    mErrorMessage = "Calendar event can't have 0 duration";
+                }
+            }
+
+            // place
+            parseString(lineElements[5], mPlace);
+
+            // attendees
+            parseVector(lineElements[6], mAttendees);
+
+            // tags
+            parseVector(lineElements[7], mTags);
+
+            // note
+            parseString(lineElements[8], mNote, true);
+
+            // error during parsing
+            if (!mErrorMessage.empty()) {
+                return errorReturn(mErrorMessage, lineNum);
             }
 
             bool addSuccess;
@@ -127,22 +128,22 @@ void CCalendarImporter::parseEventId(const string &inp) {
         eventId = stoi(inp);
     }
     catch (...) {
-        mErrorMessage = "Event's event id in wrong format";
+        setErrorMessage("Event's event id in wrong format");
         return;
     }
 
     if (eventId < 1) {
-        mErrorMessage = "Event id can't be 0 or negative";
+        setErrorMessage("Event id can't be 0 or negative");
         return;
     }
 
     if (eventId > SIZE_MAX) {
-        mErrorMessage = "Event id is too big, max value: " + to_string(SIZE_MAX);
+        setErrorMessage("Event id is too big, max value: " + to_string(SIZE_MAX));
         return;
     }
 
     if (mUsedEventIds.find(eventId) != mUsedEventIds.end()) {
-        mErrorMessage = "Event id already exists";
+        setErrorMessage("Event id already exists");
         return;
     }
 
@@ -151,7 +152,7 @@ void CCalendarImporter::parseEventId(const string &inp) {
 
 void CCalendarImporter::parseString(const string &inp, string &elementString, bool allowEmpty) {
     if (!allowEmpty && inp.empty()) {
-        mErrorMessage = "Your string element can't be empty";
+        setErrorMessage("Your string element can't be empty");
         return;
     }
     elementString = inp;
@@ -168,7 +169,7 @@ void CCalendarImporter::parseDatetime(const string &inp, CDatetime &datetimeOutp
     splitString(dateTime, inp, ' ');
 
     if (dateTime.size() != 2) {
-        mErrorMessage = dateErrorMessage;
+        setErrorMessage(dateErrorMessage);
         return;
     }
 
@@ -176,7 +177,7 @@ void CCalendarImporter::parseDatetime(const string &inp, CDatetime &datetimeOutp
     splitString(time, dateTime[1], ':');
 
     if (date.size() != 3 || time.size() != 2) {
-        mErrorMessage = dateErrorMessage;
+        setErrorMessage(dateErrorMessage);
         return;
     }
 
@@ -188,7 +189,7 @@ void CCalendarImporter::parseDatetime(const string &inp, CDatetime &datetimeOutp
 
     CDatetime finalDatetime(year, month, day, hour, minute);
     if (!finalDatetime.isValidDate()) {
-        mErrorMessage = "Invalid datetime";
+        setErrorMessage("Invalid datetime");
     }
     datetimeOutput = finalDatetime;
 }
@@ -202,7 +203,7 @@ void CCalendarImporter::parseTime(const string &inp) {
     splitString(time, inp, ':');
 
     if (time.size() != 2) {
-        mErrorMessage = timeErrorMessage;
+        setErrorMessage(timeErrorMessage);
         return;
     }
 
@@ -211,7 +212,7 @@ void CCalendarImporter::parseTime(const string &inp) {
 
     CTime finalTime(hour, minute);
     if (!finalTime.isValidTime()) {
-        mErrorMessage = "Invalid time";
+        setErrorMessage("Invalid time");
     }
     mEndTime = finalTime;
 }
@@ -219,7 +220,7 @@ void CCalendarImporter::parseTime(const string &inp) {
 
 void CCalendarImporter::parseVector(string &inp, vector<string> &finalVec) {
     if (inp.size() < 2 || inp[0] != '[' || inp[inp.size()-1] != ']') {
-        mErrorMessage = "Array type attributes must be enclosed in '[' and ']' characters";
+        setErrorMessage("Array type attributes must be enclosed in '[' and ']' characters");
         return;
     }
 
@@ -234,7 +235,7 @@ void CCalendarImporter::parseVector(string &inp, vector<string> &finalVec) {
 
     for (auto &v: finalVec) {
         if (stripString(v).empty()) {
-            mErrorMessage = "Array element can't be empty";
+            setErrorMessage("Array element can't be empty");
         }
     }
 }

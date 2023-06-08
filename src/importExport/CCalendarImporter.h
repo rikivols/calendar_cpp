@@ -38,7 +38,13 @@ public:
 
     void parseVector(string &inp, vector<string> &finalVec);
 
-    bool wasSuccess() const {
+    void setErrorMessage(const string &message) {
+        if (mErrorMessage.empty()) {
+            mErrorMessage = message;
+        }
+    }
+
+    [[nodiscard]] bool wasSuccess() const {
         return isSuccess;
     }
 

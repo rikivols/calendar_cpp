@@ -36,7 +36,7 @@ private:
     CDatetime mStart, mEnd;
     vector<string> mAttendees, mTags;
     bool mIsAnd;
-    vector<shared_ptr<CEvent>> eventsResult;
+    vector<shared_ptr<CEvent>> mEventsResult;
     CCalendar mCalendar;
 };
 

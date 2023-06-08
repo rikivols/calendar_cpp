@@ -92,6 +92,8 @@ public:
 
     CDatetime operator+ (int minutes) const;
 
+    CDatetime operator+=(int minutes);
+
     CDatetime operator- (int minutes) const;
 
     long operator- (const CDatetime &datetime) const;

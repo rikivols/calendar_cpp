@@ -16,31 +16,29 @@ CTime &CTime::loadTime() {
 
 
 bool CTime::operator> (const CTime &inp) const {
-    if ( this->mHour > inp.mHour ){
+    if ( mHour > inp.mHour ){
         return true;
     }
-    if ( this->mHour == inp.mHour ) {
-        if ( this->mMinute > inp.mMinute ) {
-            return true;
-        }
+    if ( mHour == inp.mHour ) {
+        return mMinute > inp.mMinute;
     }
     return false;
 }
 
 bool CTime::operator==(const CTime &inp) const {
-    return this->mHour == inp.mHour && this->mMinute == inp.mMinute;
+    return mHour == inp.mHour && mMinute == inp.mMinute;
 }
 
 bool CTime::operator<(const CTime &inp) const {
-    return !(this->operator>(inp)) && !(this->operator==(inp));
+    return !(*this > inp) && !(*this == inp);
 }
 
 bool CTime::operator>=(const CTime &inp) const {
-    return this->operator==(inp) || this->operator>(inp);
+    return *this == inp || *this > inp;
 }
 
 bool CTime::operator<=(const CTime &inp) const {
-    return this->operator==(inp) || this->operator<(inp);
+    return *this == inp || *this < inp;
 }
 
 int CTime::operator-(const CTime &inp) const {
@@ -50,10 +48,7 @@ int CTime::operator-(const CTime &inp) const {
     return minutes1 - minutes2;
 }
 
-// TODO
-//CTime CTime::addMinutes(int minutes) const {
-//    return {};
-//}
+
 CTime CTime::addMinutes(int durationMinutes) const {
     // convert all to minutes
     int minutes = mHour * 60 + mMinute;

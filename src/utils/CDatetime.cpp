@@ -20,7 +20,7 @@ CDatetime &CDatetime::loadDatetime() {
 
         loadTime();
 
-        if (this->isValidDate()) {
+        if (isValidDate()) {
             break;
         }
         else {
@@ -33,38 +33,40 @@ CDatetime &CDatetime::loadDatetime() {
 
 bool CDatetime::operator> (const CDatetime & inp) const {
 
-    if ( this->mYear > inp.mYear ) {
+    if ( mYear > inp.mYear ) {
         return true;
     }
-    if ( this->mYear == inp.mYear ) {
-        if ( this->mMonth > inp.mMonth ) {
+    if ( mYear == inp.mYear ) {
+        if ( mMonth > inp.mMonth ) {
             return true;
         }
-        if ( this->mMonth == inp.mMonth ) {
-            if ( this->mDay > inp.mDay ) {
+        if ( mMonth == inp.mMonth ) {
+            if ( mDay > inp.mDay ) {
                 return true;
             }
-            return this->getTime()>(CTime(inp.mHour, inp.mMinute));
+            if (mDay == inp.mDay) {
+                return getTime() > (CTime(inp.mHour, inp.mMinute));
+            }
         }
     }
     return false;
 }
 
 bool CDatetime::operator==(const CDatetime &inp) const {
-    return this->mYear == inp.mYear && this->mMonth == inp.mMonth && this->mDay == inp.mDay && this->mHour == inp.mHour
-            && this->mMinute == inp.mMinute;
+    return mYear == inp.mYear && mMonth == inp.mMonth && mDay == inp.mDay && mHour == inp.mHour
+            && mMinute == inp.mMinute;
 }
 
 bool CDatetime::operator<(const CDatetime &inp) const {
-    return !(this->operator>(inp)) && !(this->operator==(inp));
+    return !(*this > inp) && !(*this == inp);
 }
 
 bool CDatetime::operator>=(const CDatetime &inp) const {
-    return this->operator==(inp) || this->operator>(inp);
+    return *this == inp || *this > inp;
 }
 
 bool CDatetime::operator<=(const CDatetime &inp) const {
-    return this->operator==(inp) || this->operator<(inp);
+    return *this == inp || *this < inp;
 }
 
 CTime CDatetime::getTime() const {
@@ -73,8 +75,8 @@ CTime CDatetime::getTime() const {
 
 CDatetime &CDatetime::setTime(const CTime & time) {
     // we need to add 1 day before updating time
-    if (this->getTime() > time) {
-        *this = this->operator+(1440);
+    if (getTime() > time) {
+        *this += 1440;
     }
     mHour = time.getHour();
     mMinute = time.getMinute();
@@ -122,6 +124,13 @@ CDatetime CDatetime::operator+(int minutes) const {
 
     return datetime;
 }
+
+
+CDatetime CDatetime::operator+=(int minutes) {
+    *this = *this + minutes;
+    return *this;
+}
+
 
 time_t CDatetime::getTimeT() const {
     struct tm timeStruct = {0};

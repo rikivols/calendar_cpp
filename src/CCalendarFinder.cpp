@@ -11,51 +11,51 @@ CCalendarFinder::CCalendarFinder(CCalendar calendar, bool isAnd, string name, co
 
 
 bool CCalendarFinder::findEvents() {
-    vector<shared_ptr<CEvent>> finalEvents, tempEvents;
+    vector<shared_ptr<CEvent>> tempEvents;
     bool isFirst = true;
 
     if (!mName.empty()) {
         findByString(tempEvents, mName, 1);
-        updateFinalEvents(finalEvents, tempEvents, isFirst);
+        updateFinalEvents(mEventsResult, tempEvents, isFirst);
     }
     if (mStart.isValidDate()) {
         findByDate(tempEvents, mStart, true);
-        updateFinalEvents(finalEvents, tempEvents, isFirst);
+        updateFinalEvents(mEventsResult, tempEvents, isFirst);
     }
     if (mEnd.isValidDate()) {
         findByDate(tempEvents, mEnd, false);
-        updateFinalEvents(finalEvents, tempEvents, isFirst);
+        updateFinalEvents(mEventsResult, tempEvents, isFirst);
     }
     if (!mPlace.empty()) {
         findByString(tempEvents, mPlace, 2);
-        updateFinalEvents(finalEvents, tempEvents, isFirst);
+        updateFinalEvents(mEventsResult, tempEvents, isFirst);
     }
     if (!mAttendees.empty()) {
         findByVector(tempEvents, mAttendees, 1);
-        updateFinalEvents(finalEvents, tempEvents, isFirst);
+        updateFinalEvents(mEventsResult, tempEvents, isFirst);
     }
     if (!mTags.empty()) {
         findByVector(tempEvents, mTags, 2);
-        updateFinalEvents(finalEvents, tempEvents, isFirst);
+        updateFinalEvents(mEventsResult, tempEvents, isFirst);
     }
 
-    cout << "Number of found calendar events: " << finalEvents.size() << endl;
+    cout << "Number of found calendar events: " << mEventsResult.size() << endl;
 
-    return !finalEvents.empty();
+    return !mEventsResult.empty();
 }
 
 
 void CCalendarFinder::printEvents() {
-    sort(eventsResult.begin(), eventsResult.end(), CEvent::sortEventsByStartDatetime);
+    sort(mEventsResult.begin(), mEventsResult.end(), CEvent::sortEventsByStartDatetime);
 
-    for (const auto &event: eventsResult) {
-        cout << event;
+    for (const auto &event: mEventsResult) {
+        cout << *event;
     }
 }
 
 
 void CCalendarFinder::exportEvents() {
-    CEventExporter exporter(eventsResult);
+    CEventExporter exporter(mEventsResult);
     exporter.exportToFile("calendarFindExport");
 }
 

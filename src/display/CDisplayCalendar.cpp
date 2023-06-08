@@ -6,14 +6,20 @@ void CDisplayCalendar::setCalendar(const CCalendar &calendar) {
 
 ostream &CDisplayCalendar::displayDailyEvents(ostream &out, int year, int month, int day) const {
     auto dailyEvents = mCalendar.getDailyEvents(year, month, day);
+    cout << "Daily events size: " << dailyEvents.size() << endl;
 
-    printSeparator(out, '=');
-    out << endl << stringifyDay(year, month, day);
+//    printSeparator(out, '=');
+    if (dailyEvents.empty()) {
+        cout << "No events" << endl;
+    }
+    else {
+        out << endl << stringifyDay(year, month, day);
+    }
 
     for (const auto &event: dailyEvents) {
         out << endl << *event << endl;
     }
-    printSeparator(out, '=');
+//    printSeparator(out, '=');
 
     return out;
 }

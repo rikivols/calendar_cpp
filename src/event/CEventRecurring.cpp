@@ -68,7 +68,7 @@ CEventRecurring &CEventRecurring::operator=(CEventRecurring eventRecurring) {
 }
 
 bool CEventRecurring::happensOnDay(int year, int month, int day) const {
-    return mStart <= CDatetime(year, month, day, 0, 0);
+    return mStart <= CDatetime(year, month, day, 23, 59);
 }
 
 

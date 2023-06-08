@@ -160,7 +160,7 @@ void splitString(vector<string> &result, const string &line, char separator) {
         if (line[i] == separator || i == line.size()) {
             // append every word to the string once we have the separator
             element.append(line, start, i - start);
-            result.push_back(element);
+            result.push_back(stripString(element));
             start = i + 1;
         }
     }
