@@ -68,6 +68,10 @@ shared_ptr<CEvent> CCalendar::getEvent(size_t eventId) {
     return nullptr;
 }
 
+map<size_t, shared_ptr<CEvent>> &CCalendar::getEvents() {
+    return mEvents;
+}
+
 vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &event) const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
@@ -131,8 +135,4 @@ size_t CCalendar::findNumberOfConflicts(const shared_ptr<CEvent> & event, int of
 
 size_t CCalendar::getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const {
     return getFirstConflictId((const CEvent &) event, offset);;
-}
-
-const map<size_t, shared_ptr<CEvent>> &CCalendar::getEvents() {
-    return mEvents;
 }

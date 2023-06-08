@@ -34,3 +34,5 @@ tm *getTimeNow();
 void splitString(vector<string> &result, const string &line, char separator);
 
 int convertStringToInt(const string &inp);
+
+bool loadYesNo(const string &message);

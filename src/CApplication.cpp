@@ -128,22 +128,7 @@ void CApplication::addEvent() {
     cout << "Enter event name: ";
     loadString(eventName);
 
-    while (true) {
-        cout << "Is your event recurring (happens every day)? (y/n): ";
-        cin >> option;
-        convertStringLowercase(option);
-        if (option == "yes" || option == "y") {
-            isRecurring = true;
-            break;
-        }
-        else if (option == "n" || option == "no") {
-            isRecurring = false;
-            break;
-        }
-        else {
-            cout << "Invalid format, please try again." << endl;
-        }
-    }
+    isRecurring = loadYesNo("Is your event recurring (happens every day)?");
 
     while (true) {
         cout << "You're about to enter a date and time of the start of the event:" << endl;
@@ -227,6 +212,88 @@ void CApplication::removeEvent() {
 
 
 void CApplication::findEvents() {
+    bool isAnd, doExport, wereEventsFound;
+    string name, place, isAndRaw;
+    CDatetime start = CDatetime(), end = CDatetime();
+    vector<string> attendees, tags;
+    int numOfEntries = 0;
+
+    while (true) {
+        cout << "By what criteria do you want to search in the calendar?" << endl;
+        cout << "1 - search by event name (exact match)" << endl;
+        cout << "2 - search by event start date time (from)" << endl;
+        cout << "3 - search by event end date time (to)" << endl;
+        cout << "4 - search by event place (exact match)" << endl;
+        cout << "5 - search by event attendees (event contains)" << endl;
+        cout << "6 - search by event tags (event contains)" << endl;
+        cout << "7 - finish search entry (you'll enter AND or OR clause later)" << endl;
+
+        int selectedOption = getUserOption(7);
+
+        switch(selectedOption) {
+            case 1:
+                cout << "Select event name: ";
+                loadString(name);
+                break;
+            case 2:
+                cout << "You're selecting event start datetime:" << endl;
+                start.loadDatetime();
+                break;
+            case 3:
+                cout << "You're selecting event end datetime:" << endl;
+                end.loadDatetime();
+                break;
+            case 4:
+                cout << "Select event place: " << endl;
+                loadString(place);
+                break;
+            case 5:
+                cout << "How many attendees do you want to enter? (0-99): ";
+                loadMultiString(attendees, "attendee", 99);
+                break;
+            case 6:
+                cout << "How many tags do you want to enter? (0-99): ";
+                loadMultiString(tags, "tag", 99);
+                break;
+            default:
+                break;
+        }
+
+        if (selectedOption == 7) {
+            break;
+        }
+        numOfEntries++;
+    }
+
+
+    while(true) {
+        cout << "Do you want to search by AND or OR clause? (and/or): ";
+        loadString(isAndRaw);
+        convertStringLowercase(isAndRaw);
+
+        if (isAndRaw == "and") {
+            isAnd = true;
+            break;
+        }
+        else if (isAndRaw == "or") {
+            isAnd = false;
+            break;
+        }
+        else {
+            cout << "Your entry has to be 'and' or 'or', please try again." << endl;
+        }
+    }
+
+    CCalendarFinder finder(isAnd, name, start, end, place, attendees, tags);
+    wereEventsFound = finder.findEvents();
+    finder.printEvents();
+
+    if (wereEventsFound) {
+        doExport = loadYesNo("Do you want to export your result?");
+        if (doExport) {
+            finder.exportEvents();
+        }
+    }
 
 }
 

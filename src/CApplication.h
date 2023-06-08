@@ -10,6 +10,7 @@
 #include "CConflictSolver.h"
 #include "importExport/CEventExporter.h"
 #include "importExport/CCalendarImporter.h"
+#include "CCalendarFinder.h"
 
 
 /**

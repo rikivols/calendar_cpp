@@ -185,3 +185,22 @@ int convertStringToInt(const string &inp) {
 
     return res;
 }
+
+
+bool loadYesNo(const string &message) {
+    string option;
+    while (true) {
+        cout << "Is your event recurring (happens every day)? (y/n): ";
+        loadString(option);
+        convertStringLowercase(option);
+        if (option == "yes" || option == "y") {
+            return true;
+        }
+        else if (option == "n" || option == "no") {
+            return false;
+        }
+        else {
+            cout << "Invalid format, please try again." << endl;
+        }
+    }
+}

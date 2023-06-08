@@ -25,6 +25,8 @@ public:
 
     shared_ptr<CEvent> getEvent(size_t eventId);
 
+    [[nodiscard]] map<size_t, shared_ptr<CEvent>> &getEvents();
+
     [[nodiscard]] vector<shared_ptr<CEvent>> getSortedEvents(const shared_ptr<CEvent> &event) const;
 
     [[nodiscard]] vector<shared_ptr<CEvent>> getDailyEvents(int year, int month, int day) const;
@@ -71,7 +73,6 @@ public:
 
     [[nodiscard]] size_t findNumberOfConflicts(const shared_ptr<CEvent> & event, int offset) const;
 
-    const map<size_t, shared_ptr<CEvent>> &getEvents();
 
 protected:
     map<size_t, shared_ptr<CEvent>> mEvents;
