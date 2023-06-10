@@ -92,6 +92,23 @@ void CDatetime::setDate(int year, int month, int day) {
 }
 
 
+int CDatetime::getDaysInAMonth() const {
+    CDatetime newDatetime = *this;
+
+    int curDay = 28;
+
+    for ( ; curDay <= 32; curDay++) {
+        newDatetime.setDate(mYear, mMonth, curDay);
+
+        if (!newDatetime.isValidDate()) {
+            return curDay - 1;
+        }
+    }
+
+    return 31;
+}
+
+
 void CDatetime::addMonth() {
     mMonth++;
     if (mMonth > 12) {

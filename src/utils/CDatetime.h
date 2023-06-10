@@ -116,6 +116,8 @@ public:
 
     void setDate(int year, int month, int day);
 
+    int getDaysInAMonth() const;
+
     void addMonth();
 
     void decreaseMonth();

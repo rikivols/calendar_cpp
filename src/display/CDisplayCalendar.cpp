@@ -7,9 +7,8 @@ void CDisplayCalendar::setCalendar(const CCalendar &calendar) {
 void CDisplayCalendar::displayDailyEvents(const CDatetime &datetime, bool displaySeparator) const {
     auto dailyEvents = mCalendar.getDailyEvents(datetime.getYear(), datetime.getMonth(), datetime.getDay());
 
-    cout << endl << stringifyDay(datetime);
-
     if (displaySeparator) {
+        cout << endl << endl << stringifyDay(datetime);
         printSeparator(cout, '=');
     }
 
@@ -24,6 +23,7 @@ void CDisplayCalendar::displayDailyEvents(const CDatetime &datetime, bool displa
 
     if (displaySeparator) {
         printSeparator(cout, '=');
+        cout << endl;
     }
 }
 

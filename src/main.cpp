@@ -10,6 +10,7 @@ int main() {
     if (wasSuccess) {
         application.displayMainMenu();
     }
+    cout << "goodbye" << endl;
 
     return 0;
 }

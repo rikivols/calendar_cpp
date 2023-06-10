@@ -116,7 +116,7 @@ CCalendar CCalendarImporter::errorReturn(const string &message, size_t lineNum) 
     if (lineNum) {
         cout << "on line: " << lineNum << " ";
     }
-    cout << message << ", goodbye" << endl;
+    cout << message << endl;
     return CCalendar();
 }
 
