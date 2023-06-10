@@ -131,10 +131,6 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
     return 0;
 }
 
-size_t CCalendar::findNumberOfConflicts(const shared_ptr<CEvent> & event, int offset) const {
-    return getFirstConflictId((const CEvent &) event, offset);
-}
-
 size_t CCalendar::getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const {
     return getFirstConflictId((const CEvent &) event, offset);;
 }

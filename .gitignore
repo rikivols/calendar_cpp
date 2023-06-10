@@ -8,3 +8,5 @@ cmake-build-debug
 .idea
 .DS_Store
 assets/*.txt
+Makefile.d
+volckric

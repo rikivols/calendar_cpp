@@ -111,6 +111,11 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
 }
 
 
+bool CCalendarImporter::wasSuccess() const {
+    return isSuccess;
+}
+
+
 CCalendar CCalendarImporter::errorReturn(const string &message, size_t lineNum) {
     cout << "IMPORT FAIL: ";
     if (lineNum) {
@@ -237,5 +242,12 @@ void CCalendarImporter::parseVector(string &inp, vector<string> &finalVec) {
         if (stripString(v).empty()) {
             setErrorMessage("Array element can't be empty");
         }
+    }
+}
+
+
+void CCalendarImporter::setErrorMessage(const string &message) {
+    if (mErrorMessage.empty()) {
+        mErrorMessage = message;
     }
 }

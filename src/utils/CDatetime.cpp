@@ -190,7 +190,7 @@ CDatetime CDatetime::operator+(int minutes) const {
 }
 
 
-CDatetime CDatetime::operator+=(int minutes) {
+CDatetime &CDatetime::operator+=(int minutes) {
     *this = *this + minutes;
     return *this;
 }
@@ -201,7 +201,7 @@ CDatetime CDatetime::operator-(int minutes) const {
 }
 
 
-CDatetime CDatetime::operator-=(int minutes) {
+CDatetime &CDatetime::operator-=(int minutes) {
     *this = *this - minutes;
     return *this;
 }

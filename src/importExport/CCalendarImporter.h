@@ -28,6 +28,9 @@ public:
 
     [[nodiscard]] static CCalendar errorReturn(const string &message, size_t lineNum=0) ;
 
+    [[nodiscard]] bool wasSuccess() const;
+
+private:
     void parseEventId(const string &inp);
 
     void parseString(const string &inp, string &elementString, bool allowEmpty=false);
@@ -38,17 +41,8 @@ public:
 
     void parseVector(string &inp, vector<string> &finalVec);
 
-    void setErrorMessage(const string &message) {
-        if (mErrorMessage.empty()) {
-            mErrorMessage = message;
-        }
-    }
+    void setErrorMessage(const string &message);
 
-    [[nodiscard]] bool wasSuccess() const {
-        return isSuccess;
-    }
-
-private:
     size_t mEventId;
     string mEventType, mName, mPlace, mNote, mErrorMessage;
     CDatetime mStart, mEnd;

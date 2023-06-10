@@ -45,8 +45,6 @@ public:
 
     bool isInTags(const vector<string> &tags);
 
-    void swapEvent(CEvent &event);
-
     [[nodiscard]] virtual CDatetime getEnd() const = 0;
 
     [[nodiscard]] virtual CTime getEndTime() const = 0;
@@ -64,6 +62,7 @@ public:
     static bool sortEventsById(const shared_ptr<CEvent>& event1, const shared_ptr<CEvent>& event2);
 
 protected:
+    void swapEvent(CEvent &event);
 
     size_t mEventId;
     string mName;

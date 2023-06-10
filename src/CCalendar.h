@@ -48,30 +48,12 @@ public:
      */
     bool removeEvent(size_t eventId);
 
-    /**
-     * Find events based on the given criteria. We can also choose if we want to use AND or OR separators
-     *
-     * @param[in] rangeStart Event that happened after the datetime
-     * @param[in] rangeEnd Event that happened before the datetime
-     * @param[in] place place where the event is happening
-     * @param[in] attendees people that attend the event
-     * @param[in] tags tags of the event
-     * @param[in] isAnd true for using AND search separator, false for using OR separator
-     * @return map of the found events based on the criteria. This format makes it easier to export.
-     */
-    const map<size_t, shared_ptr<CEvent>> &findEvents(const CDatetime &rangeStart, const CDatetime &rangeEnd,
-                                                     const string &place, const vector<string> &attendees,
-                                                     const set<string> &tags, bool isAnd);
-
     [[nodiscard]] size_t getFirstConflictId(const CEvent & event, int offset=0) const;
 
     [[nodiscard]] size_t findNumberOfConflicts(const CEvent & event, int offset=0) const;
 
     [[nodiscard]] size_t getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const;
 
-    [[nodiscard]] size_t findNumberOfConflicts(const shared_ptr<CEvent> & event, int offset) const;
-
-
-protected:
+private:
     map<size_t, shared_ptr<CEvent>> mEvents;
 };

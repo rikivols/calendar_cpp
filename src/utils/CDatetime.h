@@ -94,11 +94,11 @@ public:
 
     CDatetime operator+ (int minutes) const;
 
-    CDatetime operator+=(int minutes);
+    CDatetime &operator+=(int minutes);
 
     CDatetime operator- (int minutes) const;
 
-    CDatetime operator-=(int minutes);
+    CDatetime &operator-=(int minutes);
 
     long operator- (const CDatetime &datetime) const;
 
@@ -116,7 +116,7 @@ public:
 
     void setDate(int year, int month, int day);
 
-    int getDaysInAMonth() const;
+    [[nodiscard]] int getDaysInAMonth() const;
 
     void addMonth();
 
