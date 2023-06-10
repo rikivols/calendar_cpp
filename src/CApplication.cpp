@@ -1,7 +1,11 @@
 #include "CApplication.h"
 
 
-CApplication::CApplication() : mLastEventId(1) {}
+CApplication::CApplication() : mLastEventId(1) {
+    calendarDisplayer[1] = CDisplayDaily().clone();
+    calendarDisplayer[2] = CDisplayWeekly().clone();
+    calendarDisplayer[3] = CDisplayMonthly().clone();
+}
 
 
 bool CApplication::handleImport() {

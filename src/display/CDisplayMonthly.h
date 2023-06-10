@@ -7,7 +7,7 @@ class CDisplayMonthly : public CDisplayCalendar {
 public:
     CDisplayMonthly() = default;
 
-    [[nodiscard]] shared_ptr<CDisplayCalendar> clone() const override;
+    [[nodiscard]] unique_ptr<CDisplayCalendar> clone() const override;
 
     void refreshCurrentPage() override;
 

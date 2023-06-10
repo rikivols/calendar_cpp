@@ -7,8 +7,8 @@
  * @param calendar calendar we want to display
  */
 
-shared_ptr<CDisplayCalendar> CDisplayWeekly::clone() const {
-    return make_shared<CDisplayWeekly>(*this);
+unique_ptr<CDisplayCalendar> CDisplayWeekly::clone() const {
+    return make_unique<CDisplayWeekly>(*this);
 }
 
 void CDisplayWeekly::refreshCurrentPage() {

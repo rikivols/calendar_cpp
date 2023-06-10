@@ -13,7 +13,7 @@ class CDisplayCalendar {
 public:
     virtual ~CDisplayCalendar() noexcept = default;
 
-    [[nodiscard]] virtual shared_ptr<CDisplayCalendar> clone() const = 0;
+    [[nodiscard]] virtual unique_ptr<CDisplayCalendar> clone() const = 0;
 
     /**
      * Sets a calendar to display

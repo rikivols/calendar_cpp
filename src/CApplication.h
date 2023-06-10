@@ -73,12 +73,8 @@ public:
     void getEventById();
 
 private:
-    // different display mode depending on the output of the user
-    map<int, shared_ptr<CDisplayCalendar>> calendarDisplayer = {
-            {1, CDisplayDaily().clone()},
-            {2, CDisplayWeekly().clone()},
-            {3, CDisplayMonthly().clone()}
-    };
+    // different display mode depending on the output of the user, 1=daily, 2=weekly, 3=monthly
+    map<int, unique_ptr<CDisplayCalendar>> calendarDisplayer;
     CCalendar mCalendar;
     size_t mLastEventId;  // used for assigning the ids to the events. Auto increments.
 };
