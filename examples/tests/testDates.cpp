@@ -1,4 +1,4 @@
-#include "../utils/CDatetime.h"
+#include "testDates.h"
 
 
 void testDateValid() {
@@ -29,10 +29,10 @@ void testDateValid() {
     assert(datetime8.isValidDate() == false);
 
     // test leap day
-    CDatetime datetime9(2020, 12, 29, 15, 59);
+    CDatetime datetime9(2020, 2, 29, 15, 59);
     assert(datetime9.isValidDate() == true);
 
-    CDatetime datetime10(2021, 12, 29, 15, 59);
+    CDatetime datetime10(2021, 2, 29, 15, 59);
     assert(datetime10.isValidDate() == false);
 }
 
@@ -43,20 +43,13 @@ void testOperations() {
     assert(datetime1 == CDatetime(2023, 5, 4, 15, 30));
 
     assert(datetime1 + 1440 == CDatetime(2023, 5, 5, 15, 30));
-    assert(datetime1 + 43800 == CDatetime(2023, 6, 4, 15, 30));
-    assert(datetime1 + 525600 == CDatetime(2024, 5, 4, 15, 30));
+    assert(datetime1 + 43200 == CDatetime(2023, 6, 3, 15, 30));
+    assert(datetime1 + 525600 == CDatetime(2024, 5, 3, 15, 30));
     assert(datetime1 + 9 * 60 == CDatetime(2023, 5, 5, 0, 30));
 
-    assert(datetime1 - 5 == CDatetime(2024, 5, 4, 15, 25));
-    assert(datetime1 - 60 == CDatetime(2024, 5, 4, 14, 30));
+    assert(datetime1 - 5 == CDatetime(2023, 5, 4, 15, 25));
+    assert(datetime1 - 60 == CDatetime(2023, 5, 4, 14, 30));
 
     assert((datetime1 += 10) == CDatetime(2023, 5, 4, 15, 40));
     assert(datetime1 == CDatetime(2023, 5, 4, 15, 40));
-}
-
-
-int main(void) {
-    testDateValid();
-    testOperations();
-
 }

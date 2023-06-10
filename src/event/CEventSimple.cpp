@@ -17,8 +17,16 @@ shared_ptr<CEvent> CEventSimple::clone() const {
 bool CEventSimple::isConflict(const CEvent & event, int offset) const {
     CDatetime eventStart = event.getStart() + offset;
     CDatetime eventEnd = event.getEnd() + offset;
-    if (event.happensOnDay(mStart.getYear(), mStart.getMonth(), mStart.getDay())) {
-        if (eventStart.isInRange(mStart.getTime(), mEnd.getTime()) || eventEnd.isInRange(mStart.getTime(), mEnd.getTime())) {
+
+    if (event.isRecurring()) {
+        if (event.happensOnDay(mStart.getYear(), mStart.getMonth(), mStart.getDay())) {
+            if (eventStart.isInRange(mStart.getTime(), mEnd.getTime()) || eventEnd.isInRange(mStart.getTime(), mEnd.getTime())) {
+                return true;
+            }
+        }
+    }
+    else {
+        if (eventStart <= mEnd && eventEnd >= mStart ) {
             return true;
         }
     }
@@ -28,6 +36,10 @@ bool CEventSimple::isConflict(const CEvent & event, int offset) const {
 
 CDatetime CEventSimple::getEnd() const {
     return mEnd;
+}
+
+bool CEventSimple::isRecurring() const {
+    return false;
 }
 
 pair<CTime, CTime> CEventSimple::getForeverBusyTime() const {
@@ -44,6 +56,14 @@ int CEventSimple::getEventDuration() const {
 
 void CEventSimple::setEnd(const CDatetime &end) {
     mEnd = end;
+}
+
+bool CEventSimple::areEventDatesOk() const {
+    if (!mStart.isValidDate() || !mEnd.isValidDate()) {
+        return false;
+    }
+
+    return mStart < mEnd;
 }
 
 CEventSimple::CEventSimple(const CEventSimple &eventSimple): CEvent(eventSimple) {
@@ -69,7 +89,11 @@ ostream &CEventSimple::print(ostream &out) const {
 }
 
 bool CEventSimple::happensOnDay(int year, int month, int day) const {
-    return mStart.isOnDay(year, month, day) || mEnd.isOnDay(year, month, day);
+    auto date = CDatetime(year, month, day, 12, 0);
+    auto startDate = CDatetime(mStart.getYear(), mStart.getMonth(), mStart.getDay(), 0, 0);
+    auto endDate = CDatetime(mEnd.getYear(), mEnd.getMonth(), mEnd.getDay(), 23, 59);
+
+    return date >= startDate && date <= endDate;
 }
 
 string &CEventSimple::exportEvent(string &fileRow) const {

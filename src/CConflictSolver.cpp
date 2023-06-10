@@ -23,6 +23,13 @@ bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
             newEvent.setStart(newEventStart);
             newEvent.setEnd(newEventStart + (int)newEvent.getEventDuration());
 
+            // if it's a recurring event, there may be a situation where we find a new free date, but some non-recurring
+            // event in the future would overlap, in that case we reject the new change
+            if (mCalendar.getFirstConflictId(newEvent)) {
+                cout << "Sorry, we couldn't automatically find a new event time. If you're using a recurring event, "
+                     << "you'll have to find a new one manually" << endl;
+            }
+
             break;
         }
         case 2: {
@@ -59,8 +66,9 @@ bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
             else {
                 cout << "Event moved successfully, new date for it: " << newEventStart << endl;
             }
-        }
+
             break;
+        }
         case 3: {
             cout << "Aborting the adding of an event." << endl;
 
@@ -93,14 +101,23 @@ bool CConflictSolver::sortTimeByStart(const pair<CTime, CTime> &time1, const pai
 
 // we include start
 CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> &foreverBusyVec, int durationMinutes,
-                                       const CTime &start, const CTime &end) {
+                                                     const CTime &start, const CTime &end) {
+    if (foreverBusyVec.empty()) {
+        return start;
+    }
+
     sort(foreverBusyVec.begin(), foreverBusyVec.end(), sortTimeByStart);
     CTime result = start;
     CTime resultEnd = end;
 
+    // check if we can find some time by the end of today
     for (const auto &busyRange: foreverBusyVec) {
+        // it's probably more time effective to choose another range
+        if (result > busyRange.second) {
+            continue;
+        }
+
         if (!result.isInRange(busyRange.first, busyRange.second) && !resultEnd.isInRange(busyRange.first, busyRange.second)) {
-//            && result.isInRange(start, end) && resultEnd.isInRange(start, end)) {
             return result;
         }
 
@@ -108,15 +125,18 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
         resultEnd = result.addMinutes(durationMinutes);
     }
 
-//    if (result.isInRange(start, end) && resultEnd.isInRange(start, end)) {
-    // if the result is still not valid event after it was moved so many times, we are not able to find any free date
+    // check if we can find some free time tomorrow
     for (const auto &busyRange: foreverBusyVec) {
+
         if (!result.isInRange(busyRange.first, busyRange.second) && !resultEnd.isInRange(busyRange.first, busyRange.second)) {
             return result;
         }
-    }
-//    }
 
+        result = busyRange.second.addMinutes(1);
+        resultEnd = result.addMinutes(durationMinutes);
+    }
+
+    // it's impossible to find a free time
     return {};
 }
 
@@ -141,8 +161,9 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
             tempResult = findFreeTimeInRecurringEvents(foreverBusyVec, durationMinutes, result, resultEnd);
             // we check if we found next time slot in the recurring daily events and also if the new time slot
             // isn't too far in the future
-            if (tempResult.isValidTime() && tempResult < event->getStart()) {
+            if (tempResult.isValidTime() && (tempResult.addMinutes(durationMinutes) < event->getStart() || resultEnd.getDate() + DAY_MINUTES < event->getStart())) {
                 result.setTime(tempResult);
+
                 return result;
             }
         }
@@ -152,18 +173,28 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
         // the event is recurring, and we'll add it to the recurring events vector
         if (foreverBusyRange.first.isValidTime() && foreverBusyRange.second.isValidTime()) {
             foreverBusyVec.push_back(foreverBusyRange);
-            result.setTime(foreverBusyRange.second);
-            resultEnd.setTime(result + durationMinutes);
+            tempResult = findFreeTimeInRecurringEvents(foreverBusyVec, durationMinutes, result, resultEnd);
+
+            if (tempResult.isValidTime()) {
+                result.setTime(tempResult);
+                resultEnd = result + durationMinutes;
+            }
         }
         else {
-            result = event->getEnd() + 1;  // next free minute
-            resultEnd = result + durationMinutes;
+            if (from < event->getEnd() + 1) {
+                result = event->getEnd() + 1;  // next free minute
+                resultEnd = result + durationMinutes;
+            }
         }
+
     }
 
     // last check, if we're able to find any time in the future amongst daily recurring events
     tempResult = findFreeTimeInRecurringEvents(foreverBusyVec, durationMinutes, result, resultEnd);
     if (tempResult.isValidTime()) {
+//        if (tempResult < result.getTime()) {
+//            result += DAY_MINUTES;
+//        }
         result.setTime(tempResult);
         return result;
     }
@@ -171,3 +202,12 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
     // it was impossible to find a free time, every date in the future is already taken by the recurring events
     return {};
 }
+
+
+CDatetime &CConflictSolver::addDayConditional(CDatetime &result, const CDatetime &from) {
+    if (from.getTime() > result.getTime()) {
+        result += DAY_MINUTES;
+    }
+    return result;
+}
+

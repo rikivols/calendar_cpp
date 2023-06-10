@@ -75,11 +75,17 @@ CTime CDatetime::getTime() const {
 
 void CDatetime::setTime(const CTime & time) {
     // we need to add 1 day before updating time
-    if (getTime() > time) {
-        *this += 1440;
+    if (time < this->getTime()) {
+        *this += DAY_MINUTES;
     }
+
     mHour = time.getHour();
     mMinute = time.getMinute();
+}
+
+
+CDatetime CDatetime::getDate() const {
+    return {mYear, mMonth, mDay, 0, 0};
 }
 
 
@@ -247,7 +253,7 @@ long CDatetime::operator-(const CDatetime &datetime) const {
     return (tm1 - tm2) / 60;
 }
 
-bool CDatetime::isValidDate() {
+bool CDatetime::isValidDate() const {
 
     if (mYear < 1990 || mYear > 2100 || mMonth <= 0 || mMonth > 12 || mDay <= 0 || mDay > 31) {
         return false;
@@ -266,8 +272,3 @@ bool CDatetime::isValidDate() {
 
     return isValidTime();
 }
-
-
-//CDatetime CDatetime::operator+(const CDatetime &datetime) const {
-//    return CDatetime();
-//}

@@ -27,6 +27,10 @@ public:
 
     string & exportEvent(string &fileRow) const override;
 
+    bool areEventDatesOk() const override;
+
+    bool isRecurring() const override;
+
     /**
      * Replaces the current end of the event by the provided datetime.
      *

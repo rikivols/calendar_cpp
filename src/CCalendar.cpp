@@ -8,6 +8,13 @@ bool CCalendar::addEvent(CEvent &event, bool ignoreConflict) {
         return false;
     }
 
+    if (!event.areEventDatesOk()) {
+        if (!ignoreConflict) {
+            cout << "Wrong event dates" << endl;
+        }
+        return false;
+    }
+
     bool addSuccess = true;
     if (conflictEventId) {
         CConflictSolver conflictSolver(*this, conflictEventId);
@@ -124,6 +131,7 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
     for (auto const &[eventId, myEvent]: mEvents) {
         // polymorphism, we calculate differently if the conflict is recurring or a simple event
         if (event.getId() != eventId && myEvent->isConflict(event, offset)) {
+            cout << "conflict with: " << *myEvent << endl;
             return eventId;
         }
     }

@@ -29,6 +29,10 @@ bool CTime::operator==(const CTime &inp) const {
     return mHour == inp.mHour && mMinute == inp.mMinute;
 }
 
+bool CTime::operator!=(const CTime &inp) const {
+    return !(*this == inp);
+}
+
 bool CTime::operator<(const CTime &inp) const {
     return !(*this > inp) && !(*this == inp);
 }

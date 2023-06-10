@@ -160,7 +160,7 @@ void CApplication::addEvent() {
             if (startDate == endDate) {
                 cout << "Event can't have 0 minute duration, please enter dates again" << endl<< endl;
             }
-            else if (startDate >= endDate) {
+            else if (startDate > endDate) {
                 cout << "Start date can't come after end date, please enter dates again" << endl << endl;
             }
             else {

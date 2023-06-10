@@ -35,6 +35,18 @@ ostream &CEventRecurring::print(ostream &out) const {
     return out;
 }
 
+bool CEventRecurring::areEventDatesOk() const {
+    if (!mStart.isValidDate() || !mEnd.isValidTime()) {
+        return false;
+    }
+
+    return mStart.getTime() != mEnd;
+}
+
+bool CEventRecurring::isRecurring() const {
+    return true;
+}
+
 CDatetime CEventRecurring::getEnd() const {
     return {0, 0, 0, mEnd.getHour(), mEnd.getMinute()};
 }

@@ -21,6 +21,10 @@ public:
 
     ostream &print(ostream &out) const override;
 
+    [[nodiscard]] bool areEventDatesOk() const override;
+
+    [[nodiscard]] bool isRecurring() const override;
+
     string & exportEvent(string &fileRow) const override;
 
     [[nodiscard]] CDatetime getEnd() const override;

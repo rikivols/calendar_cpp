@@ -29,6 +29,8 @@ public:
 
     bool operator== (const CTime & inp) const;
 
+    bool operator!=(const CTime &inp) const;
+
     bool operator< (const CTime & inp) const;
 
     bool operator<= (const CTime & inp) const;
@@ -72,7 +74,7 @@ public:
      *
      * @return true = correct datetime, false = incorrect
      */
-    bool isValidDate();
+    bool isValidDate() const;
 
     [[nodiscard]] CTime getTime() const;
 
@@ -109,6 +111,8 @@ public:
     [[nodiscard]] int getDay() const;
 
     [[nodiscard]] int getWeekDay() const;
+
+    CDatetime getDate() const;
 
     void setTime(const CTime &time);
 

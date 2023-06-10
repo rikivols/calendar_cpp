@@ -45,6 +45,10 @@ public:
 
     bool isInTags(const vector<string> &tags);
 
+    virtual bool isRecurring() const = 0;
+
+    virtual bool areEventDatesOk() const = 0;
+
     [[nodiscard]] virtual CDatetime getEnd() const = 0;
 
     [[nodiscard]] virtual CTime getEndTime() const = 0;
