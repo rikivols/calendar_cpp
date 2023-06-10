@@ -79,13 +79,13 @@ void CEvent::swapEvent(CEvent &event) {
 }
 
 ostream &CEvent::partialPrint(ostream &out) const {
-    out << "Name: " << mName << endl;
-    out << "Place: " << mPlace << endl;
-    out << "Attendees:" << endl;
+    out << "| Name: " << mName << endl;
+    out << "| Place: " << mPlace << endl;
+    out << "| Attendees:" << endl;
     printVector(out, mAttendees);
-    out << "Tags:" << endl;
+    out << "| Tags:" << endl;
     printVector(out, mTags);
-    out << "Notes: " << mNotes;
+    out << "| Notes: " << mNotes;
     printSeparator(out);
 
     return out;

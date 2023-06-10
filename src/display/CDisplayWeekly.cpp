@@ -6,26 +6,36 @@
  *
  * @param calendar calendar we want to display
  */
-CDisplayWeekly::CDisplayWeekly() {
-    auto now = getTimeNow();
-
-    mYear = now->tm_year + 1900;
-    // 0 is if it's an incomplete first week, 1 if first week is a complete week
-    mWeek = (now->tm_yday - now->tm_wday + 7) / 7;
-}
 
 shared_ptr<CDisplayCalendar> CDisplayWeekly::clone() const {
     return make_shared<CDisplayWeekly>(*this);
 }
 
-void CDisplayWeekly::display() const {
+void CDisplayWeekly::refreshCurrentPage() {
+    auto now = getTimeNow();
 
+    mCurrentPage.setLocalDate(now);
+    mCurrentPage -= mCurrentPage.getWeekDay() * DAY_MINUTES;
+}
+
+void CDisplayWeekly::display() const {
+    cout << endl << string(35, '*') << endl;
+    cout << endl << "Displaying events for a week: " << stringifyDay(mCurrentPage) << " - "
+         << stringifyDay(mCurrentPage + 6 * DAY_MINUTES) << endl;
+
+    for (int i=0; i<7; i++) {
+        displayDailyEvents(mCurrentPage + i * DAY_MINUTES, true);
+    }
+    cout << endl;
+    cout << string(35, '*') << endl << endl;
 }
 
 void CDisplayWeekly::nextPage() {
-
+    mCurrentPage += DAY_MINUTES * 7;
+    display();
 }
 
 void CDisplayWeekly::previousPage() {
-
+    mCurrentPage -= DAY_MINUTES * 7;
+    display();
 }

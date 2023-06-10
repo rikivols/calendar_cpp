@@ -107,14 +107,10 @@ ostream &printSeparator(ostream &out, char separator) {
 
 ostream &printVector(ostream &out, const vector<string> &vec) {
     for (const auto &v: vec) {
-        out << "* " << v << endl;
+        out << "| * " << v << endl;
     }
 
     return out;
-}
-
-string stringifyDay(int year, int month, int day) {
-    return addZeroPadding(year) + "." + addZeroPadding(month) + "." + addZeroPadding(day);
 }
 
 

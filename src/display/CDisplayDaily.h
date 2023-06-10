@@ -5,17 +5,15 @@
 
 class CDisplayDaily : public CDisplayCalendar {
 public:
-    CDisplayDaily();
+    CDisplayDaily() = default;
 
     [[nodiscard]] shared_ptr<CDisplayCalendar> clone() const override;
+
+    void refreshCurrentPage() override;
 
     void display() const override;
 
     void nextPage() override;
 
     void previousPage() override;
-
-private:
-    int mMonth;
-    int mDay;
 };

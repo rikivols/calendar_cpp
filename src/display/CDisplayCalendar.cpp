@@ -4,22 +4,41 @@ void CDisplayCalendar::setCalendar(const CCalendar &calendar) {
     mCalendar = calendar;
 }
 
-ostream &CDisplayCalendar::displayDailyEvents(ostream &out, int year, int month, int day) const {
-    auto dailyEvents = mCalendar.getDailyEvents(year, month, day);
-    cout << "Daily events size: " << dailyEvents.size() << endl;
+void CDisplayCalendar::displayDailyEvents(const CDatetime &datetime, bool displaySeparator) const {
+    auto dailyEvents = mCalendar.getDailyEvents(datetime.getYear(), datetime.getMonth(), datetime.getDay());
 
-//    printSeparator(out, '=');
-    if (dailyEvents.empty()) {
-        cout << "No events" << endl;
+    cout << endl << stringifyDay(datetime);
+
+    if (displaySeparator) {
+        printSeparator(cout, '=');
     }
-    else {
-        out << endl << stringifyDay(year, month, day);
+
+
+    if (dailyEvents.empty()) {
+        cout << endl << "No events" << endl;
     }
 
     for (const auto &event: dailyEvents) {
-        out << endl << *event << endl;
+        cout << endl << *event << endl;
     }
-//    printSeparator(out, '=');
 
-    return out;
+    if (displaySeparator) {
+        printSeparator(cout, '=');
+    }
+}
+
+
+string CDisplayCalendar::stringifyDay(const CDatetime &datetime) {
+    map<int, string> days {
+            {0, "Monday"},
+            {1, "Tuesday"},
+            {2, "Wednesday"},
+            {3, "Thursday"},
+            {4, "Friday"},
+            {5, "Saturday"},
+            {6, "Sunday"},
+    };
+
+    return addZeroPadding(datetime.getYear()) + "." + addZeroPadding(datetime.getMonth()) + "." +
+           addZeroPadding(datetime.getDay()) + " (" + days[datetime.getWeekDay()] + ")";
 }

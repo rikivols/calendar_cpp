@@ -22,16 +22,11 @@ public:
      */
     void setCalendar(const CCalendar &calendar);
 
-    ostream &displayDailyEvents(ostream &out, int year, int month, int day) const;
+    void displayDailyEvents(const CDatetime &datetime, bool displaySeparator) const;
 
-    static void getNextDay(int &year, int &month, int &day) {
-        CDatetime datetime(year, month, day, 0, 0);
-        CDatetime tomorrow = datetime + 1440;
+    static string stringifyDay(const CDatetime &datetime);
 
-        year = tomorrow.getYear();
-        month = tomorrow.getMonth();
-        day = tomorrow.getDay();
-    }
+    virtual void refreshCurrentPage() = 0;
 
     /**
      * Print out the current page of the calendar.
@@ -50,5 +45,5 @@ public:
 
 protected:
     CCalendar mCalendar;
-    int mYear = 10;
+    CDatetime mCurrentPage;
 };

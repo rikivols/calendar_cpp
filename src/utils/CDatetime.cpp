@@ -73,16 +73,42 @@ CTime CDatetime::getTime() const {
     return {mHour, mMinute};
 }
 
-CDatetime &CDatetime::setTime(const CTime & time) {
+void CDatetime::setTime(const CTime & time) {
     // we need to add 1 day before updating time
     if (getTime() > time) {
         *this += 1440;
     }
     mHour = time.getHour();
     mMinute = time.getMinute();
-
-    return *this;
 }
+
+
+void CDatetime::setDate(int year, int month, int day) {
+    mYear = year;
+    mMonth = month;
+    mDay = day;
+    mHour = 12;
+    mMinute = 0;
+}
+
+
+void CDatetime::addMonth() {
+    mMonth++;
+    if (mMonth > 12) {
+        mMonth = 1;
+        mYear++;
+    }
+}
+
+
+void CDatetime::decreaseMonth() {
+    mMonth--;
+    if (mMonth <= 0) {
+        mMonth = 12;
+        mYear--;
+    }
+}
+
 
 ostream &CDatetime::printDate(ostream &out) const {
     out << mYear << "." << addZeroPadding(mMonth) << "." << addZeroPadding(mDay);
@@ -117,6 +143,27 @@ int CDatetime::getDay() const {
     return mDay;
 }
 
+int CDatetime::getWeekDay() const {
+    auto timeT = getTimeT();
+    auto tm = gmtime(&timeT);
+
+    int weekDay = tm->tm_wday;
+    if (weekDay == 0) {
+        return 6;
+    }
+    return weekDay - 1;
+}
+
+
+void CDatetime::setLocalDate(tm * localTime) {
+    mYear = localTime->tm_year + 1900;
+    mMonth = localTime->tm_mon + 1;
+    mDay = localTime->tm_mday;
+    mHour = 12;
+    mMinute = 0;
+}
+
+
 CDatetime CDatetime::operator+(int minutes) const {
     auto timeT = getTimeT();
     timeT += minutes * 60;
@@ -128,6 +175,17 @@ CDatetime CDatetime::operator+(int minutes) const {
 
 CDatetime CDatetime::operator+=(int minutes) {
     *this = *this + minutes;
+    return *this;
+}
+
+
+CDatetime CDatetime::operator-(int minutes) const {
+    return *this + -minutes;
+}
+
+
+CDatetime CDatetime::operator-=(int minutes) {
+    *this = *this - minutes;
     return *this;
 }
 
@@ -146,10 +204,10 @@ time_t CDatetime::getTimeT() const {
 
 tm CDatetime::getTmDate() const {
     struct tm timeStruct = {0};
-    timeStruct.tm_year = mYear - 1900; // years count from 1900
-    timeStruct.tm_mon = mMonth - 1;    // months count from January=0
-    timeStruct.tm_mday = mDay;         // days count from 1
-    timeStruct.tm_hour = 12;           // set to 12 in case we have an hour shift because of the different timezones
+    timeStruct.tm_year = mYear - 1900; // years are from 1900
+    timeStruct.tm_mon = mMonth - 1;    // months are from 0
+    timeStruct.tm_mday = mDay;         // days are from 1
+    timeStruct.tm_hour = 12;           // set to 12 because of timezones
 
     return timeStruct;
 }
@@ -164,9 +222,6 @@ CDatetime::CDatetime(time_t timeT) {
     mMinute = timeStruct.tm_min;
 }
 
-CDatetime CDatetime::operator-(int minutes) const {
-    return *this + -minutes;
-}
 
 long CDatetime::operator-(const CDatetime &datetime) const {
     auto tm1 = getTimeT();

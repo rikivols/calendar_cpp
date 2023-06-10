@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#define DAY_MINUTES 1440
+
 /**
  * Class that represents the date and the time of the events
  */
@@ -96,6 +98,8 @@ public:
 
     CDatetime operator- (int minutes) const;
 
+    CDatetime operator-=(int minutes);
+
     long operator- (const CDatetime &datetime) const;
 
     [[nodiscard]] int getYear() const;
@@ -104,7 +108,17 @@ public:
 
     [[nodiscard]] int getDay() const;
 
-    CDatetime & setTime(const CTime &time);
+    [[nodiscard]] int getWeekDay() const;
+
+    void setTime(const CTime &time);
+
+    void setLocalDate(tm * localTime);
+
+    void setDate(int year, int month, int day);
+
+    void addMonth();
+
+    void decreaseMonth();
 
     CDatetime & loadDatetime();
 

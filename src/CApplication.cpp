@@ -91,6 +91,7 @@ void CApplication::displayCalendar() {
         if (displayMode == 4) return;
 
         if (calendarDisplayer.find(displayMode) != calendarDisplayer.end()) {
+            calendarDisplayer[displayMode]->refreshCurrentPage();
             calendarDisplayer[displayMode]->setCalendar(mCalendar);
             calendarDisplayer[displayMode]->display();
 

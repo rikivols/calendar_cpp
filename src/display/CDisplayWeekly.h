@@ -5,9 +5,11 @@
 
 class CDisplayWeekly : public CDisplayCalendar {
 public:
-    CDisplayWeekly();
+    CDisplayWeekly() = default;
 
     [[nodiscard]] shared_ptr<CDisplayCalendar> clone() const override;
+
+    void refreshCurrentPage() override;
 
     void display() const override;
 
@@ -15,6 +17,4 @@ public:
 
     void previousPage() override;
 
-private:
-    int mWeek;
 };

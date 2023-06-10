@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -22,8 +23,6 @@ string addZeroPadding(int num);
 ostream &printSeparator(ostream &out, char separator='-');
 
 ostream &printVector(ostream &out, const vector<string> &vec);
-
-string stringifyDay(int year, int month, int day);
 
 string &stripString(string & inp);
 
