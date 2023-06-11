@@ -37,7 +37,7 @@ testsCalendar: testMain.o testDates.o testConflict.o testCalendarOperations.o CA
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 run_test:
-	./tests
+	./testsCalendar
 
 compile: volckric
 

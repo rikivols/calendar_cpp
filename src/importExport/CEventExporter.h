@@ -8,17 +8,26 @@
 #include <fstream>
 #include <map>
 
+
+/**
+ * Class responsible for exporting of the calendar to a file.
+ */
 class CEventExporter {
 public:
 
+    /**
+     * Stores the given events and sorts them by the event id to have a prettier export.
+     *
+     * @param events events to export.
+     */
     explicit CEventExporter(const vector<shared_ptr<CEvent>> &events);
 
     /**
-     * Export the calendar to a CSV - like format
+     * Export the calendar to a CSV - like format. All event's properties are separated by the  ',' and array
+     * properties are enclosed in the '[]'
      *
-     * @param[in] filePath path of the file we want to export to
-     * @return true = export was successful
-     *         false = export failed, display the reason
+     * @param nameOfFile we're storing the export to the assets/ folder. Then the file name will start by this string
+     *                   and ends with the current datetime
      */
     void exportToFile(const string &nameOfFile) const;
 

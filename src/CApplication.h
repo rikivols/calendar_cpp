@@ -27,7 +27,7 @@ public:
 
     /**
      * Starts the main loop of the calendar application. Prompts user with the main menu. Main menu has options
-     * to add, move, remove, display events.
+     * to add, move, remove, display events...
      */
     void displayMainMenu();
 
@@ -35,8 +35,8 @@ public:
      * Prompts user to add an event. He writes down all of the necessary fields for the event. Detects
      * a conflict if the event already exists.
      *
-     * Asks user what to do if the conflict arises. User has an option to choose a different date of the event, or move
-     * the existing, calendar event.
+     * Asks user what to do if the conflict arises. User has an option to move the new event to the closest date or move
+     * the underlying event to the closest day
      */
     void addEvent();
 
@@ -68,7 +68,6 @@ public:
      * Exports the calendar to a specific file.
      */
     void exportCalendar();
-
 
     void getEventById();
 

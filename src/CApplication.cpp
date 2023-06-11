@@ -81,48 +81,6 @@ void CApplication::displayMainMenu() {
 }
 
 
-void CApplication::displayCalendar() {
-
-    while (true) {
-        cout << "Select calendar display mode:" << endl;
-        cout << "1 - daily" << endl;
-        cout << "2 - weekly" << endl;
-        cout << "3 - monthly" << endl;
-        cout << "4 - cancel" << endl;
-
-        int displayMode = getUserOption(4);
-
-        if (displayMode == 4) return;
-
-        if (calendarDisplayer.find(displayMode) != calendarDisplayer.end()) {
-            calendarDisplayer[displayMode]->refreshCurrentPage();
-            calendarDisplayer[displayMode]->setCalendar(mCalendar);
-            calendarDisplayer[displayMode]->display();
-
-            while (true) {
-                cout << "Calendar view options:" << endl;
-                cout << "1 - go to previous page" << endl;
-                cout << "2 - go to the next page" << endl;
-                cout << "3 - cancel" << endl;
-
-                int pageMode = getUserOption(3);
-
-                if (pageMode == 3) return;
-
-                if (pageMode == 1) {
-                    calendarDisplayer[displayMode]->previousPage();
-                }
-                else if (pageMode == 2) {
-                    calendarDisplayer[displayMode]->nextPage();
-                }
-            }
-        }
-
-        cout << endl;
-    }
-}
-
-
 void CApplication::addEvent() {
 
     string eventName, option, place, notes;
@@ -317,6 +275,49 @@ void CApplication::findEvents() {
         }
     }
 }
+
+
+void CApplication::displayCalendar() {
+
+    while (true) {
+        cout << "Select calendar display mode:" << endl;
+        cout << "1 - daily" << endl;
+        cout << "2 - weekly" << endl;
+        cout << "3 - monthly" << endl;
+        cout << "4 - cancel" << endl;
+
+        int displayMode = getUserOption(4);
+
+        if (displayMode == 4) return;
+
+        if (calendarDisplayer.find(displayMode) != calendarDisplayer.end()) {
+            calendarDisplayer[displayMode]->refreshCurrentPage();
+            calendarDisplayer[displayMode]->setCalendar(mCalendar);
+            calendarDisplayer[displayMode]->display();
+
+            while (true) {
+                cout << "Calendar view options:" << endl;
+                cout << "1 - go to previous page" << endl;
+                cout << "2 - go to the next page" << endl;
+                cout << "3 - cancel" << endl;
+
+                int pageMode = getUserOption(3);
+
+                if (pageMode == 3) return;
+
+                if (pageMode == 1) {
+                    calendarDisplayer[displayMode]->previousPage();
+                }
+                else if (pageMode == 2) {
+                    calendarDisplayer[displayMode]->nextPage();
+                }
+            }
+        }
+
+        cout << endl;
+    }
+}
+
 
 void CApplication::exportCalendar() {
     CEventExporter exporter(mCalendar.getSortedEvents(nullptr, true));

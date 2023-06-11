@@ -1,7 +1,7 @@
 #include "testCalendarOperations.h"
 
 
-void testCalendarAdd() {
+void testCalendarOperations() {
     bool isSuccess;
     auto rec1 = CEventRecurring(1, "", CDatetime(2023, 5, 5, 15, 0),  CTime(17, 0), "", {}, {}, "");
     auto rec2 = CEventRecurring(2, "", CDatetime(2023, 5, 5, 18, 0),  CTime(23, 30), "", {}, {}, "");
@@ -26,5 +26,16 @@ void testCalendarAdd() {
 
     isSuccess = calendar.moveEvent(1, 1);
     assert(isSuccess == false);
+
+    isSuccess = calendar.removeEvent(2);
+    assert(isSuccess == true);
+
+    isSuccess = calendar.moveEvent(1, 2);
+    assert(isSuccess == true);
+    assert(calendar.getEvent(1)->getEnd().getHour() == 19);
+
+    isSuccess = calendar.moveEvent(1, -2);
+    assert(isSuccess == true);
+    assert(calendar.getEvent(1)->getEnd().getHour() == 17);
 
 }

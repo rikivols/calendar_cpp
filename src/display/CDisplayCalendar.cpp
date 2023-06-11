@@ -1,8 +1,11 @@
+
 #include "CDisplayCalendar.h"
+
 
 void CDisplayCalendar::setCalendar(const CCalendar &calendar) {
     mCalendar = calendar;
 }
+
 
 void CDisplayCalendar::displayDailyEvents(const CDatetime &datetime, bool displaySeparator) const {
     auto dailyEvents = mCalendar.getDailyEvents(datetime.getYear(), datetime.getMonth(), datetime.getDay());
@@ -11,7 +14,6 @@ void CDisplayCalendar::displayDailyEvents(const CDatetime &datetime, bool displa
         cout << endl << endl << stringifyDay(datetime);
         printSeparator(cout, '=');
     }
-
 
     if (dailyEvents.empty()) {
         cout << endl << "No events" << endl;

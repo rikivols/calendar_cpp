@@ -5,4 +5,4 @@
 #include "../../src/event/CEventRecurring.h"
 
 
-void testCalendarAdd();
+void testCalendarOperations();

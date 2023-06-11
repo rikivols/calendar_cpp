@@ -46,8 +46,8 @@ bool CCalendar::moveEvent(size_t eventId, int hours) {
         return false;
     }
 
-    eventToMove->setStart(eventToMove->getStart() + hours);
-    eventToMove->setEnd(eventToMove->getEnd() + hours);
+    eventToMove->setStart(eventToMove->getStart() + hours*60);
+    eventToMove->setEnd(eventToMove->getEnd() + hours*60);
 
     cout << "Event moved successfully, new event start: " << eventToMove->getStart() << endl;
     return true;
@@ -131,7 +131,6 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
     for (auto const &[eventId, myEvent]: mEvents) {
         // polymorphism, we calculate differently if the conflict is recurring or a simple event
         if (event.getId() != eventId && myEvent->isConflict(event, offset)) {
-            cout << "conflict with: " << *myEvent << endl;
             return eventId;
         }
     }
@@ -140,5 +139,5 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
 }
 
 size_t CCalendar::getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const {
-    return getFirstConflictId((const CEvent &) event, offset);;
+    return getFirstConflictId(*event, offset);
 }

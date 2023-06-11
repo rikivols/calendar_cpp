@@ -1,19 +1,17 @@
+
 #include "CDisplayMonthly.h"
 
-/**
- * Store the provided calendar and set the display page to today's month.
- *
- * @param calendar calendar we want to display
- */
 
 unique_ptr<CDisplayCalendar> CDisplayMonthly::clone() const {
     return make_unique<CDisplayMonthly>(*this);
 }
 
+
 void CDisplayMonthly::refreshCurrentPage() {
     auto now = getTimeNow();
     mCurrentPage.setDate(now->tm_year + 1900, now->tm_mon + 1, 1);
 }
+
 
 void CDisplayMonthly::display() const {
     cout << endl << string(35, '*') << endl;
@@ -29,10 +27,12 @@ void CDisplayMonthly::display() const {
     cout << string(35, '*') << endl << endl;
 }
 
+
 void CDisplayMonthly::nextPage() {
     mCurrentPage.addMonth();
     display();
 }
+
 
 void CDisplayMonthly::previousPage() {
     mCurrentPage.decreaseMonth();

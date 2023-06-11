@@ -1,4 +1,6 @@
+
 #include "CHelpers.h"
+
 
 int getUserOption(int maxChoice) {
 
@@ -23,6 +25,7 @@ int getUserOption(int maxChoice) {
 
     return option;
 }
+
 
 string & loadString(string &loadedString, bool allowEmpty) {
     while (true) {
@@ -119,7 +122,7 @@ string &stripString(string & inp) {
         return !isspace(ch);
     }));
 
-    inp.erase(find_if(inp.rbegin(), inp.rend(), [](unsigned char ch) {  // remove sufix
+    inp.erase(find_if(inp.rbegin(), inp.rend(), [](unsigned char ch) {  // remove suffix
         return !isspace(ch);
     }).base(), inp.end());
 

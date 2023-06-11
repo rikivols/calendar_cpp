@@ -111,11 +111,6 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
 }
 
 
-bool CCalendarImporter::wasSuccess() const {
-    return isSuccess;
-}
-
-
 CCalendar CCalendarImporter::errorReturn(const string &message, size_t lineNum) {
     cout << "IMPORT FAIL: ";
     if (lineNum) {
@@ -123,6 +118,11 @@ CCalendar CCalendarImporter::errorReturn(const string &message, size_t lineNum) 
     }
     cout << message << endl;
     return CCalendar();
+}
+
+
+bool CCalendarImporter::wasSuccess() const {
+    return isSuccess;
 }
 
 

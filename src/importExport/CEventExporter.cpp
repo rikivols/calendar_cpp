@@ -3,7 +3,7 @@
 
 
 CEventExporter::CEventExporter(const vector<shared_ptr<CEvent>> &events): mEvents(events) {
-    sort(mEvents.begin(), mEvents.end(), CEvent::sortEventsByStartDatetime);
+    sort(mEvents.begin(), mEvents.end(), CEvent::sortEventsById);
 }
 
 void CEventExporter::exportToFile(const string &nameOfFile) const {

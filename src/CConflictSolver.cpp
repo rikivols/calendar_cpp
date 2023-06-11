@@ -1,10 +1,10 @@
-//
-// Created by Anon user on 28.05.2023.
-//
+
 #include "CConflictSolver.h"
 #include <utility>
 
+
 CConflictSolver::CConflictSolver(CCalendar calendar, size_t eventId): mCalendar(std::move(calendar)), mEventId(eventId) {}
+
 
 bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
     int userOption = solveConflictPrompt();
@@ -81,6 +81,7 @@ bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
     return true;
 }
 
+
 int CConflictSolver::solveConflictPrompt() {
     cout << endl << "CONFLICT DETECTED: event already exists at that time." << endl;
     cout << "Newly added event conflicts with the following event:";
@@ -95,9 +96,11 @@ int CConflictSolver::solveConflictPrompt() {
 
 }
 
+
 bool CConflictSolver::sortTimeByStart(const pair<CTime, CTime> &time1, const pair<CTime, CTime> &time2) {
     return time1.second < time2.second;
 }
+
 
 // we include start
 CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> &foreverBusyVec, int durationMinutes,
@@ -139,6 +142,7 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
     // it's impossible to find a free time
     return {};
 }
+
 
 CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatetime &from, size_t ignoreEventId,
                                                const shared_ptr<CEvent> &newFutureEvent) {
@@ -192,9 +196,6 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
     // last check, if we're able to find any time in the future amongst daily recurring events
     tempResult = findFreeTimeInRecurringEvents(foreverBusyVec, durationMinutes, result, resultEnd);
     if (tempResult.isValidTime()) {
-//        if (tempResult < result.getTime()) {
-//            result += DAY_MINUTES;
-//        }
         result.setTime(tempResult);
         return result;
     }
@@ -202,12 +203,3 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
     // it was impossible to find a free time, every date in the future is already taken by the recurring events
     return {};
 }
-
-
-CDatetime &CConflictSolver::addDayConditional(CDatetime &result, const CDatetime &from) {
-    if (from.getTime() > result.getTime()) {
-        result += DAY_MINUTES;
-    }
-    return result;
-}
-
