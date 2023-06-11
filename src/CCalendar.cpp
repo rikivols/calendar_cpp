@@ -41,7 +41,7 @@ bool CCalendar::moveEvent(size_t eventId, int hours) {
     if (conflictEventId) {
         cout << "An event already exists at that time, unable to move the event" << endl;
         cout << "Conflicting event:" << endl;
-        cout << getEvent(conflictEventId);
+        cout << *getEvent(conflictEventId);
 
         return false;
     }
@@ -73,6 +73,11 @@ shared_ptr<CEvent> CCalendar::getEvent(size_t eventId) {
     }
 
     return nullptr;
+}
+
+
+size_t CCalendar::getEventsNum() const {
+    return mEvents.size();
 }
 
 

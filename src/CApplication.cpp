@@ -136,7 +136,7 @@ void CApplication::addEvent() {
     cout << "How many tags does your event have (0-99): ";
     loadMultiString(tags, "tag", 99);
 
-    cout << "Enter notes (optional): ";
+    cout << "Enter notes (optional, type 'default' for empty): ";
     loadString(notes, true);
 
     bool addSuccess;
@@ -211,7 +211,7 @@ void CApplication::findEvents() {
                 end.loadDatetime();
                 break;
             case 4:
-                cout << "Select event place: " << endl;
+                cout << "Select event place: ";
                 loadString(place);
                 break;
             case 5:

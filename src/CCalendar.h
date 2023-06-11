@@ -51,6 +51,8 @@ public:
      */
     shared_ptr<CEvent> getEvent(size_t eventId);
 
+    size_t getEventsNum() const;
+
     /**
      * Returns sorted events by a start datetime or event id.
      *

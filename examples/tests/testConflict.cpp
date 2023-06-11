@@ -74,7 +74,6 @@ void testConflictMix() {
     CConflictSolver solver1(calendar, 1);
 
     auto freeDatetime1 = solver1.getNextFreeDatetime(60, CDatetime(2023, 5, 6, 13, 10));
-    cout << "free datetime: " << freeDatetime1 << endl;
     assert(freeDatetime1 == CDatetime(2023, 5, 6, 23, 1));
 
     auto sim3 = CEventSimple(4, "", CDatetime(2023, 5, 7, 0, 25),  CDatetime(2023, 5, 7, 13, 59), "", {}, {}, "");

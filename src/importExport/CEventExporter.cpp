@@ -26,7 +26,7 @@ void CEventExporter::exportToFile(const string &nameOfFile) const {
             return;
         }
         event->exportEvent(fileRow);
-        exportFile << fileRow;
+        exportFile << fileRow << endl;
         if (!exportFile.good()) {
             cout << "Failed to write to the file, error occurred on line: " << lineNum << endl;
             exportFile.close();

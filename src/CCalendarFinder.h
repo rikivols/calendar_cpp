@@ -80,7 +80,7 @@ private:
      * @param tempEvents events to union/intersect with
      * @param isFirst whether it's the first intersection/union operation
      */
-    void updateFinalEvents(vector<shared_ptr<CEvent>> &finalEvents, const vector<shared_ptr<CEvent>> &tempEvents,
+    void updateFinalEvents(vector<shared_ptr<CEvent>> &finalEvents, vector<shared_ptr<CEvent>> &tempEvents,
                            bool &isFirst) const;
 
     string mName, mPlace, mNote;
@@ -92,6 +92,14 @@ private:
 };
 
 
-vector<shared_ptr<CEvent>> getIntersection(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2);
+/**
+ * Gets intersection or union of 2 vectors
+ *
+ * @param v1 vector 1
+ * @param v2 vector 2
+ * @param isIntersection true = do intersection, false = do union
+ * @return final vector after the applied set operations
+ */
+vector<shared_ptr<CEvent>> getIntersectionUnion(const vector<shared_ptr<CEvent>> &v1,
+                                                const vector<shared_ptr<CEvent>> &v2, bool isIntersection);
 
-vector<shared_ptr<CEvent>> getUnion(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2);

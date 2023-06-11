@@ -95,31 +95,68 @@ void CCalendarFinder::findByVector(vector<shared_ptr<CEvent>> &events, const vec
 
 
 void CCalendarFinder::updateFinalEvents(vector<shared_ptr<CEvent>> &finalEvents,
-                                        const vector<shared_ptr<CEvent>> &tempEvents, bool &isFirst) const {
+                                        vector<shared_ptr<CEvent>> &tempEvents, bool &isFirst) const {
     if (mIsAnd && !isFirst) {
-        finalEvents = getIntersection(finalEvents, tempEvents);
+        finalEvents = getIntersectionUnion(tempEvents, tempEvents, true);
     }
     else {
-        finalEvents = getUnion(finalEvents, tempEvents);
+        finalEvents = getIntersectionUnion(tempEvents, tempEvents, false);
     }
+
+    tempEvents.clear();
 
     isFirst = false;
 }
 
 
-vector<shared_ptr<CEvent>> getIntersection(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2) {
-    vector<shared_ptr<CEvent>> result;
-
-    set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(result), CEvent::sortEventsById);
-
-    return result;
-}
-
-
-vector<shared_ptr<CEvent>> getUnion(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2) {
+vector<shared_ptr<CEvent>> getIntersectionUnion(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2, bool isIntersection) {
     vector<shared_ptr<CEvent>> finalObject;
+    vector<size_t> idsObject;
 
-    set_union(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(finalObject), CEvent::sortEventsById);
+    vector<size_t> idsV1;
+    vector<size_t> idsV2;
+
+    for (const auto &v: v1) {
+        idsV1.push_back(v->getId());
+    }
+
+    for (const auto &v: v2) {
+        idsV2.push_back(v->getId());
+    }
+
+    sort(idsV1.begin(), idsV1.end());
+    sort(idsV2.begin(), idsV2.end());
+
+    if (isIntersection) {
+        set_intersection(idsV1.begin(), idsV1.end(), idsV2.begin(), idsV2.end(), back_inserter(idsObject));
+    }
+    else {
+        set_union(idsV1.begin(), idsV1.end(), idsV2.begin(), idsV2.end(), back_inserter(idsObject));
+    }
+
+    bool toBreak = false;
+
+    for (auto eventId: idsObject) {
+        for (const auto &val1: v1) {
+            if (eventId == val1->getId()) {
+                finalObject.push_back(val1);
+                toBreak = true;
+                break;
+            }
+        }
+
+        if (toBreak) {
+            toBreak = false;
+            continue;
+        }
+
+        for (const auto &val2: v2) {
+            if (eventId == val2->getId()) {
+                finalObject.push_back(val2);
+                break;
+            }
+        }
+    }
 
     return finalObject;
 }

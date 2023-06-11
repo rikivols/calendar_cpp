@@ -7,6 +7,7 @@ int getUserOption(int maxChoice) {
     cout << "Pick an option (1-" << maxChoice << "): ";
     string optionStr;
     cin >> optionStr;
+    cout << endl;
 
     int option = convertStringToInt(optionStr);
 
@@ -27,20 +28,30 @@ int getUserOption(int maxChoice) {
 }
 
 
-string & loadString(string &loadedString, bool allowEmpty) {
+string &loadString(string &loadedString, bool allowEmpty) {
     while (true) {
         getline(cin >> ws, loadedString);
 
         stripString(loadedString);
 
         if (cin.fail()) {
-            cout << "Failed to load the text, please enter the value again: ";
+            cout << "Failed to load the text" << endl;
+            loadedString = "";
+            cin.clear();
+            cin.sync();
+            return loadedString;
         }
         else if (loadedString.empty() && !allowEmpty) {
-            cout << "EMPTY" << endl;
+            loadedString = "";
+            cin.clear();
+            cin.sync();
             continue;
         }
         else {
+            if (allowEmpty && loadedString == "default") {
+                loadedString = "";
+                return loadedString;
+            }
             return loadedString;
         }
     }
@@ -49,13 +60,14 @@ string & loadString(string &loadedString, bool allowEmpty) {
 vector<string> &loadMultiString(vector<string> &storeVec, const string &propertyName, int maxNum) {
     string value;
 
-
     int numberOfValues = loadNumber(0, maxNum);
 
     for (size_t i=0; i<numberOfValues; i++) {
         cout << "Select " << propertyName << " number " << i+1 << ": ";
         storeVec.push_back(loadString(value));
     }
+
+    cout << endl;
 
     return storeVec;
 }
@@ -72,6 +84,7 @@ int loadNumber(int minNum, int maxNum) {
 
     while (true) {
         cin >> res;
+
         if (cin.fail()) {
             cout << "Failed to load the number, please try again" << endl;
         }

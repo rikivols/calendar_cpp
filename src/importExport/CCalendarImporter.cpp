@@ -104,7 +104,7 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
     }
 
     readFile.close();
-    cout << "Calendar was successfully imported. Number of events: " << lineNum - 1 << endl;
+    cout << "Calendar was successfully imported. Number of events: " << finalCalendar.getEventsNum() << endl;
     isSuccess = true;
 
     return finalCalendar;

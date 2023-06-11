@@ -100,7 +100,20 @@
  * $ 8
  *
  * goodbye
-```
+ * ```
+ *
+ *
+ * To run unit tests:
+ * To run unit tests, use
+ * ```
+ * make compileTests
+ * make run_test
+ * ```
+ *
+ * To run file input tests:
+ * ```
+ * make run < examples/emptyFileInput.txt
+ * ```
  */
 
 #include "CApplication.h"

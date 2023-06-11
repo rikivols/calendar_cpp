@@ -5,16 +5,16 @@
 
 int main() {
     testDateValid();
-    cout << "Date validation test passed" << endl;
+    cout << endl << "Date validation test PASSED" << endl;
     testOperations();
-    cout << "Date arithmetic operations test passed" << endl;
+    cout << endl << "Date arithmetic operations test PASSED" << endl;
     testConflictRecurring();
-    cout << "Event recurring conflict resolution test passed" << endl;
+    cout << endl << "Event recurring conflict resolution test PASSED" << endl;
     testConflictMix();
-    cout << "Event simple and recurring conflict resolution test passed" << endl;
+    cout << endl << "Event simple and recurring conflict resolution test PASSED" << endl;
     testLongEvents();
-    cout << "Long events simple conflict resolution test passed" << endl;
+    cout << endl << "Long events simple conflict resolution test PASSED" << endl;
     testCalendarOperations();
-    cout << "Calendar operations (adding, moving, removing) test passed" << endl;
+    cout << endl << "Calendar operations (adding, moving, removing) test PASSED" << endl;
 
 }
