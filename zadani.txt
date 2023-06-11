@@ -46,20 +46,34 @@ Calendar also allows:
   has to be only of one type. We allow to export the results.
 - Display events, modes: daily, weekly, monthly. We can also list through the pages of the display mode. (previous page,
   next page)
+- Solve conflicts when adding a new event if they arise
 
 
 Example:
 
 ```
-Welcome to the action explorer of calendar,
-Available actions:
-1 - display calendar
-2 - add event
-3 - move event
-4 - remove event
-5 - find events
+--------------------------------
+| Welcome to the calendar app! |
+--------------------------------
+
+Do you want to import from a file or start with an empty calendar?
+1 - import from file
+2 - start with an empty calendar
+Pick an option (1-2): $ 1
+
+Select path to the file you want to import from: $ examples/example1.txt
+
+Calendar was successfully imported. Number of events: 5
+
+You're at the main menu of the calendar, what action do you want to choose?
+1 - add event
+2 - move event
+3 - remove event
+4 - find events
+5 - display calendar
 6 - export calendar
-7 - quit
+7 - get event by id
+8 - end application
 
 Select option:
 $ 1
@@ -82,7 +96,8 @@ Start: 13:00
 End: 13:30
 Place: New York
 Attendees: Vagner, Gates, Biden
-Tags: *important*
+Tags:
+* important
 Note: Don't forget to learn pointers
 ---------------------
 04.01.2022 - no events
@@ -99,18 +114,19 @@ $ 3
 
 Welcome to the action explorer of calendar,
 Available actions:
-1 - display calendar
-2 - add event
-3 - move event
-4 - remove event
-5 - find events
+1 - add event
+2 - move event
+3 - remove event
+4 - find events
+5 - display calendar
 6 - export calendar
-7 - quit
+7 - get event by id
+8 - end application
 
 Select option:
-$ 7
+$ 8
 
-Thank you for using Calendar.
+goodbye
 ```
 
 
@@ -123,8 +139,8 @@ Event defines a method: `bool isConflict(const Event &event, int offsetHours)`.
 This method finds out whether calendar's event doesn't conflict with the new event (that we want to add).
 
 The calculation of the conflict is different for simple and recurring events. (since recurring happens every day).
-This method will be used when adding a new event and moving an existing event. (from class Calendar).
-(I've implemented addEvent so far in the Calendar class showing the usage, but moveEvent will work similarly).
+There are also more methods using polymorphism, they relate to the different way that we calculate event's duration
+and so on, also we display them differently
 
 
 Second polymorphism is for the display of the calendar (base class DisplayCalendar). We have different modes
