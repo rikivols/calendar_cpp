@@ -2,10 +2,10 @@
 #include "CDatetime.h"
 
 
-CTime::CTime(): mHour(69), mMinute(69) {}  // initialize with a value that's not a valid time
+CTime::CTime() : mHour(69), mMinute(69) {}  // initialize with a value that's not a valid time
 
 
-CTime::CTime(int hour, int minute): mHour(hour), mMinute(minute) {}
+CTime::CTime(int hour, int minute) : mHour(hour), mMinute(minute) {}
 
 
 ostream &CTime::printTime(ostream &out) const {
@@ -41,11 +41,11 @@ bool CTime::isInRange(const CTime &from, const CTime &to) const {
 }
 
 
-bool CTime::operator> (const CTime &inp) const {
-    if ( mHour > inp.mHour ){
+bool CTime::operator>(const CTime &inp) const {
+    if (mHour > inp.mHour) {
         return true;
     }
-    if ( mHour == inp.mHour ) {
+    if (mHour == inp.mHour) {
         return mMinute > inp.mMinute;
     }
     return false;

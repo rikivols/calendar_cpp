@@ -7,6 +7,8 @@
 
 #include <ctime>
 #include <iostream>
+#include <memory>
+#include <vector>
 
 #include "CHelpers.h"
 
@@ -47,26 +49,26 @@ public:
      */
     [[nodiscard]] bool isInRange(const CTime &from, const CTime &to) const;
 
-    bool operator> (const CTime &inp) const;
+    bool operator>(const CTime &inp) const;
 
-    bool operator== (const CTime & inp) const;
+    bool operator==(const CTime &inp) const;
 
     bool operator!=(const CTime &inp) const;
 
-    bool operator< (const CTime & inp) const;
+    bool operator<(const CTime &inp) const;
 
-    bool operator<= (const CTime & inp) const;
+    bool operator<=(const CTime &inp) const;
 
-    bool operator>= (const CTime & inp) const;
+    bool operator>=(const CTime &inp) const;
 
-    int operator- (const CTime & inp) const;
+    int operator-(const CTime &inp) const;
 
     /**
      * Loads the time from console.
      *
      * @return the newly loaded time
      */
-    CTime & loadTime();
+    CTime &loadTime();
 
     /**
      * Add minutes to the time.
@@ -90,7 +92,7 @@ protected:
 /**
  * Class that represents both date and time of the event
  */
-class CDatetime: public CTime {
+class CDatetime : public CTime {
 public:
 
     CDatetime();
@@ -156,7 +158,7 @@ public:
      *
      * @param localTime tm struct to set the date based on.
      */
-    void setLocalDate(tm * localTime);
+    void setLocalDate(tm *localTime);
 
     /**
      * Sets event's date and sets hours as 12
@@ -167,25 +169,25 @@ public:
      */
     void setDate(int year, int month, int day);
 
-    bool operator> (const CDatetime & inp) const;
+    bool operator>(const CDatetime &inp) const;
 
-    bool operator== (const CDatetime & inp) const;
+    bool operator==(const CDatetime &inp) const;
 
-    bool operator< (const CDatetime & inp) const;
+    bool operator<(const CDatetime &inp) const;
 
-    bool operator<= (const CDatetime & inp) const;
+    bool operator<=(const CDatetime &inp) const;
 
-    bool operator>= (const CDatetime & inp) const;
+    bool operator>=(const CDatetime &inp) const;
 
-    CDatetime operator+ (int minutes) const;
+    CDatetime operator+(int minutes) const;
 
-    CDatetime &operator+= (int minutes);
+    CDatetime &operator+=(int minutes);
 
-    CDatetime operator- (int minutes) const;
+    CDatetime operator-(int minutes) const;
 
-    CDatetime &operator-= (int minutes);
+    CDatetime &operator-=(int minutes);
 
-    long operator- (const CDatetime &datetime) const;
+    long operator-(const CDatetime &datetime) const;
 
     /**
      * Find out whether the datetime is a correct date and time.
@@ -203,7 +205,7 @@ public:
      *
      * @return the newly loaded time
      */
-    CDatetime & loadDatetime();
+    CDatetime &loadDatetime();
 
     /**
      * Converts datetime to a string.

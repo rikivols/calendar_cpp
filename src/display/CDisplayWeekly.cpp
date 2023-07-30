@@ -23,7 +23,7 @@ void CDisplayWeekly::display() const {
     cout << endl << "Displaying events for a week: " << stringifyDay(mCurrentPage) << " - "
          << stringifyDay(mCurrentPage + 6 * DAY_MINUTES) << endl;
 
-    for (int i=0; i<7; i++) {
+    for (int i = 0; i < 7; i++) {
         displayDailyEvents(mCurrentPage + i * DAY_MINUTES, true);
     }
     cout << endl;

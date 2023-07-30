@@ -13,7 +13,7 @@ int getUserOption(int maxChoice) {
 
     if (option < 1 || option > maxChoice) {
         cout << "Invalid option selected, please pick from options: {";
-        for (int i=1; i<=maxChoice; i++) {
+        for (int i = 1; i <= maxChoice; i++) {
             cout << i;
             if (i != maxChoice) {
                 cout << ", ";
@@ -40,14 +40,12 @@ string &loadString(string &loadedString, bool allowEmpty) {
             cin.clear();
             cin.sync();
             return loadedString;
-        }
-        else if (loadedString.empty() && !allowEmpty) {
+        } else if (loadedString.empty() && !allowEmpty) {
             loadedString = "";
             cin.clear();
             cin.sync();
             continue;
-        }
-        else {
+        } else {
             if (allowEmpty && loadedString == "default") {
                 loadedString = "";
                 return loadedString;
@@ -62,8 +60,8 @@ vector<string> &loadMultiString(vector<string> &storeVec, const string &property
 
     int numberOfValues = loadNumber(0, maxNum);
 
-    for (size_t i=0; i<numberOfValues; i++) {
-        cout << "Select " << propertyName << " number " << i+1 << ": ";
+    for (int i = 0; i < numberOfValues; i++) {
+        cout << "Select " << propertyName << " number " << i + 1 << ": ";
         storeVec.push_back(loadString(value));
     }
 
@@ -73,8 +71,8 @@ vector<string> &loadMultiString(vector<string> &storeVec, const string &property
 }
 
 void convertStringLowercase(string &toConv) {
-    for (char & c : toConv) {
-        c = (char)tolower(c);
+    for (char &c: toConv) {
+        c = (char) tolower(c);
     }
 }
 
@@ -87,12 +85,11 @@ int loadNumber(int minNum, int maxNum) {
 
         if (cin.fail()) {
             cout << "Failed to load the number, please try again" << endl;
-        }
-        else if (res < minNum || res > maxNum) {
-            cout << "Selected number is out of range, acceptable values are: [" << minNum << "..." << maxNum << "]" << endl;
+        } else if (res < minNum || res > maxNum) {
+            cout << "Selected number is out of range, acceptable values are: [" << minNum << "..." << maxNum << "]"
+                 << endl;
             cout << "please enter again: ";
-        }
-        else {
+        } else {
             break;
         }
     }
@@ -130,7 +127,7 @@ ostream &printVector(ostream &out, const vector<string> &vec) {
 }
 
 
-string &stripString(string & inp) {
+string &stripString(string &inp) {
     inp.erase(inp.begin(), find_if(inp.begin(), inp.end(), [](unsigned char ch) {  // remove prefix
         return !isspace(ch);
     }));
@@ -145,7 +142,7 @@ string &stripString(string & inp) {
 
 string exportFormatVector(const vector<string> &vec) {
     string res = "[";
-    for (size_t i=0; i<vec.size(); i++) {
+    for (size_t i = 0; i < vec.size(); i++) {
         res += vec[i];
         if (i != vec.size() - 1) {
             res += ";";
@@ -201,11 +198,9 @@ bool loadYesNo(const string &message) {
         convertStringLowercase(option);
         if (option == "yes" || option == "y") {
             return true;
-        }
-        else if (option == "n" || option == "no") {
+        } else if (option == "n" || option == "no") {
             return false;
-        }
-        else {
+        } else {
             cout << "Invalid format, please try again." << endl;
         }
     }

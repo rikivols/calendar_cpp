@@ -25,8 +25,9 @@ public:
      * @param attendees attendees to find the element by
      * @param tags tags to find the element by
      */
-    CCalendarFinder(CCalendar calendar, bool isAnd, string name, const CDatetime &start, const CDatetime &end, string mPlace,
-                   const vector<string> &attendees, const vector<string> &tags);
+    CCalendarFinder(CCalendar calendar, bool isAnd, string name, const CDatetime &start, const CDatetime &end,
+                    string mPlace,
+                    const vector<string> &attendees, const vector<string> &tags);
 
     /**
      * Find the event based on the given criteria, store them to mEventsResult

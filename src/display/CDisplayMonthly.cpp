@@ -20,7 +20,7 @@ void CDisplayMonthly::display() const {
     cout << endl << "Displaying events for a month: " << stringifyDay(mCurrentPage) << " - "
          << stringifyDay(mCurrentPage + (daysInMonth - 1) * DAY_MINUTES) << endl;
 
-    for (int i=0; i<daysInMonth; i++) {
+    for (int i = 0; i < daysInMonth; i++) {
         displayDailyEvents(mCurrentPage + i * DAY_MINUTES, true);
     }
     cout << endl;

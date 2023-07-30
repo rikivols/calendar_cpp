@@ -1,7 +1,7 @@
 #include "CCalendarImporter.h"
 
 
-CCalendarImporter::CCalendarImporter(): mEventId(0), isSuccess(false) {}
+CCalendarImporter::CCalendarImporter() : mEventId(0), isSuccess(false) {}
 
 
 CCalendar CCalendarImporter::importFromFile(const string &filePath) {
@@ -80,12 +80,11 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
             if (mEventType == "sim") {
                 auto eventSimple = CEventSimple(mEventId, mName, mStart, mEnd, mPlace, mAttendees, mTags, mNote);
                 addSuccess = finalCalendar.addEvent(eventSimple, true);
-            }
-            else if (mEventType == "rec") {
-                auto eventRecurring = CEventRecurring(mEventId, mName, mStart, mEndTime, mPlace, mAttendees, mTags, mNote);
+            } else if (mEventType == "rec") {
+                auto eventRecurring = CEventRecurring(mEventId, mName, mStart, mEndTime, mPlace, mAttendees, mTags,
+                                                      mNote);
                 addSuccess = finalCalendar.addEvent(eventRecurring, true);
-            }
-            else {
+            } else {
                 return errorReturn("Event type must be 'sim' or 'rec'", lineNum);
             }
 
@@ -98,8 +97,7 @@ CCalendar CCalendarImporter::importFromFile(const string &filePath) {
 
             lineNum++;
         }
-    }
-    else {
+    } else {
         return errorReturn("Unable to open the file");
     }
 
@@ -142,8 +140,8 @@ void CCalendarImporter::parseEventId(const string &inp) {
         return;
     }
 
-    if (eventId > SIZE_MAX) {
-        setErrorMessage("Event id is too big, max value: " + to_string(SIZE_MAX));
+    if (eventId > 10000000) {
+        setErrorMessage("Event id is too big, max value: " + to_string(10000000));
         return;
     }
 
@@ -224,7 +222,7 @@ void CCalendarImporter::parseTime(const string &inp) {
 
 
 void CCalendarImporter::parseVector(string &inp, vector<string> &finalVec) {
-    if (inp.size() < 2 || inp[0] != '[' || inp[inp.size()-1] != ']') {
+    if (inp.size() < 2 || inp[0] != '[' || inp[inp.size() - 1] != ']') {
         setErrorMessage("Array type attributes must be enclosed in '[' and ']' characters");
         return;
     }

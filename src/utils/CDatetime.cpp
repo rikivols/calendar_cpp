@@ -88,7 +88,7 @@ int CDatetime::getDaysInAMonth() const {
 
     int curDay = 28;
 
-    for ( ; curDay <= 32; curDay++) {
+    for (; curDay <= 32; curDay++) {
         newDatetime.setDate(mYear, mMonth, curDay);
 
         if (!newDatetime.isValidDate()) {
@@ -100,7 +100,7 @@ int CDatetime::getDaysInAMonth() const {
 }
 
 
-void CDatetime::setTime(const CTime & time) {
+void CDatetime::setTime(const CTime &time) {
     // we need to add 1 day before updating time
     if (time < this->getTime()) {
         *this += DAY_MINUTES;
@@ -111,7 +111,7 @@ void CDatetime::setTime(const CTime & time) {
 }
 
 
-void CDatetime::setLocalDate(tm * localTime) {
+void CDatetime::setLocalDate(tm *localTime) {
     mYear = localTime->tm_year + 1900;
     mMonth = localTime->tm_mon + 1;
     mDay = localTime->tm_mday;
@@ -129,17 +129,17 @@ void CDatetime::setDate(int year, int month, int day) {
 }
 
 
-bool CDatetime::operator> (const CDatetime & inp) const {
+bool CDatetime::operator>(const CDatetime &inp) const {
 
-    if ( mYear > inp.mYear ) {
+    if (mYear > inp.mYear) {
         return true;
     }
-    if ( mYear == inp.mYear ) {
-        if ( mMonth > inp.mMonth ) {
+    if (mYear == inp.mYear) {
+        if (mMonth > inp.mMonth) {
             return true;
         }
-        if ( mMonth == inp.mMonth ) {
-            if ( mDay > inp.mDay ) {
+        if (mMonth == inp.mMonth) {
+            if (mDay > inp.mDay) {
                 return true;
             }
             if (mDay == inp.mDay) {
@@ -262,8 +262,7 @@ CDatetime &CDatetime::loadDatetime() {
 
         if (isValidDate()) {
             break;
-        }
-        else {
+        } else {
             cout << "Your date isn't valid, please select your date again." << endl;
         }
     }

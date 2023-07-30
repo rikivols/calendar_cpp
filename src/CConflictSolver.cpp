@@ -3,7 +3,8 @@
 #include <utility>
 
 
-CConflictSolver::CConflictSolver(CCalendar calendar, size_t eventId): mCalendar(std::move(calendar)), mEventId(eventId) {}
+CConflictSolver::CConflictSolver(CCalendar calendar, size_t eventId) : mCalendar(std::move(calendar)),
+                                                                       mEventId(eventId) {}
 
 
 bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
@@ -21,7 +22,7 @@ bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
 
             cout << "New date found for the event, its start date will be: " << newEventStart << endl;
             newEvent.setStart(newEventStart);
-            newEvent.setEnd(newEventStart + (int)newEvent.getEventDuration());
+            newEvent.setEnd(newEventStart + (int) newEvent.getEventDuration());
 
             // if it's a recurring event, there may be a situation where we find a new free date, but some non-recurring
             // event in the future would overlap, in that case we reject the new change
@@ -44,8 +45,9 @@ bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
             CDatetime oldEnd = conflictedEvent->getEnd();
 
             // we check if it would be possible to move the item (if we were to insert it)
-            newEventStart = getNextFreeDatetime(conflictedEventDuration, newEvent.getStart() + newEvent.getEventDuration() + 1,
-                                             conflictedEvent->getId(), newEvent.clone());
+            newEventStart = getNextFreeDatetime(conflictedEventDuration,
+                                                newEvent.getStart() + newEvent.getEventDuration() + 1,
+                                                conflictedEvent->getId(), newEvent.clone());
             if (!newEventStart.isValidDate()) {
                 cout << "We couldn't find a spot to move the new event to, aborting." << endl;
                 return false;
@@ -62,8 +64,7 @@ bool CConflictSolver::solveAddConflict(CEvent &newEvent) {
                 conflictedEvent->setEnd(oldEnd);
 
                 return false;
-            }
-            else {
+            } else {
                 cout << "Event moved successfully, new date for it: " << newEventStart << endl;
             }
 
@@ -120,7 +121,8 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
             continue;
         }
 
-        if (!result.isInRange(busyRange.first, busyRange.second) && !resultEnd.isInRange(busyRange.first, busyRange.second)) {
+        if (!result.isInRange(busyRange.first, busyRange.second) &&
+            !resultEnd.isInRange(busyRange.first, busyRange.second)) {
             return result;
         }
 
@@ -131,7 +133,8 @@ CTime CConflictSolver::findFreeTimeInRecurringEvents(vector<pair<CTime, CTime>> 
     // check if we can find some free time tomorrow
     for (const auto &busyRange: foreverBusyVec) {
 
-        if (!result.isInRange(busyRange.first, busyRange.second) && !resultEnd.isInRange(busyRange.first, busyRange.second)) {
+        if (!result.isInRange(busyRange.first, busyRange.second) &&
+            !resultEnd.isInRange(busyRange.first, busyRange.second)) {
             return result;
         }
 
@@ -165,7 +168,8 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
             tempResult = findFreeTimeInRecurringEvents(foreverBusyVec, durationMinutes, result, resultEnd);
             // we check if we found next time slot in the recurring daily events and also if the new time slot
             // isn't too far in the future
-            if (tempResult.isValidTime() && (tempResult.addMinutes(durationMinutes) < event->getStart() || resultEnd.getDate() + DAY_MINUTES < event->getStart())) {
+            if (tempResult.isValidTime() && (tempResult.addMinutes(durationMinutes) < event->getStart() ||
+                                             resultEnd.getDate() + DAY_MINUTES < event->getStart())) {
                 result.setTime(tempResult);
 
                 return result;
@@ -183,8 +187,7 @@ CDatetime CConflictSolver::getNextFreeDatetime(int durationMinutes, const CDatet
                 result.setTime(tempResult);
                 resultEnd = result + durationMinutes;
             }
-        }
-        else {
+        } else {
             if (from < event->getEnd() + 1) {
                 result = event->getEnd() + 1;  // next free minute
                 resultEnd = result + durationMinutes;

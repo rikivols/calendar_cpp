@@ -37,8 +37,8 @@ public:
      * @param newFutureEvent a new event that we want to temporarily add to the calendar while searching
      * @return next free datetime for the event
      */
-    CDatetime getNextFreeDatetime(int durationMinutes, const CDatetime &from, size_t ignoreEventId=0,
-                                  const shared_ptr<CEvent> &newFutureEvent=nullptr);
+    CDatetime getNextFreeDatetime(int durationMinutes, const CDatetime &from, size_t ignoreEventId = 0,
+                                  const shared_ptr<CEvent> &newFutureEvent = nullptr);
 
 private:
     static bool sortTimeByStart(const pair<CTime, CTime> &time1, const pair<CTime, CTime> &time2);

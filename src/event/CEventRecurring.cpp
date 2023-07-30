@@ -87,7 +87,8 @@ bool CEventRecurring::isConflict(const CEvent &event, int offset) const {
     CDatetime eventStart = event.getStart() + (offset * 60);
     CDatetime eventEnd = event.getEnd() + (offset * 60);
     if (mStart - event.getEventDuration() <= eventStart) {
-        if (eventStart.isInRange(mStart.getTime(), mEnd) || eventEnd.isInRange(mStart.getTime(), mEnd) || event.getEventDuration() >= DAY_MINUTES) {
+        if (eventStart.isInRange(mStart.getTime(), mEnd) || eventEnd.isInRange(mStart.getTime(), mEnd) ||
+            event.getEventDuration() >= DAY_MINUTES) {
             return true;
         }
     }

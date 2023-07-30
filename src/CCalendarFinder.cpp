@@ -4,10 +4,11 @@
 #include <utility>
 
 
-CCalendarFinder::CCalendarFinder(CCalendar calendar, bool isAnd, string name, const CDatetime &start, const CDatetime &end,
-                               string place, const vector<string> &attendees, const vector<string> &tags
-                               ): mName(std::move(name)), mPlace(std::move(place)), mStart(start), mEnd(end),
-                                  mAttendees(attendees), mTags(tags), mIsAnd(isAnd), mCalendar(std::move(calendar)) {}
+CCalendarFinder::CCalendarFinder(CCalendar calendar, bool isAnd, string name, const CDatetime &start,
+                                 const CDatetime &end,
+                                 string place, const vector<string> &attendees, const vector<string> &tags
+) : mName(std::move(name)), mPlace(std::move(place)), mStart(start), mEnd(end),
+    mAttendees(attendees), mTags(tags), mIsAnd(isAnd), mCalendar(std::move(calendar)) {}
 
 
 bool CCalendarFinder::findEvents() {
@@ -98,8 +99,7 @@ void CCalendarFinder::updateFinalEvents(vector<shared_ptr<CEvent>> &finalEvents,
                                         vector<shared_ptr<CEvent>> &tempEvents, bool &isFirst) const {
     if (mIsAnd && !isFirst) {
         finalEvents = getIntersectionUnion(tempEvents, tempEvents, true);
-    }
-    else {
+    } else {
         finalEvents = getIntersectionUnion(tempEvents, tempEvents, false);
     }
 
@@ -109,7 +109,8 @@ void CCalendarFinder::updateFinalEvents(vector<shared_ptr<CEvent>> &finalEvents,
 }
 
 
-vector<shared_ptr<CEvent>> getIntersectionUnion(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2, bool isIntersection) {
+vector<shared_ptr<CEvent>>
+getIntersectionUnion(const vector<shared_ptr<CEvent>> &v1, const vector<shared_ptr<CEvent>> &v2, bool isIntersection) {
     vector<shared_ptr<CEvent>> finalObject;
     vector<size_t> idsObject;
 
@@ -129,8 +130,7 @@ vector<shared_ptr<CEvent>> getIntersectionUnion(const vector<shared_ptr<CEvent>>
 
     if (isIntersection) {
         set_intersection(idsV1.begin(), idsV1.end(), idsV2.begin(), idsV2.end(), back_inserter(idsObject));
-    }
-    else {
+    } else {
         set_union(idsV1.begin(), idsV1.end(), idsV2.begin(), idsV2.end(), back_inserter(idsObject));
     }
 

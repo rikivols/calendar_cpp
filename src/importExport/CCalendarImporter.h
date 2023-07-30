@@ -2,6 +2,7 @@
 #pragma once
 
 #include <fstream>
+#include <algorithm>
 
 #include "../CCalendar.h"
 #include "../event/CEvent.h"
@@ -33,7 +34,7 @@ public:
      * @param lineNum line where the error happened
      * @return Empty calendar.
      */
-    [[nodiscard]] static CCalendar errorReturn(const string &message, size_t lineNum=0) ;
+    [[nodiscard]] static CCalendar errorReturn(const string &message, size_t lineNum = 0);
 
     /**
      * @return if import was successful
@@ -59,7 +60,7 @@ private:
      * @param elementString element property to store the string to
      * @param allowEmpty if we want to allow an empty string (notes)
      */
-    void parseString(const string &inp, string &elementString, bool allowEmpty=false);
+    void parseString(const string &inp, string &elementString, bool allowEmpty = false);
 
     /**
      * Check if the given string can be parsed into the event's datetime and if it's valid.

@@ -10,10 +10,11 @@
 /**
  * Represents calendar's event that happens only once. It has a start datetime, and end datetime.
  */
-class CEventSimple: public CEvent {
+class CEventSimple : public CEvent {
 public:
-    CEventSimple(size_t eventId, string name, const CDatetime &start, const CDatetime &end, string place, const vector<string> &attendees,
-                const vector<string> &tags, string note);
+    CEventSimple(size_t eventId, string name, const CDatetime &start, const CDatetime &end, string place,
+                 const vector<string> &attendees,
+                 const vector<string> &tags, string note);
 
     CEventSimple(const CEventSimple &CEventSimple);
 
@@ -69,7 +70,7 @@ public:
      *
      * @param datetime datetime to set at the end of the event
      */
-    void setEnd(const CDatetime & datetime) override;
+    void setEnd(const CDatetime &datetime) override;
 
     [[nodiscard]] bool isRecurring() const override;
 
@@ -81,9 +82,9 @@ public:
      *                    the conflict, used for checking conflict when moving event
      * @return true = event conflicts, false = event doesn't conflict
      */
-    [[nodiscard]] bool isConflict(const CEvent & event, int offset) const override;
+    [[nodiscard]] bool isConflict(const CEvent &event, int offset) const override;
 
-    string & exportEvent(string &fileRow) const override;
+    string &exportEvent(string &fileRow) const override;
 
 
 private:

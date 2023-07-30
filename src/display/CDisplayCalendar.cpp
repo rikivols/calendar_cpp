@@ -31,7 +31,7 @@ void CDisplayCalendar::displayDailyEvents(const CDatetime &datetime, bool displa
 
 
 string CDisplayCalendar::stringifyDay(const CDatetime &datetime) {
-    map<int, string> days {
+    map<int, string> days{
             {0, "Monday"},
             {1, "Tuesday"},
             {2, "Wednesday"},

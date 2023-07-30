@@ -46,8 +46,8 @@ bool CCalendar::moveEvent(size_t eventId, int hours) {
         return false;
     }
 
-    eventToMove->setStart(eventToMove->getStart() + hours*60);
-    eventToMove->setEnd(eventToMove->getEnd() + hours*60);
+    eventToMove->setStart(eventToMove->getStart() + hours * 60);
+    eventToMove->setEnd(eventToMove->getEnd() + hours * 60);
 
     cout << "Event moved successfully, new event start: " << eventToMove->getStart() << endl;
     return true;
@@ -84,7 +84,7 @@ size_t CCalendar::getEventsNum() const {
 vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &event, bool sortById) const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
-    for (const auto &[key, mEvent] : mEvents) {
+    for (const auto &[key, mEvent]: mEvents) {
         sortedEvents.push_back(mEvent);
     }
 
@@ -94,8 +94,7 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &
 
     if (sortById) {
         sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsById);
-    }
-    else {
+    } else {
         sort(sortedEvents.begin(), sortedEvents.end(), CEvent::sortEventsByStartDatetime);
     }
 
@@ -105,7 +104,7 @@ vector<shared_ptr<CEvent>> CCalendar::getSortedEvents(const shared_ptr<CEvent> &
 vector<shared_ptr<CEvent>> CCalendar::getDailyEvents(int year, int month, int day) const {
     vector<shared_ptr<CEvent>> sortedEvents;
 
-    for (const auto &[key, mEvent] : mEvents) {
+    for (const auto &[key, mEvent]: mEvents) {
         if (mEvent->happensOnDay(year, month, day)) {
             sortedEvents.push_back(mEvent);
         }
@@ -117,7 +116,7 @@ vector<shared_ptr<CEvent>> CCalendar::getDailyEvents(int year, int month, int da
 }
 
 
-size_t CCalendar::findNumberOfConflicts(const CEvent & event, int offset) const {
+size_t CCalendar::findNumberOfConflicts(const CEvent &event, int offset) const {
 
     size_t numOfConflicts = 0;
 
@@ -131,7 +130,7 @@ size_t CCalendar::findNumberOfConflicts(const CEvent & event, int offset) const 
     return numOfConflicts;
 }
 
-size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
+size_t CCalendar::getFirstConflictId(const CEvent &event, int offset) const {
 
     for (auto const &[eventId, myEvent]: mEvents) {
         // polymorphism, we calculate differently if the conflict is recurring or a simple event
@@ -143,6 +142,6 @@ size_t CCalendar::getFirstConflictId(const CEvent & event, int offset) const {
     return 0;
 }
 
-size_t CCalendar::getFirstConflictId(const shared_ptr<CEvent> & event, int offset) const {
+size_t CCalendar::getFirstConflictId(const shared_ptr<CEvent> &event, int offset) const {
     return getFirstConflictId(*event, offset);
 }

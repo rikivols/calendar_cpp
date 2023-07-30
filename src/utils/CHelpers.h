@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
+#include <algorithm>
 
 using namespace std;
 
@@ -26,7 +28,7 @@ int getUserOption(int maxChoice);
  * @param allowEmpty whether we allow an empty option
  * @return string inputted by the user
  */
-string &loadString(string &loadedString, bool allowEmpty=false);
+string &loadString(string &loadedString, bool allowEmpty = false);
 
 /**
  * Loads vector from a user.
@@ -64,7 +66,7 @@ string addZeroPadding(int num);
  * @param separator separator to store
  * @return modified ostream
  */
-ostream &printSeparator(ostream &out, char separator='-');
+ostream &printSeparator(ostream &out, char separator = '-');
 
 /**
  * Stores a vector element to ostream
@@ -81,7 +83,7 @@ ostream &printVector(ostream &out, const vector<string> &vec);
  * @param inp string to strip
  * @return stripped string.
  */
-string &stripString(string & inp);
+string &stripString(string &inp);
 
 /**
  * Export a vector element

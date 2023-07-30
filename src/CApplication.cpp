@@ -25,8 +25,7 @@ bool CApplication::handleImport() {
             cout << endl;
             mCalendar = importer.importFromFile(filePath);
             return importer.wasSuccess();
-        }
-        else if (displayMode == 2) {
+        } else if (displayMode == 2) {
             return true;
         }
     }
@@ -107,8 +106,7 @@ void CApplication::addEvent() {
 
             if (startDate.getTime() == endTime) {
                 cout << "Event can't have 0 minute duration, please enter dates again" << endl;
-            }
-            else {
+            } else {
                 break;
             }
         } else {
@@ -116,12 +114,10 @@ void CApplication::addEvent() {
             endDate.loadDatetime();
 
             if (startDate == endDate) {
-                cout << "Event can't have 0 minute duration, please enter dates again" << endl<< endl;
-            }
-            else if (startDate > endDate) {
+                cout << "Event can't have 0 minute duration, please enter dates again" << endl << endl;
+            } else if (startDate > endDate) {
                 cout << "Start date can't come after end date, please enter dates again" << endl << endl;
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -142,10 +138,10 @@ void CApplication::addEvent() {
     bool addSuccess;
 
     if (isRecurring) {
-        auto eventRecurring = CEventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags, notes);
+        auto eventRecurring = CEventRecurring(mLastEventId, eventName, startDate, endTime, place, attendees, tags,
+                                              notes);
         addSuccess = mCalendar.addEvent(eventRecurring);
-    }
-    else {
+    } else {
         auto eventSimple = CEventSimple(mLastEventId, eventName, startDate, endDate, place, attendees, tags, notes);
         addSuccess = mCalendar.addEvent(eventSimple);
     }
@@ -179,7 +175,7 @@ void CApplication::removeEvent() {
 
 
 void CApplication::findEvents() {
-    bool wereEventsFound, continueSearching, isAnd=true;
+    bool wereEventsFound, continueSearching, isAnd = true;
     string name, place, isAndRaw;
     CDatetime start = CDatetime(), end = CDatetime();
     vector<string> attendees, tags;
@@ -197,7 +193,7 @@ void CApplication::findEvents() {
 
         int selectedOption = getUserOption(7);
 
-        switch(selectedOption) {
+        switch (selectedOption) {
             case 1:
                 cout << "Select event name: ";
                 loadString(name);
@@ -307,8 +303,7 @@ void CApplication::displayCalendar() {
 
                 if (pageMode == 1) {
                     calendarDisplayer[displayMode]->previousPage();
-                }
-                else if (pageMode == 2) {
+                } else if (pageMode == 2) {
                     calendarDisplayer[displayMode]->nextPage();
                 }
             }
@@ -333,8 +328,7 @@ void CApplication::getEventById() {
 
     if (event) {
         cout << *event;
-    }
-    else {
+    } else {
         cout << "Selected event doesn't exist" << endl;
     }
 }

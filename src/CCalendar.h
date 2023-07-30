@@ -2,7 +2,8 @@
 #pragma once
 
 #include <map>
-#include <set>
+#include <algorithm>
+#include <vector>
 
 #include "event/CEvent.h"
 
@@ -22,7 +23,7 @@ public:
      * @return true = adding was successful
      *         false = adding wasn't successful
      */
-    bool addEvent(CEvent &event, bool ignoreConflict=false);
+    bool addEvent(CEvent &event, bool ignoreConflict = false);
 
     /**
      * Moves event if possible by given amount of hours.
@@ -79,7 +80,7 @@ public:
      * @param offset how many hours to add to the event to check the conflict
      * @return id of an event that our event conflicts with or 0 is none
      */
-    [[nodiscard]] size_t getFirstConflictId(const CEvent &event, int offset=0) const;
+    [[nodiscard]] size_t getFirstConflictId(const CEvent &event, int offset = 0) const;
 
     /**
      * Returns a number of conflicts our event has.
@@ -88,7 +89,7 @@ public:
      * @param offset how many hours to add to the event to check the conflict
      * @return number of conflicts for our event
      */
-    [[nodiscard]] size_t findNumberOfConflicts(const CEvent &event, int offset=0) const;
+    [[nodiscard]] size_t findNumberOfConflicts(const CEvent &event, int offset = 0) const;
 
     /**
      * Returns a first id of an event that our event is conflicting with.

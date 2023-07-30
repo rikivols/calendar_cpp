@@ -2,13 +2,14 @@
 #include "CEventExporter.h"
 
 
-CEventExporter::CEventExporter(const vector<shared_ptr<CEvent>> &events): mEvents(events) {
+CEventExporter::CEventExporter(const vector<shared_ptr<CEvent>> &events) : mEvents(events) {
     sort(mEvents.begin(), mEvents.end(), CEvent::sortEventsById);
 }
 
 void CEventExporter::exportToFile(const string &nameOfFile) const {
     auto timeNow = getTimeNow();
-    string filePath = "assets/" + nameOfFile + "_" + to_string(timeNow->tm_year + 1900) + "_" + to_string(timeNow->tm_mon + 1)
+    string filePath =
+            "assets/" + nameOfFile + "_" + to_string(timeNow->tm_year + 1900) + "_" + to_string(timeNow->tm_mon + 1)
             + "_" + to_string(timeNow->tm_mday) + "_" + to_string(timeNow->tm_hour) + "_" + to_string(timeNow->tm_min)
             + "_" + to_string(timeNow->tm_sec) + ".txt";
     ofstream exportFile(filePath, ios::out);
